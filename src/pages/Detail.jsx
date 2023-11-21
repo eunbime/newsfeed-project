@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 
 const PageContainer = styled.div`
@@ -30,7 +29,7 @@ const AdditionalBox = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
 `;
-
+ 
 const Detail = () => {
   return (
     <PageContainer>
@@ -39,7 +38,7 @@ const Detail = () => {
 
         <p>이곳은 상세 페이지입니다.</p>
 
-        <Link to="/">홈으로 이동</Link>
+        {/* <Link to="/">홈으로 이동</Link> */}
       </Box>
 
       <AdditionalBox>
