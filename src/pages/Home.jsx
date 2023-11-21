@@ -1,5 +1,5 @@
-import PostList from "components/PostList";
-import styled from "styled-components";
+import PostList from 'components/PostList'
+import styled from 'styled-components'
 
 function Home() {
   return (
@@ -28,16 +28,16 @@ function Home() {
         </>
       </ListContainer>
     </Container>
-  );
+  )
 }
 
-export default Home;
+export default Home
 
 const Container = styled.div`
   width: 100%;
   border: 1px solid black;
   padding: 1rem;
-`;
+`
 
 const ListContainer = styled.div`
   border: 1px solid black;
@@ -46,4 +46,4 @@ const ListContainer = styled.div`
   gap: 1rem;
   max-width: 1250px;
   margin: 0 auto;
-`;
+`
