@@ -1,7 +1,7 @@
 const TopicButton = () => {
-  const data = useContext(FamilyContext);
+  // const data = useContext(FamilyContext);
 
-  return <div>TopicButton</div>;
-};
+  return <div>TopicButton</div>
+}
 
-export default TopicButton;
+export default TopicButton

@@ -1,7 +1,8 @@
-import Detail from "pages/Detail";
-import Topic from "pages/Topic";
-import Write from "pages/Write";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Detail from 'pages/Detail'
+import Home from 'pages/Home'
+import Topic from 'pages/Topic'
+import Write from 'pages/Write'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 const Router = () => {
   return (
@@ -13,7 +14,7 @@ const Router = () => {
         <Route path="detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default Router;
+export default Router
