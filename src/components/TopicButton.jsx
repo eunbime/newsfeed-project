@@ -1,7 +1,7 @@
-import React from "react";
+const TopicButton = () => {
+  const data = useContext(FamilyContext);
 
-function TopicButton() {
   return <div>TopicButton</div>;
-}
+};
 
 export default TopicButton;
