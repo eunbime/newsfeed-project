@@ -5,7 +5,7 @@ function Topic() {
   return (
     <div>
       <TabNavigation />
-      \ <TopicButton />
+      <TopicButton />
     </div>
   )
 }

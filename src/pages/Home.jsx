@@ -1,47 +1,38 @@
 import PostList from 'components/PostList'
 import TabNavigation from 'components/TabNavigation'
-import { db } from 'firebase'
-import { collection, getDocs } from 'firebase/firestore'
-import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 function Home() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(collection(db, 'topics'))
-      querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`)
-      })
-    }
-    fetchData()
-  }, [])
+  const topics = useSelector((state) => state.topics)
+  console.log(topics)
+  // useEffect(() => {
+  //   const fetchTopics = async () => {
+  //     const topics = await data
+  //     return topics
+  //   }
+  //   fetchTopics
+  // }, [])
+  // const getData = () => {
+  //   data.then((appData) => {
+  //     return appData
+  //   })
+  // }
 
   return (
     <>
       <TabNavigation />
       <Container>
         <ListContainer>
-          {/* topics_array.map((topic) => topic.id) */}
-          <>
-            <h2>토픽</h2>
-            <PostList />
-          </>
-          <>
-            <h2>토픽</h2>
-            <PostList />
-          </>
-          <>
-            <h2>토픽</h2>
-            <PostList />
-          </>
-          <>
-            <h2>토픽</h2>
-            <PostList />
-          </>
-          <>
-            <h2>토픽</h2>
-            <PostList />
-          </>
+          {topics.map((topic) => (
+            <div key={topic.id}>
+              <Link to="/topic">
+                <h2>{topic.topicName}</h2>
+              </Link>
+              <PostList topic={topic} />
+            </div>
+          ))}
         </ListContainer>
       </Container>
     </>
