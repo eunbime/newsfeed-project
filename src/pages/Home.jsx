@@ -1,33 +1,37 @@
 import PostList from 'components/PostList'
+import TabNavigation from 'components/TabNavigation'
 import styled from 'styled-components'
 
 function Home() {
   return (
-    <Container>
-      <ListContainer>
-        {/* topics_array.map((topic) => topic.id) */}
-        <>
-          <h2>토픽</h2>
-          <PostList />
-        </>
-        <>
-          <h2>토픽</h2>
-          <PostList />
-        </>
-        <>
-          <h2>토픽</h2>
-          <PostList />
-        </>
-        <>
-          <h2>토픽</h2>
-          <PostList />
-        </>
-        <>
-          <h2>토픽</h2>
-          <PostList />
-        </>
-      </ListContainer>
-    </Container>
+    <>
+      <TabNavigation />
+      <Container>
+        <ListContainer>
+          {/* topics_array.map((topic) => topic.id) */}
+          <>
+            <h2>토픽</h2>
+            <PostList />
+          </>
+          <>
+            <h2>토픽</h2>
+            <PostList />
+          </>
+          <>
+            <h2>토픽</h2>
+            <PostList />
+          </>
+          <>
+            <h2>토픽</h2>
+            <PostList />
+          </>
+          <>
+            <h2>토픽</h2>
+            <PostList />
+          </>
+        </ListContainer>
+      </Container>
+    </>
   )
 }
 
