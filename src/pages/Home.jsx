@@ -1,8 +1,21 @@
 import PostList from 'components/PostList'
 import TabNavigation from 'components/TabNavigation'
+import { db } from 'firebase'
+import { collection, getDocs } from 'firebase/firestore'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 
 function Home() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'topics'))
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`)
+      })
+    }
+    fetchData()
+  }, [])
+
   return (
     <>
       <TabNavigation />
