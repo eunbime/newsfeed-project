@@ -1,15 +1,19 @@
 import Detail from "pages/Detail";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Write from 'pages/Write';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from '../pages/Home';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/" element={<Home />} /> */}
-        <Route path="/" element={<Detail />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Topic />} />
+        <Route path="/write" element={<Write />} />
+        <Route path="detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
-  );
-};
+  )
+}
 
-export default Router;
+export default Router

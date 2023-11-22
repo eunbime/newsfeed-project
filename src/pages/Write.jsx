@@ -1,5 +1,6 @@
-function Write() {
-  return <div>Write</div>;
+const Write = () => {
+  return <div>Write</div>
 }
 
-export default Write;
+export default Write
+
