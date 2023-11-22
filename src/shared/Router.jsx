@@ -1,3 +1,4 @@
+import Home from 'pages/Home'
 import Topic from 'pages/Topic'
 import Write from 'pages/Write'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
