@@ -1,16 +1,17 @@
-import Detail from "pages/Detail";
-import Write from 'pages/Write';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from '../pages/Home';
-
+import Write from 'pages/Write'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import Detail from '../pages/Detail'
+import Layout from './Layout'
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/" element={<Topic />} />
-        <Route path="/write" element={<Write />} />
-        <Route path="detail/:id" element={<Detail />} />
+        <Route path="/" element={<Layout />}>
+          {/* <Route index path="/" element={<Home />} /> */}
+          <Route index path="/" element={<Detail />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="*" element={<Navigate replace to="/" />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )

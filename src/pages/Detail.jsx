@@ -14,7 +14,6 @@ const Box = styled.div`
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 `;
 
@@ -23,38 +22,47 @@ const Title = styled.h2`
 `;
 
 const AdditionalBox = styled.div`
-  background-color: #ffffff;
+  background-color: #ffffff; 
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px; 
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row; 
+  align-items: center;
+  justify-content: space-between; 
+  margin: 20px;
+`;
+
+const AdditionalInfo = styled.div`
+ 
+`;
+const ContentBox = styled.div`
+  background-color: #ffffff; 
+  padding: 30px;
+  border-radius: 8px; 
   margin-top: 20px;
 `;
  
 const Detail = () => {
+  // const Content = "홈에서 가져온 데이터";
   return (
     <PageContainer>
       <Box>
         <Title>제목</Title>
-
-        <p>이곳은 상세 페이지입니다.</p>
-
-        {/* <Link to="/">홈으로 이동</Link> */}
       </Box>
-
       <AdditionalBox>
-        <p>작성자: 김은뷔</p>
-        <p>작성날짜: 2023-11-21</p>
-        <p>선택한 토픽: 게임</p>
-
-        <label>선택한 토픽:</label>
-        <select>
-          <option value="game">게임</option>
-          <option value="sports">스포츠</option>
-          <option value="restaurant">맛집</option>
-        </select>
+        <AdditionalInfo>
+          <p>작성자: 나</p>
+          <p>작성날짜: 2023-11-21</p>
+          <label>선택한 토픽:</label>
+        </AdditionalInfo>
       </AdditionalBox>
+      <ContentBox>
+      {/* <h2>내용{Content}</h2> */}
+    </ContentBox>
     </PageContainer>
   );
 };
+
 
 export default Detail;
