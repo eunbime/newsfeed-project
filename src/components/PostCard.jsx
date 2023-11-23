@@ -1,16 +1,17 @@
 import styled from 'styled-components'
 
-const PostCard = () => {
+const PostCard = ({ post }) => {
+  console.log(post.userName)
   return (
     <CardContainer>
       {/* link or navigate */}
       <TextBox>
-        <CardTitle>Title</CardTitle>
+        <CardTitle>{post.title}</CardTitle>
         <User>
           <UserImg>
             <img src="" alt="" />
           </UserImg>
-          <UserName>username</UserName>
+          <UserName>{post.userName}</UserName>
         </User>
       </TextBox>
       <ImgBox></ImgBox>
