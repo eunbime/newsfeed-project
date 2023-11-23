@@ -1,5 +1,7 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsLogin } from "redux/config/modules/auth";
 import { auth } from "../firebase";
 
 
@@ -8,12 +10,14 @@ function Login() {
     const [password, setPassword] = useState("");
 
     // TODO : 로그인 여부가 필요한 컴포넌트에서 사용
-    // util에 함수로 빼고, redux로 변경 필요, header 에서 사용
-    const [isLogin, setIsLogin] = useState(false);
+    const isLogin = useSelector(state => state.auth.isLogin);
+    const dispatch = useDispatch();
+
+
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                setIsLogin(true);  // 혹은 user 객체 저장
+                dispatch(setIsLogin(true));  // 혹은 user 객체 저장
                 console.log("login user", user);
             }
         })
@@ -36,7 +40,7 @@ function Login() {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             console.log("회원가입 완료", userCredential.user);
-            setIsLogin(true);
+            dispatch(setIsLogin(true));
 
         } catch (error) {
             console.error(error);
@@ -50,7 +54,7 @@ function Login() {
             console.log("로그인 완료", userCredential.user);
             setEmail("");
             setPassword("");
-            setIsLogin(true);
+            dispatch(setIsLogin(true));
         } catch (error) {
             // console.error(error);
             console.log(error);
@@ -60,7 +64,7 @@ function Login() {
     const logOut = async (event) => {
         event.preventDefault();
         await signOut(auth);
-        setIsLogin(false);
+        dispatch(setIsLogin(false));
     };
 
     return (
