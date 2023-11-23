@@ -18,6 +18,13 @@ function Layout() {
           </Search>
           <button
             onClick={() => {
+              navigate('/mypage')
+            }}
+          >
+            mypage
+          </button>
+          <button
+            onClick={() => {
               navigate('/write')
             }}
           >
