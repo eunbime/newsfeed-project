@@ -1,13 +1,21 @@
-import { initializeApp } from "firebase/app";
+// Import the functions you need from the SDKs you need
+import { initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBrPKZDbbLrSGAvsZmqkQtSiYU2qeugkyo",
-  authDomain: "newsfeed-project-228fb.firebaseapp.com",
-  projectId: "newsfeed-project-228fb",
-  storageBucket: "newsfeed-project-228fb.appspot.com",
-  messagingSenderId: "761142195061",
-  appId: "1:761142195061:web:96363b2d5948da763a193c",
-  measurementId: "G-T1ERBVCFX2",
-};
+  apiKey: 'AIzaSyCiifWO6ZuWMiwxaMkdvU59zUfQa5oPYzQ',
+  authDomain: 'newsfeed-3c2dc.firebaseapp.com',
+  projectId: 'newsfeed-3c2dc',
+  storageBucket: 'newsfeed-3c2dc.appspot.com',
+  messagingSenderId: '836119563353',
+  appId: '1:836119563353:web:541971cd0eee84d7a2b548',
+}
 
-export const db = initializeApp(firebaseConfig);
+// Initialize Firebase
+export const app = initializeApp(firebaseConfig)
+export const auth = getAuth(app)
+export const db = getFirestore(app)

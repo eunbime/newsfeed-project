@@ -1,6 +1,5 @@
 import PostList from 'components/PostList'
 import styled from 'styled-components'
-
 function Home() {
   return (
     <Container>
