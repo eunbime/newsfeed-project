@@ -1,9 +1,11 @@
-import { combineReducers, createStore } from 'redux'
-// import posts from './modules/posts'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import thunk from 'redux-thunk'
 import topics from './modules/topics'
 
-const rootReducer = combineReducers({ topics })
+const rootReducer = combineReducers({
+  topics: topics,
+})
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store

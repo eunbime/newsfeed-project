@@ -1,24 +1,66 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setTopic } from 'redux/config/modules/topics'
+import styled from 'styled-components'
+import {
+  fetchTopics,
+  showLessTopics,
+  showMoreTopics,
+} from '../redux/config/modules/topics'
 
-const TopicButton = () => {
-  const handleTopicClick = useSelector((state) => state.topic)
+function TopicButton() {
   const dispatch = useDispatch()
+  const topics = useSelector((state) => state.topics.topics)
+  const visibleTopics = useSelector((state) => state.topics.visibleTopics)
 
-  const onhandleTopicClick = (event) => {
-    if (event.target === event.currentTarget) return
+  useEffect(() => {
+    dispatch(fetchTopics())
+  }, [dispatch])
 
-    dispatch(setTopic(event.target.textContext))
+  const handleShowMore = () => {
+    dispatch(showMoreTopics())
+  }
+
+  const handleShowLess = () => {
+    dispatch(showLessTopics())
+  }
+
+  const handleButtonClick = (topic) => {
+    console.log('Clicked Topic:', topic)
+    // 버튼 눌렀을때 데이터 확인하기
   }
 
   return (
-    <div onClick={onhandleTopicClick}>
-      <button $handleTopicClick={handleTopicClick}>Hot Place🔥</button>
-      <button $handleTopicClick={handleTopicClick}>맛집🍴</button>
-      <button $handleTopicClick={handleTopicClick}>요리🍙</button>
-      <button $handleTopicClick={handleTopicClick}>반려동물🐾</button>
+    <div>
+      <ButtonContainer>
+        {topics.slice(0, visibleTopics).map((topic) => (
+          <div key={topic.id}>
+            <StyledButton onClick={() => handleButtonClick(topic)}>
+              {topic.topicIco}
+            </StyledButton>
+            <p>{topic.topicName}</p>
+          </div>
+        ))}
+
+        {topics.length > visibleTopics && (
+          <StyledButton onClick={handleShowMore}>더 보기</StyledButton>
+        )}
+        {visibleTopics > 5 && (
+          <StyledButton onClick={handleShowLess}>접기</StyledButton>
+        )}
+      </ButtonContainer>
     </div>
   )
 }
 
 export default TopicButton
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 10px 10px;
+`
+
+const StyledButton = styled.button`
+  padding: 10px 15px;
+  margin: 10px 20px;
+`
