@@ -7,19 +7,6 @@ import { useSelector } from 'react-redux'
 const PostList = ({ topic }) => {
   const posts = useSelector((state) => state.posts)
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const postsRef = await getDocs(collection(db, 'posts'))
-
-  //     const initialPosts = []
-  //     postsRef.forEach((doc) => {
-  //       initialPosts.push({ id: doc.id, ...doc.data() })
-  //     })
-  //     setPosts(initialPosts)
-  //   }
-  //   fetchData()
-  // }, [])
-
   const ref = useRef(null)
 
   const [currentSlide, setCurrentSlide] = useState(0)
