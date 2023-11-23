@@ -11,9 +11,9 @@ const Router = () => {
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<Home />} />
           <Route path="/topic" element={<Topic />} />
-          <Route path="/write" element={<Write />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Route>
+        <Route path="/write" element={<Write />} />
       </Routes>
     </BrowserRouter>
   )
