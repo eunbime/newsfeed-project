@@ -1,7 +1,11 @@
-import { Outlet, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
+import Modal from 'components/Modal';
+import { useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 function Layout() {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const navigate = useNavigate()
   return (
     <div>
@@ -19,12 +23,21 @@ function Layout() {
           >
             글작성
           </button>
-          <button>로그인</button>
+
+          <button
+            onClick={() => {
+              setModalOpen(true)
+            }}>
+            로그인
+          </button>
+          {modalOpen &&
+            <Modal onClose={() => setModalOpen(false)} />}
         </HeaderRight>
       </Header>
       <StLayout>
         <Outlet />
       </StLayout>
+
       <Footer>© Corp.</Footer>
     </div>
   )
