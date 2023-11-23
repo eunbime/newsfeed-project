@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import PostCard from './PostCard'
 
-import { useSelector } from 'react-redux'
-
 const PostList = ({ topic }) => {
-  const posts = useSelector((state) => state.posts)
+  const posts = useSelector((state) => state)
+  console.log(posts)
 
   const ref = useRef(null)
 

@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 function Home() {
-  const topics = useSelector((state) => state.topics)
-  console.log(topics)
+  const topics = useSelector((state) => state.topics.topics)
+  const store = useSelector((state) => state)
+  console.log(store)
   // useEffect(() => {
   //   const fetchTopics = async () => {
   //     const topics = await data
