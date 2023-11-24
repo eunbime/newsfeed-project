@@ -1,47 +1,62 @@
-import styled from "styled-components"
+import ProfileBox from "components/ProfileBox";
+import ProfileFigure from "components/ProfileFigure";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import styled from "styled-components";
+import { db } from "../firebase";
 
 /**
  * TODO :
+ * 마이페이지에 들어오면 현재 로그인한 유저의 uid(redux)로 db로 부터 유저정보를 가져온다
  * user profile을 만든적이 없으면 입력 하라고 뜸, 입력버튼만 보이게 함
  * user profile 수정버튼을 눌러서  내용 수정
  * 이미지 수정 버튼 누르면 이미지 업로드
  */
 function Mypage() {
-    const tempUser = {
-        nickname: "나야",
-        name: "김쥐",
-        user_id: "email@email.com",
+  const loginUserUid = useSelector(state => state.auth.loginUserUid);
 
-    }
-    return (
-        <PageBody>
-            <Profile>
-                <FigureBox>
-                    <img src='https://media.bunjang.co.kr/product/233471258_1_1692280086_w360.jpg' />
-                    <button>사진 올리기</button>
-                </FigureBox>
-                <ProfileBox>
-                    <TextBox>
-                        <p>메일주소 : </p>
-                        <p>닉네임 : </p>
-                        <p>이름 : </p>
-                        <p>한마디 : </p>
-                    </TextBox>
-                    <ButtonBox>
-                        <button>수정</button>
-                        <button>완료</button>
-                    </ButtonBox>
-                </ProfileBox>
-            </Profile>
+  console.log("loginuseruid", loginUserUid);
+  const tempUser = {
+    nickname: "닉네임",
+    name: "Anonymous",
+    email: "email@email.com",
+    ment: "유저 한마디",
+    interest: ["관심사"],
+  }
+  const [user, setUser] = useState(tempUser);
 
-            <MyFeedBox>
-                카드 보여주는 부분
-            </MyFeedBox>
-        </PageBody>
-    )
+  useEffect(() => {
+    const fetchData = async () => {
+      const docRef = doc(db, "userInfo", loginUserUid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        console.log("Document data:", docSnap.data());
+        setUser(docSnap.data());
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+        alert("user 정보를 가져오지 못했습니다.")
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <PageBody>
+      <Profile>
+        <ProfileFigure />
+        <ProfileBox user={user} />
+      </Profile>
+      <MyFeedBox>
+        카드 보여주는 부분
+      </MyFeedBox>
+    </PageBody>
+  )
 }
 
-const PageBody = styled.body`
+const PageBody = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,47 +66,6 @@ const Profile = styled.div`
     width: 800px;
     height: 500px;
     border : 1px solid black;
-`
-const FigureBox = styled.figure`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    border : 1px solid black;
-    & img {
-        width: 100%;
-    }
-    & button {
-        margin : 10px 0;
-    }
-`
-const ProfileBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    height: 500px;
-    border: 1px solid black;
-`
-const TextBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 500px;
-    padding: 50px;
-    border: 1px solid black;
-`
-const ButtonBox = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin-top: auto;
-    border: 1px solid black;
-    & button {
-        height: 40px;
-        width: 80px;
-    }
 `
 const MyFeedBox = styled.div`
     width: 800px;
