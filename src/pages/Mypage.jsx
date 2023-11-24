@@ -1,4 +1,9 @@
-import styled from "styled-components"
+import ProfileBox from "components/ProfileBox";
+import ProfileFigure from "components/ProfileFigure";
+import { doc, getDoc } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import styled from "styled-components";
+import { db } from "../firebase";
 
 /**
  * TODO :
@@ -7,41 +12,50 @@ import styled from "styled-components"
  * 이미지 수정 버튼 누르면 이미지 업로드
  */
 function Mypage() {
-    const tempUser = {
-        nickname: "나야",
-        name: "김쥐",
-        user_id: "email@email.com",
+  const tempUser = {
+    uid: "tSQFARp6PvWNRPswnpYXtSGutYl1",
+    //uid: "azaza.hee@gmail.com",
+    name: "김쥐",
+    email: "email@email.com",
+  }
+  const [user, setUser] = useState(tempUser);
 
-    }
-    return (
-        <PageBody>
-            <Profile>
-                <FigureBox>
-                    <img src='https://media.bunjang.co.kr/product/233471258_1_1692280086_w360.jpg' />
-                    <button>사진 올리기</button>
-                </FigureBox>
-                <ProfileBox>
-                    <TextBox>
-                        <p>메일주소 : </p>
-                        <p>닉네임 : </p>
-                        <p>이름 : </p>
-                        <p>한마디 : </p>
-                    </TextBox>
-                    <ButtonBox>
-                        <button>수정</button>
-                        <button>완료</button>
-                    </ButtonBox>
-                </ProfileBox>
-            </Profile>
+  useEffect(() => {
+    // TODO : 안해도 되는지 확인
+    // onAuthStateChanged(auth, (user) => {
+    //   if (user) {
+    //     console.log("login user", user.uid);
+    //   }
+    // });
 
-            <MyFeedBox>
-                카드 보여주는 부분
-            </MyFeedBox>
-        </PageBody>
-    )
+    const fetchData = async () => {
+      const docRef1 = doc(db, "userInfo", tempUser.uid);
+      const docSnap1 = await getDoc(docRef1);
+
+      if (docSnap1.exists()) {
+        console.log("Document data:", docSnap1.data());
+      } else {
+        // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+      }
+    };
+    fetchData();
+  }, []);
+
+  return (
+    <PageBody>
+      <Profile>
+        <ProfileFigure />
+        <ProfileBox />
+      </Profile>
+      <MyFeedBox>
+        카드 보여주는 부분
+      </MyFeedBox>
+    </PageBody>
+  )
 }
 
-const PageBody = styled.body`
+const PageBody = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -51,47 +65,6 @@ const Profile = styled.div`
     width: 800px;
     height: 500px;
     border : 1px solid black;
-`
-const FigureBox = styled.figure`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    border : 1px solid black;
-    & img {
-        width: 100%;
-    }
-    & button {
-        margin : 10px 0;
-    }
-`
-const ProfileBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    height: 500px;
-    border: 1px solid black;
-`
-const TextBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 500px;
-    padding: 50px;
-    border: 1px solid black;
-`
-const ButtonBox = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin-top: auto;
-    border: 1px solid black;
-    & button {
-        height: 40px;
-        width: 80px;
-    }
 `
 const MyFeedBox = styled.div`
     width: 800px;

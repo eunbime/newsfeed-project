@@ -2,7 +2,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setIsLogin } from "redux/config/modules/auth";
+import { setIsLogin, setLoginUser } from "redux/config/modules/auth";
 import { auth } from "../firebase";
 
 
@@ -10,15 +10,6 @@ function Login({ onModalClose }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     onAuthStateChanged(auth, (user) => {
-    //         if (user) {
-    //             dispatch(setIsLogin(true));
-    //             console.log("login user", user);
-    //         }
-    //     })
-    // }, []);
 
     const onChange = (event) => {
         const {
@@ -36,31 +27,32 @@ function Login({ onModalClose }) {
         event.preventDefault();
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            console.log("회원가입 완료", userCredential.user);
-            dispatch(setIsLogin(true));
+            console.log("회원가입 완료", userCredential.user.uid);
+            dispatch(setIsLogin(true)); // TODO: 둘이 한번에 넘겨도 됨
+            dispatch(setLoginUser(userCredential.user.uid));
             onModalClose();
             // TODO: db에 userInfo 객체도 생성 추가
 
         } catch (error) {
-            alert(`회원가입 실패 :${error.code}`); //TODO : (선택) 사유 구분 예외처리
+            alert(`회원가입 실패 :${error.code}`); //TODO : (선택) 사유에 따른 예외처리
         }
     };
     const signIn = async (event) => {
         event.preventDefault();
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log("로그인 완료", userCredential.user);
+            console.log("로그인 완료", userCredential.user.uid);
             dispatch(setIsLogin(true));
+            dispatch(setLoginUser(userCredential.user.uid));
             onModalClose();
         } catch (error) {
-            alert(`로그인 실패 :${error.code}`); //TODO : (선택) 사유 구분 예외처리
+            alert(`로그인 실패 :${error.code}`); //TODO : (선택) 사유에 따른 예외처리
         }
     };
 
     return (
         <div>
             <h2>로그인 페이지</h2>
-            {/* TODO : 로그인 되어있으면 로그아웃만 보이게 (모달창 꺼지게) */}
             <form>
                 <div>
                     <label>이메일 : </label>

@@ -1,5 +1,5 @@
-import { signOut } from 'firebase/auth';
-import { useState } from 'react';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setIsLogin } from 'redux/config/modules/auth';
@@ -17,15 +17,16 @@ const HeaderNav = () => {
   const logOut = async () => {
     await signOut(auth);
     dispatch(setIsLogin(false));
-  };
-  // useEffect(() => {
-  //   onAuthStateChanged(auth, (user) => {
-  //     if (user) {
-  //       console.log("login user 있니?", user); 
-  //       dispatch(setIsLogin(true));
-  //     }
-  //   })
-  // }, []);
+  }; // TODO: 이 놈의 위치가 애매함
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("login user 있니?", user);
+        dispatch(setIsLogin(true));
+      }
+    })
+  }, []);
 
   return (
     <Container>
