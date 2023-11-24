@@ -8,7 +8,7 @@ const Modal = ({ onClose }) => {
       <ModalWrapper>
         <ModalBox>
           <ModalOffBtn onClick={onClose}> X </ModalOffBtn>
-          <Login />
+          <Login onModalClose={onClose} />
         </ModalBox>
       </ModalWrapper>
     </>);
