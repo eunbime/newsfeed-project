@@ -4,12 +4,9 @@ import styled from 'styled-components'
 const Search = () => {
   const navigate = useNavigate()
   return (
-    <>
-      <SearchBox>
-        <input type="text" placeholder="검색어를 입력해주세요" />
-        <button>검색</button>
-      </SearchBox>
-    </>
+    <div>
+      <p>login</p>
+    </div>
   )
 }
 

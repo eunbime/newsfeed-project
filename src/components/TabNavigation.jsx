@@ -13,7 +13,7 @@ const TabNavigation = () => {
           to={`/topic/${item.topicName}`}
           state={{ topic: item }}
         >
-          {item.topicName}
+          <span>{item.topicIco}</span> <span>{item.topicName}</span>
         </NavLink>
       ))}
     </NavigationHeader>
@@ -28,17 +28,21 @@ const NavigationHeader = styled.div`
   justify-content: center;
   width: 100%;
   height: 3rem;
-  gap: 0.5rem;
+  gap: 1rem;
 `
 
 const NavLink = styled(Link)`
-  font-size: medium;
-  padding: 0.5rem;
+  font-size: small;
+  padding: 0.5rem 0.8rem;
   color: #fff;
   background-color: gray;
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
   &:hover {
     opacity: 50%;
+  }
+
+  @media (min-width: 750px) {
+    font-size: medium;
   }
 `
