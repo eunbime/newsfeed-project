@@ -1,7 +1,8 @@
-import Modal from 'components/Modal';
+import HeaderNav from 'components/HeaderNav';
 import { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+
 
 function Layout() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -11,7 +12,7 @@ function Layout() {
     <div>
       <Header>
         <Title>Enjoy P</Title>
-        <HeaderRight>
+        {/* <HeaderRight>
           <Search>
             <input type="text" placeholder="검색어를 입력해주세요" />
             <button>검색</button>
@@ -40,6 +41,9 @@ function Layout() {
           {modalOpen &&
             <Modal onClose={() => setModalOpen(false)} />}
         </HeaderRight>
+          <button>로그인</button>
+        </HeaderRight> */}
+        <HeaderNav />
       </Header>
       <StLayout>
         <Outlet />
