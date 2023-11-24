@@ -35,7 +35,7 @@ const initialState = {
   topics: [],
   visibleTopics: 5, // topic버튼 보이는 항목 수
 }
-
+git
 const topics = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_TOPICS:
