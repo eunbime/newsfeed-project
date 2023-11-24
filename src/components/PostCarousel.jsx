@@ -56,9 +56,9 @@ const PostCarousel = ({ topic }) => {
             return <PostCard key={post.id} post={post} />
           })
         ) : (
-          <div>
+          <NotFoundPost>
             <h2>{`현재 ${topic.topicName} 포스트가 존재하지 않습니다.`}</h2>
-          </div>
+          </NotFoundPost>
         )}
       </Slider>
       <PrevButton onClick={moveToPrevSlide}>
@@ -131,6 +131,10 @@ const NextButton = styled.div`
   & span {
     margin: 0 0 -1px -1px;
   }
+`
+const NotFoundPost = styled.div`
+  padding: 4rem;
+  background-color: gray;
 `
 
 export default PostCarousel
