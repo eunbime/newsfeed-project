@@ -4,12 +4,13 @@ import {
   getDocs,
   serverTimestamp,
 } from 'firebase/firestore'
-import { ref, uploadBytes } from 'firebase/storage'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState } from 'react'
 import { db, storage } from '../firebase'
 
 function CombinedComponent() {
   const [selectedFile, setSelectedFile] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
@@ -17,14 +18,18 @@ function CombinedComponent() {
     setSelectedFile(event.target.files[0])
   }
 
-  const handleUpload = async () => {
+  const uploadImageAndGetURL = async () => {
     if (selectedFile) {
       const storageRef = ref(storage, 'folder/' + selectedFile.name)
       await uploadBytes(storageRef, selectedFile)
       console.log('File uploaded successfully!')
-      // 추가 작업 수행 가능
+      const url = await getDownloadURL(storageRef)
+      setImageUrl(url)
+      console.log('Image URL:', url)
+      return url
     } else {
       console.error('No file selected!')
+      return ''
     }
   }
 
@@ -43,9 +48,11 @@ function CombinedComponent() {
     e.preventDefault()
 
     try {
+      const imageUrl = await uploadImageAndGetURL()
       await addDoc(collection(db, 'detailpost'), {
         title: title,
         content: content,
+        imageUrl: imageUrl,
         createdAt: serverTimestamp(),
       })
 
@@ -64,7 +71,6 @@ function CombinedComponent() {
 
   const handleCombinedSubmit = async (e) => {
     e.preventDefault()
-    await handleUpload()
     await handleFormSubmit(e)
   }
 
