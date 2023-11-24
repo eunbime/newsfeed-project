@@ -1,38 +1,49 @@
-import PostList from 'components/PostList'
+import PostCarousel from 'components/PostCarousel'
 import TabNavigation from 'components/TabNavigation'
-import { useSelector } from 'react-redux'
+import { collection, getDocs } from 'firebase/firestore'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { setTopic } from 'redux/modules/topics'
 import styled from 'styled-components'
+import { db } from '../firebase'
 
 function Home() {
+  const dispatch = useDispatch()
   const topics = useSelector((state) => state.topics)
-  console.log(topics)
-  // useEffect(() => {
-  //   const fetchTopics = async () => {
-  //     const topics = await data
-  //     return topics
-  //   }
-  //   fetchTopics
-  // }, [])
-  // const getData = () => {
-  //   data.then((appData) => {
-  //     return appData
-  //   })
-  // }
+
+  useEffect(() => {
+    const fetchTopic = async () => {
+      const querySnapshot = await getDocs(collection(db, 'topics'))
+      const initialTopics = []
+
+      querySnapshot.forEach((doc) => {
+        initialTopics.push({ id: doc.id, ...doc.data() })
+      })
+      dispatch(setTopic(initialTopics))
+    }
+    fetchTopic()
+  }, [])
 
   return (
     <>
       <TabNavigation />
       <Container>
         <ListContainer>
-          {topics.map((topic) => (
-            <div key={topic.id}>
-              <Link to="/topic">
-                <h2>{topic.topicName}</h2>
-              </Link>
-              <PostList topic={topic} />
+          {topics.length > 0 ? (
+            topics.map((topic) => (
+              <div key={topic.id}>
+                <Link to={`/topic/${topic.topicName}`} state={{ topic: topic }}>
+                  <h2>{topic.topicName}</h2>
+                </Link>
+                <PostCarousel topic={topic} />
+              </div>
+            ))
+          ) : (
+            <div>
+              <h2>현재 게시된 포스트가 없습니다.</h2>
             </div>
-          ))}
+          )}
         </ListContainer>
       </Container>
     </>
