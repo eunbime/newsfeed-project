@@ -2,7 +2,7 @@ import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { db } from '../firebase'
 
-function Post() {
+function TopicPostList() {
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
@@ -34,4 +34,4 @@ function Post() {
   )
 }
 
-export default Post
+export default TopicPostList
