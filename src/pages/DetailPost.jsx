@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { auth } from "../firebase";
+import { app } from "../firebase";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import TabNavigation from "components/TabNavigation";
 
 function DetailPost() {
   // 제목관련 usestate
   const [title, setTitle] = useState("");
   // 내용관련 usestate
-  const [index, setIndex] = useState("");
+  const [content, setContent] = useState("");
   //주제관련은 위에 selected를 사용
   const [selected, setSelected] = useState("맛집");
 
+  //파이어베이스와 연동
+  useEffect(() => {
+    const fetchData = async () => {
+      const querySnapshot = await getDocs(collection(db, "detailpost"));
+      querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+      });
+    };
+    fetchData();
+  }, []);
+  //파이어베이스에 데이터 추가하기
+  addDoc;
   // const AddPost = (event) => {
   //   event.preventDefault();
   // const WaringMessage = () => {
@@ -17,20 +34,21 @@ function DetailPost() {
   //   }
   // };
   const WarningAlert = () => {
-    if (!title || !index) {
+    if (!title || !content) {
       // title 또는 content가 공란이면 alert를 띄웁니다.
       alert("제목과 내용을 모두 입력해주세요.");
     } else {
       // title과 content가 모두 입력되었을 때의 로직을 수행합니다.
       console.log("등록 버튼이 클릭되었습니다.");
       console.log("제목:", title);
-      console.log("내용:", index);
+      console.log("내용:", content);
       console.log("주제:", selected);
     }
   };
 
   return (
     <Form>
+      <TabNavigation />
       <Container id="PostBox">
         <InputWrapper>
           <input
@@ -41,8 +59,8 @@ function DetailPost() {
         </InputWrapper>
         <InputWrapper>
           <textarea
-            onChange={(event) => setIndex(event.target.value)}
-            value={index}
+            onChange={(event) => setContent(event.target.value)}
+            value={content}
             placeholder="내용을 작성해주세요"
           ></textarea>
         </InputWrapper>
