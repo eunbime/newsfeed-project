@@ -9,7 +9,7 @@ import {
 
 function TopicButton() {
   const dispatch = useDispatch()
-  const topics = useSelector((state) => state.topics.topics)
+  const topics = useSelector((state) => state.topics)
   const visibleTopics = useSelector((state) => state.topics.visibleTopics)
 
   useEffect(() => {
