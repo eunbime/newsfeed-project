@@ -1,8 +1,9 @@
 import ProfileBox from "components/ProfileBox";
 import ProfileFigure from "components/ProfileFigure";
 import { doc, getDoc } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "redux/config/modules/user";
 import styled from "styled-components";
 import { db } from "../firebase";
 
@@ -14,17 +15,13 @@ import { db } from "../firebase";
  * 이미지 수정 버튼 누르면 이미지 업로드
  */
 function Mypage() {
-  const loginUserUid = useSelector(state => state.auth.loginUserUid);
+  const { auth, user } = useSelector(state => state);
+  const loginUserUid = auth.loginUserUid;
+  //const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   console.log("loginuseruid", loginUserUid);
-  const tempUser = {
-    nickname: "닉네임",
-    name: "Anonymous",
-    email: "email@email.com",
-    ment: "유저 한마디",
-    interest: ["관심사"],
-  }
-  const [user, setUser] = useState(tempUser);
+  console.log("user", user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +30,8 @@ function Mypage() {
 
       if (docSnap.exists()) {
         console.log("Document data:", docSnap.data());
-        setUser(docSnap.data());
+        const userFromDB = docSnap.data();
+        dispatch(setUser({ uid: loginUserUid, ...userFromDB }));
       } else {
         // docSnap.data() will be undefined in this case
         console.log("No such document!");
@@ -41,7 +39,7 @@ function Mypage() {
       }
     };
     fetchData();
-  }, []);
+  }, [loginUserUid]);
 
   return (
     <PageBody>
