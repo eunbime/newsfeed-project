@@ -1,6 +1,11 @@
+import PostForm from 'components/PostForm'
+
 const Write = () => {
-  return <div>Write</div>
+  return (
+    <div>
+      <PostForm />
+    </div>
+  )
 }
 
 export default Write
-
