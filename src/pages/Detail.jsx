@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 const PageContainer = styled.div`
   background-color: #f0f0f0;
@@ -7,24 +8,24 @@ const PageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 const Box = styled.div`
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-`;
+`
 const Title = styled.h2`
   color: #333;
-`;
+`
 const AdditionalBox = styled.div`
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
-`;
+`
 const Detail = () => {
   return (
     <PageContainer>
@@ -45,6 +46,6 @@ const Detail = () => {
         </select>
       </AdditionalBox>
     </PageContainer>
-  );
-};
-export default Detail;
+  )
+}
+export default Detail

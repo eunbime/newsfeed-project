@@ -65,4 +65,10 @@ const ListContainer = styled.div`
   gap: 1rem;
   max-width: 1250px;
   margin: 0 auto;
+
+  & h2 {
+    padding-bottom: 0.5rem;
+    font-size: x-large;
+    font-weight: bold;
+  }
 `

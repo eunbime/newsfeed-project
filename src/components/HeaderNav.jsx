@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import Search from './Search'
 
 const HeaderNav = () => {
   const navigate = useNavigate()
   return (
     <Container>
-      <Search />
+      <SearchBox>
+        <input type="text" placeholder="검색어를 입력해주세요" />
+        <button>검색</button>
+      </SearchBox>
       <button
         onClick={() => {
           navigate('/write')
@@ -18,6 +20,8 @@ const HeaderNav = () => {
     </Container>
   )
 }
+
+const SearchBox = styled.div``
 
 const Container = styled.nav`
   display: flex;
