@@ -1,15 +1,13 @@
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import thunk from 'redux-thunk'
+import { combineReducers, createStore } from 'redux'
+import posts from 'redux/modules/posts'
+import topics from 'redux/modules/topics'
 import auth from './modules/auth'
-import posts from './modules/posts'
-import topics from './modules/topics'
 
 const rootReducer = combineReducers({
+  posts,
   topics,
   auth,
-  posts,
 })
-
-const store = createStore(rootReducer, applyMiddleware(thunk))
+const store = createStore(rootReducer) // 스토어와 모듈 연결
 
 export default store

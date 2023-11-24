@@ -1,11 +1,27 @@
+import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPost } from 'redux/modules/posts'
 import styled from 'styled-components'
-import PostCard from './PostCard'
+import { db } from '../firebase'
+import PostCard from './CarouselCard'
 
-const PostList = ({ topic }) => {
-  const posts = useSelector((state) => state)
-  console.log(posts)
+const PostCarousel = ({ topic }) => {
+  const dispatch = useDispatch()
+  const posts = useSelector((state) => state.posts)
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const querySnapshot = await getDocs(collection(db, 'posts'))
+      const initialPosts = []
+
+      querySnapshot.forEach((doc) => {
+        initialPosts.push({ id: doc.id, ...doc.data() })
+      })
+      dispatch(setPost(initialPosts))
+    }
+    fetchPosts()
+  }, [])
 
   const ref = useRef(null)
 
@@ -68,4 +84,4 @@ const NextButton = styled.button`
   right: 0%;
 `
 
-export default PostList
+export default PostCarousel

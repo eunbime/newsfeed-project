@@ -1,10 +1,8 @@
 import styled from 'styled-components'
 
-const PostCard = ({ post }) => {
-  console.log(post.userName)
+const CarouselCard = ({ post }) => {
   return (
     <CardContainer>
-      {/* link or navigate */}
       <TextBox>
         <CardTitle>{post.title}</CardTitle>
         <User>
@@ -79,4 +77,4 @@ const UserName = styled.p`
   /*  */
 `
 
-export default PostCard
+export default CarouselCard
