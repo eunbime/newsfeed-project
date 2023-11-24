@@ -1,6 +1,13 @@
+import AddImgButton from 'components/AddImgButton'
+import PostForm from 'components/PostForm'
+
 const Write = () => {
-  return <div>Write</div>
+  return (
+    <div>
+      <PostForm />
+      <AddImgButton />
+    </div>
+  )
 }
 
 export default Write
-

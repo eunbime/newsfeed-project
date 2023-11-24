@@ -1,4 +1,3 @@
-
 import { combineReducers, createStore } from 'redux'
 import posts from 'redux/modules/posts'
 import topics from 'redux/modules/topics'
