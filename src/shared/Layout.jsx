@@ -1,48 +1,12 @@
-import HeaderNav from 'components/HeaderNav';
-import { useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
+import HeaderNav from 'components/HeaderNav'
+import { Outlet } from 'react-router-dom'
+import styled from 'styled-components'
 
 function Layout() {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const navigate = useNavigate()
   return (
     <div>
       <Header>
         <Title>Enjoy P</Title>
-        {/* <HeaderRight>
-          <Search>
-            <input type="text" placeholder="검색어를 입력해주세요" />
-            <button>검색</button>
-          </Search>
-          <button
-            onClick={() => {
-              navigate('/mypage')
-            }}
-          >
-            mypage
-          </button>
-          <button
-            onClick={() => {
-              navigate('/write')
-            }}
-          >
-            글작성
-          </button>
-
-          <button
-            onClick={() => {
-              setModalOpen(true)
-            }}>
-            로그인
-          </button>
-          {modalOpen &&
-            <Modal onClose={() => setModalOpen(false)} />}
-        </HeaderRight>
-          <button>로그인</button>
-        </HeaderRight> */}
         <HeaderNav />
       </Header>
       <StLayout>

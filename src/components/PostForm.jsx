@@ -4,12 +4,29 @@ import {
   getDocs,
   serverTimestamp,
 } from 'firebase/firestore'
+import { ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState } from 'react'
-import { db } from '../firebase'
+import { db, storage } from '../firebase'
 
-function PostForm() {
+function CombinedComponent() {
+  const [selectedFile, setSelectedFile] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+
+  const handleFileSelect = (event) => {
+    setSelectedFile(event.target.files[0])
+  }
+
+  const handleUpload = async () => {
+    if (selectedFile) {
+      const storageRef = ref(storage, 'folder/' + selectedFile.name)
+      await uploadBytes(storageRef, selectedFile)
+      console.log('File uploaded successfully!')
+      // 추가 작업 수행 가능
+    } else {
+      console.error('No file selected!')
+    }
+  }
 
   const fetchData = async () => {
     try {
@@ -45,28 +62,37 @@ function PostForm() {
     fetchData()
   }, [])
 
+  const handleCombinedSubmit = async (e) => {
+    e.preventDefault()
+    await handleUpload()
+    await handleFormSubmit(e)
+  }
+
   return (
-    <form onSubmit={handleFormSubmit}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="content">Content:</label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        ></textarea>
-      </div>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <form onSubmit={handleCombinedSubmit}>
+        <div>
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="content">Content:</label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
+        </div>
+        <input type="file" onChange={handleFileSelect} />
+        <button type="submit">Submit and Upload Image</button>
+      </form>
+    </div>
   )
 }
 
-export default PostForm
+export default CombinedComponent
