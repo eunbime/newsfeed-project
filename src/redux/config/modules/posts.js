@@ -1,26 +1,22 @@
-import db from 'firebase'
-// post데이터의 json파일로 변경 하기
+import { collection, getDocs } from 'firebase/firestore'
+import { db } from '../../../firebase'
 
-// post 추가
 const ADD_POST = 'posts/ADD_POST'
-// post 삭제
 const DELETE_POST = 'posts/DELETE_POST'
-// post 수정
 const EDIT_POST = 'posts/EDIT_POST'
 
-export const addPost = (payload) => {
-  return { type: ADD_POST, payload }
-}
+const initialState = []
+const fetchData = async () => {
+  const querySnapshot = await getDocs(collection(db, 'posts'))
 
-export const deletePost = (payload) => {
-  return { type: DELETE_POST, payload }
-}
+  querySnapshot.forEach((doc) => {
+    initialState.push({ id: doc.id, ...doc.data() })
+    console.log(`${doc.id} => ${doc.data()}`)
+  })
 
-export const editPost = (payload) => {
-  return { type: EDIT_POST, payload }
+  return initialState
 }
-
-const initialState = db
+fetchData()
 
 const posts = (state = initialState, action) => {
   switch (action.type) {

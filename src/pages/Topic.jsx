@@ -1,5 +1,4 @@
 import TabNavigation from 'components/TabNavigation'
-
 import { useLocation } from 'react-router-dom'
 
 function Topic() {
