@@ -1,13 +1,13 @@
 import styled from "styled-components"
 
-function ProfileBox() {
+function ProfileBox({ user }) {
   return (
     <ProfileContainer>
       <TextBox>
-        <p>메일주소 : </p>
-        <p>닉네임 : </p>
-        <p>이름 : </p>
-        <p>한마디 : </p>
+        <p>메일주소 : {user.email} </p>
+        <p>닉네임 : {user.nickname} </p>
+        <p>이름 : {user.name}</p>
+        <p>한마디 : {user.ment} </p>
       </TextBox>
       <ButtonBox>
         <button>수정</button>
