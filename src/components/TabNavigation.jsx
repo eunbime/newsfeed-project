@@ -34,7 +34,7 @@ const TabNavigation = () => {
           selected={selectedTab === item.topicName}
           onClick={() => handleTabClick(item.topicName)}
         >
-          {item.topicName}
+          <span>{item.topicIco}</span> <span>{item.topicName}</span>
         </NavLink>
       ))}
       {topics.length > 5 && (
@@ -68,22 +68,22 @@ const NavigationHeader = styled.div`
   justify-content: center;
   width: 100%;
   height: 3rem;
-  gap: 0.5rem;
+  gap: 1rem;
 `
 
 const NavLink = styled(Link)`
   font-size: medium;
   padding: 0.5rem;
-  color: ${(props) =>
-    props.selected ? '#000' : '#fff'}; /* Change color based on selection */
-  background-color: ${(props) =>
-    props.selected
-      ? 'lightgray'
-      : 'gray'}; /* Change background based on selection */
+  color: ${(props) => (props.selected ? '#000' : '#fff')};
+  background-color: ${(props) => (props.selected ? 'lightgray' : 'gray')};
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
   &:hover {
     opacity: 50%;
     cursor: pointer;
+  }
+
+  @media (min-width: 750px) {
+    font-size: medium;
   }
 `

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 function Layout() {
   return (
-    <div>
+    <LayoutContainer>
       <Header>
         <Title>Enjoy P</Title>
         <HeaderNav />
@@ -14,11 +14,17 @@ function Layout() {
       </StLayout>
 
       <Footer>© Corp.</Footer>
-    </div>
+    </LayoutContainer>
   )
 }
 
 export default Layout
+
+const LayoutContainer = styled.div`
+  width: 100%;
+  height: 100vh;
+  /* min-width: 600px; */
+`
 
 const Header = styled.header`
   width: '100%';
