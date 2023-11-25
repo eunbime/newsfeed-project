@@ -49,7 +49,7 @@ function PostForm() {
 
   const fetchData = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'detailpost'))
+      const querySnapshot = await getDocs(collection(db, 'posts'))
       querySnapshot.forEach((doc) => {
         console.log(doc.id, doc.data())
       })
@@ -77,7 +77,7 @@ function PostForm() {
           imageUrl = await uploadImageAndGetURL()
         }
 
-        await addDoc(collection(db, 'detailpost'), {
+        await addDoc(collection(db, 'posts'), {
           title: title,
           content: content,
           postImg: imageUrl,
