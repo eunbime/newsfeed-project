@@ -14,7 +14,7 @@ function CombinedComponent() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const { auth, user } = useSelector(state => state);
+  const { auth, user } = useSelector((state) => state)
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0])
