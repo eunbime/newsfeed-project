@@ -44,7 +44,7 @@ function Mypage() {
   return (
     <PageBody>
       <Profile>
-        <ProfileFigure />
+        <ProfileFigure userImg={user.userimg} />
         <ProfileBox user={user} />
       </Profile>
       <MyFeedBox>
