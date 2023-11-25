@@ -1,5 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 
 function TopicPostList({ selectedTopic }) {
@@ -32,13 +33,15 @@ function TopicPostList({ selectedTopic }) {
       <h1>Post 리스트</h1>
       <ul>
         {posts.map((post) => {
-          console.log('포스트 이미지 확인', post.data.postImg)
+          console.log(post.data.createdAt)
           return (
-            <li key={post.id}>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.content}</p>
-              <img src={post.data.postImg} />
-            </li>
+            <Link to={`/detail/${post.id}`} state={post.data}>
+              <li key={post.id}>
+                <h3>{post.data.title}</h3>
+                <img src={post.data.postImg} />
+                <p>{post.data.content}</p>
+              </li>
+            </Link>
           )
         })}
       </ul>

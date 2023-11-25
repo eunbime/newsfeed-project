@@ -77,7 +77,7 @@ function PostForm() {
           imageUrl = await uploadImageAndGetURL()
         }
 
-        await addDoc(collection(db, 'posts'), {
+        await addDoc(collection(db, 'post'), {
           title: title,
           content: content,
           postImg: imageUrl,
