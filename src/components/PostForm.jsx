@@ -1,6 +1,11 @@
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  getDocs,
+  serverTimestamp,
+} from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { db, storage } from '../firebase'
@@ -12,7 +17,6 @@ function PostForm() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
   const handleFileSelect = (event) => {
@@ -43,6 +47,17 @@ function PostForm() {
     }
   }
 
+  const fetchData = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'detailpost'))
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, doc.data())
+      })
+    } catch (error) {
+      console.error('오류:', error)
+    }
+  }
+
   const handleFormSubmit = async (e) => {
     e.preventDefault()
 
@@ -51,7 +66,9 @@ function PostForm() {
       return
     }
 
-    const userConfirmation = window.confirm('정말 이대로 등록하시겠습니까?')
+    const userConfirmation = window.confirm(
+      '선택한 파일과 토픽으로 제출하시겠습니까?'
+    )
 
     if (userConfirmation) {
       try {
@@ -60,7 +77,7 @@ function PostForm() {
           imageUrl = await uploadImageAndGetURL()
         }
 
-        await addDoc(collection(db, 'posts'), {
+        await addDoc(collection(db, 'detailpost'), {
           title: title,
           content: content,
           postImg: imageUrl,
@@ -68,21 +85,27 @@ function PostForm() {
           createdAt: serverTimestamp(),
         })
 
+        fetchData()
+
         setTitle('')
         setContent('')
         setSelectedTopic('')
         setSelectedFile('')
 
-        alert('성공적으로 등록 되었습니다!')
+        alert('양식이 성공적으로 제출되었습니다!')
         window.location.href = '/'
       } catch (error) {
         console.error('오류:', error)
         alert('양식 제출 중 오류가 발생했습니다')
       }
     } else {
-      alert('등록이 취소되었습니다')
+      alert('제출이 취소되었습니다')
     }
   }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const handleCombinedSubmit = async (e) => {
     e.preventDefault()
@@ -117,7 +140,7 @@ function PostForm() {
             value={selectedTopic}
             onChange={(e) => setSelectedTopic(e.target.value)}
           >
-            <option value="">토픽을 선택해 주세요!</option>
+            <option value="">토픽 선택...</option>
             {topics.map((topic) => (
               <option key={topic.id} value={topic.topicName}>
                 {topic.topicName}
@@ -126,7 +149,7 @@ function PostForm() {
           </select>
         </div>
         <Link to="/" onClick={handleCombinedSubmit}>
-          등록하기
+          제출 및 이미지 업로드
         </Link>
         <Link to="/">Home</Link>
       </form>
