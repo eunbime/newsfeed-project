@@ -27,17 +27,20 @@ function TopicPostList({ selectedTopic }) {
     fetchData()
   }, [selectedTopic, db])
 
+  console.log(posts[1])
+
   return (
     <div>
       <h1>Post 리스트</h1>
       <ul>
         {posts.map((post) => {
-          console.log('포스트 이미지 확인', post.data.postImg)
+          // const newDate = post.data.createdAt.toDate()
           return (
             <li key={post.id}>
               <h3>{post.data.title}</h3>
               <p>{post.data.content}</p>
               <img src={post.data.postImg} />
+              <li></li>
             </li>
           )
         })}

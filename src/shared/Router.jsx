@@ -12,8 +12,9 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<Home />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/:id" element={<Detail />} />
           <Route path="/mypage" element={<Mypage />} />
+          <Route path="/mypage/:id" element={<Mypage />} />
           <Route path="/topic/:id" element={<Topic />} />
           <Route path="*" element={<Navigate replace to="/" />} />
         </Route>

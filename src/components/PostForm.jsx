@@ -17,6 +17,7 @@ function PostForm() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const { auth, user } = useSelector((state) => state)
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
   const handleFileSelect = (event) => {
@@ -38,8 +39,8 @@ function PostForm() {
   const uploadImageAndGetURL = async () => {
     if (selectedFile) {
       const storageRef = ref(storage, 'folder/' + selectedFile.name)
-      await uploadBytes(storageRef, selectedFile)
-      const url = await getDownloadURL(storageRef)
+      await uploadBytes(storageRef, selectedFile) // 파일 업로드
+      const url = await getDownloadURL(storageRef) // 파일 url 가져오기
       setImageUrl(url)
       return url
     } else {
@@ -82,6 +83,9 @@ function PostForm() {
           content: content,
           postImg: imageUrl,
           topicName: selectedTopic,
+          userid: auth.loginUserUid,
+          username: user.nickname,
+          userimg: user.userimg,
           createdAt: serverTimestamp(),
         })
 
