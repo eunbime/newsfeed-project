@@ -1,14 +1,14 @@
-import { collection, doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setUser } from "redux/config/modules/user";
-import styled from "styled-components";
-import { db } from "../firebase";
+import { collection, doc, setDoc } from 'firebase/firestore'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setUser } from 'redux/config/modules/user'
+import styled from 'styled-components'
+import { db } from '../firebase'
 
 function ProfileBox({ user }) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const saveDB = async (testUser) => {
-    await setDoc(doc(collection(db, "userInfo"), testUser.uid), testUser);
+    await setDoc(doc(collection(db, 'userInfo'), testUser.uid), testUser)
   }
   /**
    * 사용자에게 입력받은 value 들을
@@ -19,50 +19,51 @@ function ProfileBox({ user }) {
   const onComplete = () => {
     const testUser = {
       uid: user.uid,
-      nickname: "쥐",
-      name: "김쥐",
-      ment: "빨리 끝내자",
-      interests: ["스포츠, 맛집"]
+      nickname: '쥐',
+      name: '김쥐',
+      ment: '빨리 끝내자',
+      interests: ['스포츠, 맛집'],
     }
-    dispatch(setUser(testUser));
-    saveDB(testUser);
-    setIsEditing(false);
+    dispatch(setUser(testUser))
+    saveDB(testUser)
+    setIsEditing(false)
   }
   const onEditProfile = () => {
-    setIsEditing(true);
+    setIsEditing(true)
   }
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(false)
   return (
     <ProfileContainer>
       <TextBox>
-        {
-          !isEditing ?
-            <>
-              <p>메일주소 : {user.email} </p>
-              <p>닉네임 : {user.nickname} </p>
-              <p>이름 : {user.name}</p>
-              <p>한마디 : {user.ment} </p>
-              {/* TODO : 관심사는 토픽...버튼이나.. 하.. 하지마 */}
-            </>
-            :
-            //한번에 받아서 setUser 어떻게 하는거지
-            <>
-              <label>메일주소 :</label><input />
-              <label>닉네임 :</label><input />
-              <label>이름 :</label><input />
-              <label>한마디 :</label><input />
-            </>
-        }
-
+        {!isEditing ? (
+          <>
+            <p>메일주소 : {user.email} </p>
+            <p>닉네임 : {user.nickname} </p>
+            <p>이름 : {user.name}</p>
+            <p>한마디 : {user.ment} </p>
+            {/* TODO : 관심사는 토픽...버튼이나.. 하.. 하지마 */}
+          </>
+        ) : (
+          //한번에 받아서 setUser 어떻게 하는거지
+          <>
+            <label>메일주소 :</label>
+            <input />
+            <label>닉네임 :</label>
+            <input />
+            <label>이름 :</label>
+            <input />
+            <label>한마디 :</label>
+            <input />
+          </>
+        )}
       </TextBox>
       <ButtonBox>
-        {
-          isEditing ?
-            <button onClick={onComplete}>완료</button>
-            :
-            <button onClick={onEditProfile}>수정</button>
-        }
+        {isEditing ? (
+          <button onClick={onComplete}>완료</button>
+        ) : (
+          <button onClick={onEditProfile}>수정</button>
+        )}
       </ButtonBox>
     </ProfileContainer>
   )
@@ -71,29 +72,29 @@ function ProfileBox({ user }) {
 export default ProfileBox
 
 const ProfileContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 600px;
-    height: 500px;
-    border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+  height: 500px;
+  border: 1px solid black;
 `
 const TextBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    height: 500px;
-    padding: 50px;
-    border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 500px;
+  padding: 50px;
+  border: 1px solid black;
 `
 const ButtonBox = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin-top: auto;
-    border: 1px solid black;
-    & button {
-        height: 40px;
-        width: 80px;
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-top: auto;
+  border: 1px solid black;
+  & button {
+    height: 40px;
+    width: 80px;
+  }
 `
