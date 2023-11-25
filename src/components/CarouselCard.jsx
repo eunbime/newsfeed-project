@@ -1,9 +1,14 @@
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const CarouselCard = ({ post }) => {
+  const navigate = useNavigate()
+  const handleCardClick = () => {
+    navigate(`/detail/${post.id}`, { state: { post } })
+  }
   console.log(post.postImg)
   return (
-    <CardContainer image={post.postImg}>
+    <CardContainer onClick={handleCardClick} image={post.postImg}>
       <TextBox>
         <CardTitle>{post.title}</CardTitle>
         <User>
