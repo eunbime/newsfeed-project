@@ -1,5 +1,6 @@
 import ProfileBox from 'components/ProfileBox'
 import ProfileFigure from 'components/ProfileFigure'
+import UserPostList from 'components/UserPostList'
 import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,14 +20,10 @@ function Mypage() {
   const dispatch = useDispatch()
   const { auth, user, topics, posts } = useSelector((state) => state)
   const [userTopics, setUserTopics] = useState([])
+  const [userPosts, setUserPosts] = useState([])
   const navigate = useNavigate()
-  console.log(posts)
   console.log('user', user)
   const loginUserUid = auth.loginUserUid // 사용자 UID
-
-  useEffect(() => {
-    console.log('userTopics', userTopics)
-  }, [])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,6 +43,11 @@ function Mypage() {
     fetchData()
   }, [loginUserUid])
 
+  useEffect(() => {
+    const filteredPosts = posts.filter((post) => post.uid === user.uid)
+    setUserPosts(filteredPosts)
+  }, [])
+
   // if (posts.uid === user.uid) {
   //   const filteredTopics = topics.filter(
   //     (topic) => topic.topicName !== posts.topicName
@@ -53,11 +55,7 @@ function Mypage() {
   //   setUserTopics(filteredTopics)
   // }
 
-  const filteredPosts = posts.filter((post) => post.uid === user.uid)
-  console.log(user.uid)
-  console.log(filteredPosts[0].uid)
-
-  filteredPosts.map((post) => {
+  userPosts.map((post) => {
     if (userTopics.includes(post.topicName)) return
     setUserTopics((prev) => [...prev, post.topicName])
   })
@@ -69,21 +67,25 @@ function Mypage() {
         <ProfileBox user={user} />
       </Profile>
       <MyFeedBox>
-        <TopicSelector>
-          {userTopics.length > 0 ? (
-            userTopics.map((topic) => (
-              <li onClick={() => navigate(`/mypage/${topic}`)}>{topic}</li>
-            ))
-          ) : (
-            <div>{`현재 ${user.name}님의 게시물이 존재하지 않습니다`}</div>
-          )}
-        </TopicSelector>
+        {userTopics.map((topic) => (
+          <TopicSelector>
+            <li
+              onClick={() =>
+                navigate(`/mypage/${topic}`, { state: { topic: topic } })
+              }
+            >
+              {topic}
+            </li>
+          </TopicSelector>
+        ))}
+        <UserPostList userPosts={userPosts} />
       </MyFeedBox>
     </PageBody>
   )
 }
 
 const PageBody = styled.div`
+  display: flex;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -96,19 +98,24 @@ const Profile = styled.div`
   border: 1px solid black;
 `
 const MyFeedBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 800px;
-  height: 800px;
   border: 1px solid black;
 `
 
 const TopicSelector = styled.ul`
   display: flex;
+  flex-direction: column;
   gap: 1rem;
 
-  & li {
+  > li {
+    width: 100px;
     padding: 0.5rem;
-    background-color: gray;
+    background-color: orange;
     border-radius: 0.5rem;
+    text-align: center;
   }
 `
 
