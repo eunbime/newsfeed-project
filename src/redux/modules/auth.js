@@ -15,7 +15,6 @@ const initialSate = {
 }
 
 const auth = (state = initialSate, action) => {
-  console.log('auth payload', action.payload)
   switch (action.type) {
     case SET_LOGIN:
       return { isLogin: true, loginUserUid: action.payload }
