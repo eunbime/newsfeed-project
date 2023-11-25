@@ -1,3 +1,4 @@
+import Detail from 'pages/Detail'
 import Home from 'pages/Home'
 import Mypage from 'pages/Mypage'
 import Topic from 'pages/Topic'
@@ -11,6 +12,7 @@ const Router = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index path="/" element={<Home />} />
+          <Route path="/detail" element={<Detail />} />
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/topic/:id" element={<Topic />} />
           <Route path="*" element={<Navigate replace to="/" />} />
