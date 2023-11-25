@@ -28,6 +28,8 @@ function TopicPostList({ selectedTopic }) {
     fetchData()
   }, [selectedTopic, db])
 
+  console.log(posts[1])
+
   return (
     <div>
       <h1>Post 리스트</h1>

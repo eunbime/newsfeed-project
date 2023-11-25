@@ -1,12 +1,13 @@
 import { collection, doc, setDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setUser } from 'redux/config/modules/user'
+import { setUser } from 'redux/modules/user'
 import styled from 'styled-components'
 import { db } from '../firebase'
 
 function ProfileBox({ user }) {
   const dispatch = useDispatch()
+  const [isEditing, setIsEditing] = useState(false)
   const saveDB = async (testUser) => {
     await setDoc(doc(collection(db, 'userInfo'), testUser.uid), testUser)
   }
@@ -32,7 +33,6 @@ function ProfileBox({ user }) {
     setIsEditing(true)
   }
 
-  const [isEditing, setIsEditing] = useState(false)
   return (
     <ProfileContainer>
       <TextBox>

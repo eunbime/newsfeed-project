@@ -45,32 +45,34 @@ const PostCarousel = ({ topic }) => {
   // 선택된 topic에 대한 값 가져와서 비교
 
   const filteredPosts = posts.filter(
-    (item) => item.selectedTopic === topic.topicName
+    (item) => item.topicName === topic.topicName
   )
 
   return (
     <Container>
       <Slider ref={ref}>
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post) => {
-            return <PostCard key={post.id} post={post} />
-          })
-        ) : (
-          <NotFoundPost>
-            <h2>{`현재 ${topic.topicName} 포스트가 존재하지 않습니다.`}</h2>
-          </NotFoundPost>
-        )}
+        {filteredPosts.map((post) => {
+          return <PostCard key={post.id} post={post} />
+        })}
       </Slider>
-      <PrevButton onClick={moveToPrevSlide}>
-        <span>
-          <FiChevronLeft />
-        </span>
-      </PrevButton>
-      <NextButton onClick={moveToNextSlide}>
-        <span>
-          <FiChevronRight />
-        </span>
-      </NextButton>
+      {filteredPosts.length > 0 ? (
+        <>
+          <PrevButton onClick={moveToPrevSlide}>
+            <span>
+              <FiChevronLeft />
+            </span>
+          </PrevButton>
+          <NextButton onClick={moveToNextSlide}>
+            <span>
+              <FiChevronRight />
+            </span>
+          </NextButton>
+        </>
+      ) : (
+        <NotFoundPost>
+          <h2>{`현재 ${topic.topicName} 추천 포스트가 존재하지 않습니다.`}</h2>
+        </NotFoundPost>
+      )}
     </Container>
   )
 }
@@ -134,7 +136,8 @@ const NextButton = styled.div`
 `
 const NotFoundPost = styled.div`
   padding: 4rem;
-  background-color: gray;
+  background-color: #eee;
+  text-align: center;
 `
 
 export default PostCarousel

@@ -2,7 +2,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setLogin, setLogout } from 'redux/config/modules/auth'
+import { setLogin, setLogout } from 'redux/modules/auth'
 import styled from 'styled-components'
 import { auth } from '../firebase'
 import Modal from './Modal'
@@ -15,14 +15,14 @@ const HeaderNav = () => {
 
   const logOut = async () => {
     await signOut(auth)
-    dispatch(setLogout());
+    dispatch(setLogout())
   } // TODO: 이 놈의 위치가 애매함
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('header: login user 있니?', user)
-        dispatch(setLogin(user.uid));
+        dispatch(setLogin(user.uid))
       }
     })
   }, [isLogin])
@@ -35,15 +35,13 @@ const HeaderNav = () => {
       </SearchBox>
 
       {!isLogin && <button onClick={() => setModalOpen(true)}>로그인</button>}
-      {
-        isLogin && (
-          <>
-            <button onClick={() => navigate('/write')}>글작성</button>
-            <button onClick={() => navigate('/mypage')}>mypage</button>
-            <button onClick={logOut}>로그아웃</button>
-          </>
-        )
-      }
+      {isLogin && (
+        <>
+          <button onClick={() => navigate('/write')}>글작성</button>
+          <button onClick={() => navigate('/mypage')}>mypage</button>
+          <button onClick={logOut}>로그아웃</button>
+        </>
+      )}
       {modalOpen && <Modal onClose={() => setModalOpen(false)} />}
     </Container>
   )

@@ -16,7 +16,6 @@ const initialState = {
 }
 
 const user = (state = initialState, action) => {
-  console.log('user payload', action.payload)
   switch (action.type) {
     case SET_USER:
       return { ...state, ...action.payload }

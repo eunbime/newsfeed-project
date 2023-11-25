@@ -1,8 +1,8 @@
 import { combineReducers, createStore } from 'redux'
 import posts from 'redux/modules/posts'
 import topics from 'redux/modules/topics'
-import auth from './modules/auth'
-import user from './modules/user'
+import auth from '../modules/auth'
+import user from '../modules/user'
 
 const rootReducer = combineReducers({
   posts,
