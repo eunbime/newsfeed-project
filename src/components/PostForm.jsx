@@ -6,6 +6,7 @@ import {
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { db, storage } from '../firebase'
 
 function CombinedComponent() {
@@ -13,6 +14,7 @@ function CombinedComponent() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const { auth, user } = useSelector(state => state);
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0])
@@ -53,6 +55,9 @@ function CombinedComponent() {
         title: title,
         content: content,
         imageUrl: imageUrl,
+        userid: auth.loginUserUid,
+        username: user.nickname,
+        userimg: user.userimg,
         createdAt: serverTimestamp(),
       })
 

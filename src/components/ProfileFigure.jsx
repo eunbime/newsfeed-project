@@ -1,11 +1,14 @@
-import styled from "styled-components"
+import styled from "styled-components";
 
-function ProfileFigure() {
+//TODO:파일업로드 postform의 파일업로드 컴포넌트로 빼서 재사용
+// user redux에 URL 저장해줘야함
+function ProfileFigure({ userImg }) {
   return (
     <>
       <FigureBox>
-        <img src='https://media.bunjang.co.kr/product/233471258_1_1692280086_w360.jpg' />
+        <img src={userImg} />
         <button>사진 올리기</button>
+        {/* <input type="file" onChange={handleFileSelect} /> */}
       </FigureBox>
     </>
   )

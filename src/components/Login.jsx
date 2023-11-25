@@ -3,7 +3,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "fire
 import { collection, doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setIsLogin, setloginUserUid } from "redux/config/modules/auth";
+import { setLogin } from "redux/config/modules/auth";
 import { auth, db } from "../firebase";
 
 
@@ -28,8 +28,7 @@ function Login({ onModalClose }) {
         event.preventDefault();
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            dispatch(setIsLogin(true)); // TODO: 둘이 한번에 넘겨도 됨
-            dispatch(setloginUserUid(userCredential.user.uid));
+            dispatch(setLogin(userCredential.user.uid));
             onModalClose();
             // TODO: db에 userInfo 객체도 생성 추가
             await setDoc(doc(collection(db, "userInfo"), userCredential.user.uid), {
@@ -47,8 +46,7 @@ function Login({ onModalClose }) {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log("로그인 완료", userCredential.user.uid);
-            dispatch(setIsLogin(true));
-            dispatch(setloginUserUid(userCredential.user.uid));
+            dispatch(setLogin(userCredential.user.uid));
             onModalClose();
         } catch (error) {
             alert(`로그인 실패 :${error.code}`); //TODO : (선택) 사유에 따른 예외처리
