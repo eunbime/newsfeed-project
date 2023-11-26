@@ -92,7 +92,7 @@ function Detail({ posts }) {
       <TitleContainer>
         <TitleImage src={post.userimg} alt="프로필" />
         {editingTitle ? (
-          <input
+          <StyledInput
             value={editedTitle}
             onChange={(e) => setEditedTitle(e.target.value)}
           />
@@ -108,7 +108,7 @@ function Detail({ posts }) {
       </UserInfoContainer>
       <ContentContainer>
         {editingContent ? (
-          <textarea
+          <StyledTextarea
             value={editedContent}
             onChange={(e) => setEditedContent(e.target.value)}
           />
@@ -152,6 +152,27 @@ function Detail({ posts }) {
 }
 
 export default Detail
+
+const StyledInput = styled.input`
+  font-size: 20px;
+  width: auto;
+  height: 50px;
+`
+const StyledTextarea = styled.textarea`
+  width: 100%;
+  height: 150px;
+  padding: 8px;
+  font-size: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical; /* Allow vertical resizing */
+  margin-bottom: 10px;
+
+  &:focus {
+    outline: none;
+    border-color: #fc913a; /* Change border color on focus */
+  }
+`
 
 const DetailContainer = styled.div`
   display: flex;
