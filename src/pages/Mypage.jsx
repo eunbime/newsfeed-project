@@ -44,9 +44,11 @@ function Mypage() {
   // useEffect(() => {
   //   dispatch(filterPost(user.uid))
   // }, [])
-  const filteredPosts = posts.filter((post) => post.uid === user.uid)
+  const filteredPosts = posts.filter((post) => post.userid === user.uid)
 
   filteredPosts.map((post) => {
+    console.log(post.uid)
+    console.log(post)
     if (userTopics.includes(post.topicName)) return
     setUserTopics((prev) => [...prev, post.topicName])
   })
@@ -57,7 +59,6 @@ function Mypage() {
         <ProfileFigure userImg={user.userimg} />
         <ProfileBox user={user} />
       </Profile>
-      <MyFeedBox>카드 보여주는 부분</MyFeedBox>
       <MyFeedBox>
         {userTopics.map((topic) => (
           <TopicSelector>
