@@ -71,6 +71,7 @@ const NavigationHeader = styled.div`
   width: 100%;
   height: 3rem;
   gap: 1rem;
+  padding: 3rem 0 2rem 0;
 `
 
 const NavLink = styled(Link)`

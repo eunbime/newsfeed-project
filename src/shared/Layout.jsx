@@ -34,6 +34,7 @@ const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  box-shadow: 0 3px 7px #eee;
 `
 
 const Title = styled.h1`
