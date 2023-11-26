@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 const UserPostList = ({ userPosts }) => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [topic, setTopic] = useState('')
   const selectedTopic = location.state?.topic
 
@@ -19,13 +20,17 @@ const UserPostList = ({ userPosts }) => {
         .filter((post) => {
           return post.topicName === topic
         })
-        .map((post) => (
-          <PostList>
-            <ImgBox image={post.postImg} />
-            <li>{post.title}</li>
-            <li>{post.content}</li>
-          </PostList>
-        ))}
+        .map((post) => {
+          console.log(post.userid)
+          console.log(post.id)
+          return (
+            <PostList onClick={() => navigate(`/detail/${post.id}`)}>
+              <ImgBox image={post.postImg} />
+              <li>{post.title}</li>
+              <li>{post.content}</li>
+            </PostList>
+          )
+        })}
     </Container>
   )
 }
