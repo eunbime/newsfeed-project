@@ -104,7 +104,8 @@ function PostForm() {
   }
 
   return (
-    <div>
+    <PostFormContainer>
+      <HeadTitle>Enjoy P</HeadTitle>
       <Form>
         <form onSubmit={handleCombinedSubmit}>
           <InputWrapper>
@@ -128,7 +129,7 @@ function PostForm() {
           </InputWrapper>
           <FileWrapper>
             <label htmlFor="file-upload" className="custom-file-upload">
-              업로드할 파일 선택
+              파일 첨부
             </label>
             <input
               id="file-upload"
@@ -137,7 +138,6 @@ function PostForm() {
               style={{ display: 'none' }}
             />
           </FileWrapper>
-
           <TopicWrapper>
             <select
               id="topic"
@@ -164,74 +164,118 @@ function PostForm() {
           </ButtonWrapper>
         </form>
       </Form>
-    </div>
+    </PostFormContainer>
   )
 }
-
 export default PostForm
-
+const PostFormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const HeadTitle = styled.div`
+  font-size: xx-large;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  display: flex;
+  position: fixed;
+  margin-top: 60px;
+`
 const Form = styled.form`
-  background-color: #d9d9d9;
+  background-color: #f3f3f3;
   padding: 1.5vh;
   display: flex;
   flex-direction: column;
   gap: 1.2vh;
-  width: 60vh;
-  height: 65vh;
+  width: 40vw;
+  height: 68vh;
   border-radius: 3vh;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   margin: auto;
   transform: translate(-50%, -50%);
   text-align: center;
+  @media screen and (max-width: 600px) {
+    /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
+    width: 90vw;
+    height: 80vh;
+  }
 `
 const InputWrapper = styled.div`
   & textarea {
-    width: 53vh;
+    width: 92%;
     height: 40vh;
-
+    margin-top: 2vh;
     text-align: start;
+    box-sizing: border-box;
+    resize: none;
+    border-radius: 5px;
+    border-width: 0;
   }
   & input {
     height: 4vh;
-    width: 53vh;
-    margin: 2vh 0;
+    width: 92%;
+    margin-top: 2vh;
     text-align: start;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border-width: 0;
   }
 `
 const FileWrapper = styled.div`
-  margin-left: 2vh;
+  margin-left: 4vh;
   margin-top: 1vh;
   text-align: start;
 
   .custom-file-upload {
-    border: 1px solid #ccc;
+    border: 1px solid black;
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-    background-color: #f2f2f2;
+    background-color: #f7f7f7;
     border-radius: 4px;
     transition: background-color 0.3s ease;
   }
 
   .custom-file-upload:hover {
-    background-color: #e0e0e0;
+    background-color: gray;
   }
 `
 const TopicWrapper = styled.div`
-  margin-left: 2vh;
+  margin-left: 2vw;
   margin-top: 1vh;
   text-align: start;
+  & select {
+    width: 9vw;
+    height: 4vh;
+  }
 `
 const ButtonWrapper = styled.div`
   display: flex;
-  text-align: end;
+  justify-content: space-between;
   margin-top: 1vh;
 `
 const SubmitButton = styled.button`
-  margin-left: 2vh;
+  width: 13vw;
+  height: 5vh;
+  margin-left: 2vw;
+  margin-top: 1vh;
+  align-self: flex-start;
+  @media screen and (max-width: 600px) {
+    /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
+    width: 13vw; /* 예시: 화면이 작아지면 버튼을 전체 너비로 설정 */
+  }
 `
 const HomeButton = styled.button`
-  margin-left: 38.5vh;
+  width: 13vw;
+  height: 5vh;
+  margin-right: 2vw;
+  margin-top: 1vh;
+  @media screen and (max-width: 600px) {
+    /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
+    width: 13vw; /* 예시: 화면이 작아지면 버튼을 전체 너비로 설정 */
+  }
 `

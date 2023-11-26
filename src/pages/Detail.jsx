@@ -203,7 +203,6 @@ const TitleImage = styled.img`
 
 const Titlefontcontainer = styled.div`
   font-size: 50px;
-  text-align: center;
   margin: auto;
   margin-left: 10px;
 `
@@ -225,8 +224,8 @@ const UserInfoContainer = styled.div`
 `
 const ContentFontContainer = styled.div`
   font-size: 30px;
-  line-height: 40px;
   width: 100%;
+  line-height: 40px;
 `
 
 const ContentContainer = styled.div`
