@@ -84,7 +84,7 @@ const NavLink = styled(Link)`
   font-weight: 500;
   padding: 0.5rem;
   color: ${(props) => (props.selected ? '#000' : '#fff')};
-  background-color: ${(props) => (props.selected ? '#EAE374' : `#FC913A`)};
+  background-color: ${(props) => (props.selected ? '#FFE7CF' : `#FC913A`)};
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
   &:hover {

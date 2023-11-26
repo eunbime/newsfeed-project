@@ -45,6 +45,13 @@ const HeaderNav = () => {
     navigate(`/${page}`)
   }
 
+  const handleBlurContainer = () => {
+    setTimeout(() => {
+      setMenuOpen(false)
+    }, 200)
+    console.log('blur!')
+  }
+
   return (
     <Container>
       {!isLogin && (
@@ -52,16 +59,18 @@ const HeaderNav = () => {
       )}
       {isLogin && (
         <>
-          <NavButton onClick={() => handleToPage('write')}>글작성</NavButton>
+          <NavButton onClick={() => handleToPage('write')}>
+            글 작성하기
+          </NavButton>
           {/* 유저 프로필 사진으로 변경 */}
           <ProfileBoxWrapper>
-            <ProfileBox onClick={() => setMenuOpen(!menuOpen)}>
+            <ProfileBox onMouseDown={() => setMenuOpen(!menuOpen)}>
               <img src={user.userimg || profileImg} alt="" />
             </ProfileBox>
             {menuOpen && (
-              <ProfileMenu>
-                <button onClick={() => handleToPage('mypage')}>mypage</button>
-                <button onClick={logOut}>로그아웃</button>
+              <ProfileMenu onMouseLeave={handleBlurContainer}>
+                <div onClick={() => handleToPage('mypage')}>My Page</div>
+                <div onClick={logOut}>로그아웃</div>
               </ProfileMenu>
             )}
           </ProfileBoxWrapper>
@@ -82,10 +91,10 @@ const NavButton = styled.button`
   background-color: #fff;
   border: 2px solid var(--mainOrange);
   padding: 0.3rem 1rem;
-  margin-right: 0.5rem;
+  margin-right: 1rem;
   border-radius: 1rem;
   text-align: center;
-  font-size: medium;
+  font-size: large;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
@@ -118,16 +127,31 @@ const ProfileMenu = styled.div`
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: gray;
-  width: 7rem;
-  margin-top: 0.5rem;
+  color: #444;
+  background-color: #fff;
+  width: 11rem;
+  margin-top: 1.2rem;
   right: 0;
+  box-shadow: 0 0 5px #888;
+  border-radius: 0.5rem;
+  padding: 0 0.5rem;
 
-  button {
+  div {
     cursor: pointer;
     border: none;
     text-align: start;
-    padding: 0.5rem 1rem;
+    font-weight: 500;
+    padding: 1rem 1rem;
+    border-bottom: 0.5px solid #999;
+    transition: 0.3s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      color: #888;
+    }
   }
 `
 
