@@ -117,7 +117,9 @@ function Detail({ posts }) {
         ) : (
           <>
             <PostImage src={post.postImg} alt="게시물" />
-            <p>{post.content}</p>
+            <ContentFontContainer>
+              <p>{post.content}</p>
+            </ContentFontContainer>
           </>
         )}
       </ContentContainer>
@@ -168,7 +170,9 @@ const TitleContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-size: 15px;
+  font-size: 20px;
+  margin-bottom: 30px;
+  margin-top: 30px;
 `
 const TitleImage = styled.img`
   width: 50px;
@@ -178,28 +182,33 @@ const TitleImage = styled.img`
 `
 
 const Titlefontcontainer = styled.div`
-  font-size: 30px;
+  font-size: 50px;
   margin-left: 10px;
 `
 
 const UserInfoContainer = styled.div`
   box-sizing: border-box;
   width: 30vw;
-  height: 5vh;
+  height: 10vh;
   padding: 10px;
   border: 1px solid #ccc;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border-radius: 10px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 25px;
+  font-size: 20px;
+`
+const ContentFontContainer = styled.div`
+  font-size: 20px;
 `
 
 const ContentContainer = styled.div`
   box-sizing: border-box;
-  width: 30vw;
+  width: 45vw;
+  height: 60vh;
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
@@ -212,7 +221,7 @@ const ContentContainer = styled.div`
   }
 `
 const PostImage = styled.img`
-  width: 50%;
+  width: 80%;
   height: auto;
 `
 
