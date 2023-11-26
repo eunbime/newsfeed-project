@@ -12,7 +12,7 @@ const UserPostList = ({ userPosts }) => {
     setTopic(selectedTopic)
   }, [selectedTopic])
 
-  if (topic === '') return <div>현재 게시물이 없습니다.</div>
+  if (topic === '') return <NoPosts>현재 게시물이 없습니다.</NoPosts>
 
   return (
     <Container>
@@ -21,16 +21,16 @@ const UserPostList = ({ userPosts }) => {
           return post.topicName === topic || selectedTopic === undefined
         })
         .map((post) => {
-          console.log(post.userid)
-          console.log(post.id)
           return (
             <PostList
               key={post.id}
               onClick={() => navigate(`/detail/${post.id}`, { state: post })}
             >
-              <ImgBox image={post.postImg} />
-              <li>{post.title}</li>
-              <li>{post.content}</li>
+              <PostInfo>
+                <ImgBox image={post.postImg} />
+                <PostTitle>{post.title}</PostTitle>
+                <PostContent>{post.content}</PostContent>
+              </PostInfo>
             </PostList>
           )
         })}
@@ -39,22 +39,53 @@ const UserPostList = ({ userPosts }) => {
 }
 
 const Container = styled.div`
-  //
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
 `
 
-const PostList = styled.ul`
-  //
+const NoPosts = styled.div`
+  border: 1px solid;
+`
+
+const PostList = styled.div`
+  padding: 10px;
+  border: 1px solid;
 `
 
 const ImgBox = styled.div`
+  width: 100%;
+  height: 200px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 750px;
-  height: 400px;
+  border-radius: 10px;
   background-image: url(${(props) => props.image});
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 5px;
+`
+
+const PostInfo = styled.div`
+  margin: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`
+const PostTitle = styled.p`
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+`
+
+const PostContent = styled.p`
+  font-size: 16px;
+  color: #333;
 `
 
 export default UserPostList

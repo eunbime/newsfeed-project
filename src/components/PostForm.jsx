@@ -127,7 +127,15 @@ function PostForm() {
             ></textarea>
           </InputWrapper>
           <FileWrapper>
-            <input type="file" onChange={handleFileSelect} />
+            <label htmlFor="file-upload" className="custom-file-upload">
+              업로드할 파일 선택
+            </label>
+            <input
+              id="file-upload"
+              type="file"
+              onChange={handleFileSelect}
+              style={{ display: 'none' }}
+            />
           </FileWrapper>
 
           <TopicWrapper>
@@ -192,6 +200,20 @@ const FileWrapper = styled.div`
   margin-left: 2vh;
   margin-top: 1vh;
   text-align: start;
+
+  .custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-file-upload:hover {
+    background-color: #e0e0e0;
+  }
 `
 const TopicWrapper = styled.div`
   margin-left: 2vh;
