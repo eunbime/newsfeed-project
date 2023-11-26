@@ -26,6 +26,7 @@ function Mypage() {
     topics,
     posts,
   } = useSelector((state) => state)
+
   const [userTopics, setUserTopics] = useState([])
   const navigate = useNavigate()
 

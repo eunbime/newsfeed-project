@@ -47,8 +47,6 @@ function TopicPostList({ selectedTopic }) {
 export default TopicPostList
 
 const Container = styled.div`
-  background-color: #f9d62e;
-  border: 1px solid black;
   padding: 20px;
   margin: 0 auto;
   max-width: 1800px;
@@ -73,6 +71,7 @@ const PostListInfo = styled.div`
 `
 
 const Title = styled.h1`
+  font-weight: bold;
   text-align: center;
   font-size: 24px;
   margin-bottom: 15px;
@@ -90,6 +89,7 @@ const PostList = styled.ul`
 
 const PostItem = styled.li`
   margin-bottom: 20px;
+  max-width: 1250px;
 `
 
 const UserInfo = styled.div`

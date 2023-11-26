@@ -1,5 +1,5 @@
 import { collection, doc, setDoc } from 'firebase/firestore'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setUser } from 'redux/modules/user'
 import styled from 'styled-components'
@@ -12,27 +12,49 @@ function ProfileBox({ user }) {
   const [nickname, setNickname] = useState('')
   const [name, setName] = useState('')
   const [ment, setMent] = useState('')
+  const [originalUserInfo, setOriginalUserInfo] = useState({})
 
-  const saveDB = async (testUser) => {
-    await setDoc(doc(collection(db, 'userInfo'), localuid), { ...testUser })
+  // Update state with existing user data when the component mounts
+  useEffect(() => {
+    setOriginalUserInfo({
+      nickname: user.nickname,
+      name: user.name,
+      ment: user.ment,
+    })
+  }, [user])
+
+  const saveDB = async (updatedUserInfo) => {
+    await setDoc(doc(collection(db, 'userInfo'), localuid), {
+      ...updatedUserInfo,
+    })
   }
-  /**
-   * 사용자에게 입력받은 value 들을
-   * 로그인한 uid의 userInfo db에 저장, redux에 저장
-   */
+
   const onComplete = () => {
+    if (nickname.trim() === '' || name.trim() === '' || ment.trim() === '') {
+      alert('변경된 내용이 없습니다.')
+      return
+    }
+
     const editUserInfo = {
       nickname,
       name,
       ment,
     }
-    console.log('수정완료onComplete', editUserInfo)
+
     dispatch(setUser(editUserInfo))
     saveDB(editUserInfo)
     setIsEditing(false)
   }
+
   const onEditProfile = () => {
     setIsEditing(true)
+  }
+
+  const onCancelEdit = () => {
+    setNickname(originalUserInfo.nickname)
+    setName(originalUserInfo.name)
+    setMent(originalUserInfo.ment)
+    setIsEditing(false)
   }
 
   return (
@@ -40,29 +62,32 @@ function ProfileBox({ user }) {
       <TextBox>
         {!isEditing ? (
           <>
-            <p>메일주소 : {user.email} </p>
-            <p>닉네임 : {user.nickname} </p>
-            <p>이름 : {user.name}</p>
-            <p>한마디 : {user.ment} </p>
+            <p>메일주소: {user.email}</p>
+            <p>닉네임: {originalUserInfo.nickname}</p>
+            <p>이름: {originalUserInfo.name}</p>
+            <p>한마디: {originalUserInfo.ment}</p>
           </>
         ) : (
           <>
-            <p>메일주소 : {user.email} </p>
-            <label>닉네임 :</label>
+            <p>메일주소: {user.email}</p>
+            <label>닉네임:</label>
             <input
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
             />
-            <label>이름 :</label>
+            <label>이름:</label>
             <input value={name} onChange={(e) => setName(e.target.value)} />
-            <label>한마디 :</label>
+            <label>한마디:</label>
             <input value={ment} onChange={(e) => setMent(e.target.value)} />
           </>
         )}
       </TextBox>
       <ButtonBox>
         {isEditing ? (
-          <button onClick={onComplete}>완료</button>
+          <>
+            <button onClick={onComplete}>완료</button>
+            <button onClick={onCancelEdit}>취소</button>
+          </>
         ) : (
           <button onClick={onEditProfile}>수정</button>
         )}
@@ -98,5 +123,6 @@ const ButtonBox = styled.div`
   & button {
     height: 40px;
     width: 80px;
+    margin-right: 10px;
   }
 `
