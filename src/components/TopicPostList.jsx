@@ -1,6 +1,7 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 import { db } from '../firebase'
 function TopicPostList({ selectedTopic }) {
   const [posts, setPosts] = useState([])
@@ -12,9 +13,11 @@ function TopicPostList({ selectedTopic }) {
         querySnapshot.forEach((doc) => {
           fetchedPosts.push({ id: doc.id, data: doc.data() })
         })
+
         const filteredPosts = fetchedPosts.filter(
           (post) => post.data.topicName === selectedTopic.topicName
         )
+
         setPosts(filteredPosts)
       } catch (error) {
         console.error('Error fetching data: ', error)
@@ -22,6 +25,7 @@ function TopicPostList({ selectedTopic }) {
     }
     fetchData()
   }, [selectedTopic, db])
+
   return (
     <div>
       <h1>Post 리스트</h1>

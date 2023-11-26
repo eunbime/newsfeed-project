@@ -1,12 +1,13 @@
 import HeaderNav from 'components/HeaderNav'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 function Layout() {
+  const navigate = useNavigate()
   return (
     <LayoutContainer>
       <Header>
-        <Title>Enjoy P</Title>
+        <Title onClick={() => navigate('/')}>Enjoy P</Title>
         <HeaderNav />
       </Header>
       <StLayout>
@@ -38,14 +39,8 @@ const Header = styled.header`
 const Title = styled.h1`
   font-size: xx-large;
   font-weight: bold;
+  cursor: pointer;
 `
-
-const HeaderRight = styled.section`
-  display: flex;
-  gap: 0.5rem;
-`
-
-const Search = styled.div``
 
 const StLayout = styled.div`
   display: flex;

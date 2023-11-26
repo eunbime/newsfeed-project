@@ -3,12 +3,14 @@ import styled from 'styled-components'
 
 const CarouselCard = ({ post }) => {
   const navigate = useNavigate()
-  const handleCardClick = () => {
-    navigate(`/detail/${post.id}`, { state: { post } })
-  }
-  console.log(post.postImg)
+
+  const defaultImg =
+    'https://png.pngtree.com/background/20210709/original/pngtree-water-evergreen-sea-ocean-background-picture-image_634888.jpg'
   return (
-    <CardContainer onClick={handleCardClick} image={post.postImg}>
+    <CardContainer
+      onClick={() => navigate(`/detail/${post.id}`, { state: post })}
+      image={post.postImg || defaultImg}
+    >
       <TextBox>
         <CardTitle>{post.title}</CardTitle>
         <User>
@@ -43,6 +45,7 @@ const CardContainer = styled.div`
   z-index: 0;
   cursor: pointer;
   transition: 0.3s;
+  background-color: gray;
   background-image: url(${(props) => props.image});
   background-size: cover;
 
