@@ -132,7 +132,9 @@ table {
 }
 
 :root {
-  --mainOrange: #FC913A
+  --mainOrange: #FC913A;
+  --mainYellow: #EAE374;
+  --basicColor: #E2F4C7;
 }
 
 body {

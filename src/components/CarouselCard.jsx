@@ -3,17 +3,18 @@ import styled from 'styled-components'
 
 const CarouselCard = ({ post }) => {
   const navigate = useNavigate()
-  const defaultImg = 'assets/default-profile.jpeg'
+  const defaultPostImg = 'default-post.jpeg'
+  const defaultUserImg = 'default-profile.jpeg'
   return (
     <CardContainer
       onClick={() => navigate(`/detail/${post.id}`, { state: post })}
-      image={post.postImg}
+      image={post.postImg || defaultPostImg}
     >
       <TextBox>
         <CardTitle>{post.title}</CardTitle>
         <User>
           <UserImg>
-            <img src={post.userimg || defaultImg} alt="profile" />
+            <img src={post.userimg || defaultUserImg} alt="profile" />
           </UserImg>
           <UserName>{post.userName}</UserName>
         </User>
@@ -46,7 +47,7 @@ const CardContainer = styled.div`
 
   @media (min-width: 750px) {
     transition: 0.5s;
-    width: 300px;
+    min-width: 300px;
     height: 180px;
   }
   // 선택자 사용하여 요소 선택
@@ -64,7 +65,7 @@ const CardContainer = styled.div`
   }
 `
 const CardTitle = styled.h3`
-  font-size: large;
+  font-size: medium;
 
   @media (min-width: 750px) {
     font-size: x-large;
