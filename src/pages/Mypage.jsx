@@ -104,7 +104,6 @@ const MyFeedBox = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 800px;
-  border: 1px solid black;
 `
 
 const TopicSelector = styled.ul`
@@ -113,10 +112,11 @@ const TopicSelector = styled.ul`
 
   > li {
     padding: 0.5rem;
-    background-color: gray;
+    background-color: var(--mainOrange);
     border-radius: 0.5rem;
     text-align: center;
     transition: 0.5s;
+    cursor: pointer;
 
     &:hover {
       opacity: 80%;

@@ -26,8 +26,10 @@ const FigureBox = styled.figure`
   height: 200px;
   padding: 20px;
   & img {
-    width: 100%;
+    width: 180px;
+    height: 180px;
     border-radius: 50%;
+    margin: 10px;
   }
   & button {
     margin-top: 10px;
