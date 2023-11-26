@@ -45,16 +45,16 @@ function Mypage() {
     fetchData()
   }, [])
 
-  // useEffect(() => {
-  //   dispatch(filterPost(user.uid))
-  // }, [])
+  useEffect(() => {
+    setUserTopics([...new Set(userTopics)])
+  }, [])
+
   const filteredPosts = posts.filter((post) => post.userid === localuid)
 
   filteredPosts.map((post) => {
-    console.log(post.userid, user.uid)
-    console.log(post)
-    if (userTopics.includes(post.topicName)) return
-    setUserTopics((prev) => [...prev, post.topicName])
+    if (!userTopics.includes(post.topicName)) {
+      setUserTopics((prev) => [...prev, post.topicName])
+    }
   })
 
   return (
