@@ -50,7 +50,6 @@ const NoPosts = styled.div`
 
 const PostList = styled.div`
   padding: 10px;
-  border: 1px solid;
 `
 
 const ImgBox = styled.div`
@@ -72,6 +71,11 @@ const PostInfo = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   transition: transform 0.3s ease;
+  border-radius: 10px;
+  background-color: #ffe7cf;
+  margin: 10px;
+  padding: 10px;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.1);

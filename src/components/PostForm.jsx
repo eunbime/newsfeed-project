@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { db, storage } from '../firebase'
-
 function PostForm() {
   const topics = useSelector((state) => state.topics)
   const [selectedTopic, setSelectedTopic] = useState('')
@@ -102,10 +101,8 @@ function PostForm() {
     e.preventDefault()
     await handleFormSubmit(e)
   }
-
   return (
     <PostFormContainer>
-      <HeadTitle>Enjoy P</HeadTitle>
       <Form>
         <form onSubmit={handleCombinedSubmit}>
           <InputWrapper>
@@ -173,16 +170,7 @@ const PostFormContainer = styled.div`
   flex-direction: column;
   align-items: center;
 `
-const HeadTitle = styled.div`
-  font-size: xx-large;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  text-align: center;
-  display: flex;
-  position: fixed;
-  margin-top: 60px;
-`
+
 const Form = styled.form`
   background-color: #f3f3f3;
   padding: 1.5vh;
@@ -212,8 +200,8 @@ const InputWrapper = styled.div`
     text-align: start;
     box-sizing: border-box;
     resize: none;
-    border-radius: 5px;
-    border-width: 0;
+    border: 1px solid #848484;
+    border-radius: 1vh;
   }
   & input {
     height: 4vh;
@@ -221,31 +209,30 @@ const InputWrapper = styled.div`
     margin-top: 2vh;
     text-align: start;
     box-sizing: border-box;
-    border-radius: 5px;
-    border-width: 0;
+    border: 1px solid #848484;
+    border-radius: 0.8vh;
+    font-weight: bold;
   }
 `
 const FileWrapper = styled.div`
-  margin-left: 4vh;
+  margin-left: 2.5vh;
   margin-top: 1vh;
   text-align: start;
-
   .custom-file-upload {
-    border: 1px solid black;
+    border: 1px solid #848484;
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
     background-color: #f7f7f7;
-    border-radius: 4px;
+    border-radius: 0.5vh;
     transition: background-color 0.3s ease;
   }
-
   .custom-file-upload:hover {
     background-color: gray;
   }
 `
 const TopicWrapper = styled.div`
-  margin-left: 2vw;
+  margin-left: 1.5vw;
   margin-top: 1vh;
   text-align: start;
   & select {
@@ -259,23 +246,43 @@ const ButtonWrapper = styled.div`
   margin-top: 1vh;
 `
 const SubmitButton = styled.button`
-  width: 13vw;
+  width: 7vw;
   height: 5vh;
-  margin-left: 2vw;
+  margin-left: 1.5vw;
   margin-top: 1vh;
   align-self: flex-start;
+  border: 1px solid #848484;
+  border-radius: 1vh;
+  &:hover {
+    background-color: gray;
+  }
   @media screen and (max-width: 600px) {
     /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
-    width: 13vw; /* 예시: 화면이 작아지면 버튼을 전체 너비로 설정 */
+    width: 7vw; /* 예시: 화면이 작아지면 버튼을 전체 너비로 설정 */
+    border: 1px solid #848484;
+    border-radius: 1vh;
+    &:hover {
+      background-color: gray;
+    }
   }
 `
 const HomeButton = styled.button`
-  width: 13vw;
+  width: 7vw;
   height: 5vh;
-  margin-right: 2vw;
+  margin-right: 1.5vw;
   margin-top: 1vh;
+  border: 1px solid #848484;
+  border-radius: 1vh;
+  &:hover {
+    background-color: gray;
+  }
   @media screen and (max-width: 600px) {
     /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
-    width: 13vw; /* 예시: 화면이 작아지면 버튼을 전체 너비로 설정 */
+    width: 7vw; /* 예시: 화면이 작아지면 버튼을 전체 너비로 설정 */
+    border: 1px solid #848484;
+    border-radius: 1vh;
+    &:hover {
+      background-color: gray;
+    }
   }
 `
