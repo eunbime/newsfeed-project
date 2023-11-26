@@ -34,15 +34,15 @@ function Home() {
             topics.map((topic) => (
               <div key={topic.id}>
                 <Link to={`/topic/${topic.topicName}`} state={{ topic: topic }}>
-                  <h2>{topic.topicName}</h2>
+                  <TopicTitle>{topic.topicName}</TopicTitle>
                 </Link>
                 <PostCarousel topic={topic} />
               </div>
             ))
           ) : (
-            <div>
+            <NotFoundPost>
               <h2>현재 게시된 포스트가 없습니다.</h2>
-            </div>
+            </NotFoundPost>
           )}
         </ListContainer>
       </Container>
@@ -54,21 +54,29 @@ export default Home
 
 const Container = styled.div`
   width: 100%;
-  border: 1px solid black;
   padding: 1rem;
 `
 
 const ListContainer = styled.div`
-  border: 1px solid black;
+  max-width: 1250px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 1250px;
   margin: 0 auto;
+`
 
-  & h2 {
-    padding-bottom: 0.5rem;
-    font-size: x-large;
-    font-weight: bold;
+const TopicTitle = styled.h2`
+  padding: 1rem 0;
+  font-size: x-large;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: #888;
   }
+`
+
+const NotFoundPost = styled.div`
+  //
 `

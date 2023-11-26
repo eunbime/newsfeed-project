@@ -31,7 +31,7 @@ const UserPostList = ({ userPosts }) => {
 }
 
 const Container = styled.div`
-  border: solid 1px black;
+  //
 `
 
 const PostList = styled.ul`
@@ -39,10 +39,14 @@ const PostList = styled.ul`
 `
 
 const ImgBox = styled.div`
-  width: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 750px;
   height: 400px;
   background-image: url(${(props) => props.image});
   background-size: cover;
+  background-repeat: no-repeat;
 `
 
 export default UserPostList
