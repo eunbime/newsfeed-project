@@ -6,7 +6,10 @@ const Modal = ({ onClose }) => {
     <>
       <ModalWrapper>
         <ModalBox>
-          <ModalOffBtn onClick={onClose}> X </ModalOffBtn>
+          <ModalDiv>
+            <h1>로그인</h1>
+            <ModalOffdiv onClick={onClose}>X</ModalOffdiv>
+          </ModalDiv>
           <Login onModalClose={onClose} />
         </ModalBox>
       </ModalWrapper>
@@ -32,21 +35,30 @@ const ModalBox = styled.div`
   display: flex;
   flex-direction: column;
   width: 500px;
-  height: 500px;
+  height: 300px;
   background-color: white;
-  padding: 20px;
+  padding: 25px 40px;
   border: 2px solid rgb(240, 240, 240);
   border-radius: 12px;
   transition: 1s;
 `
 
-const ModalOffBtn = styled.button`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #e3e1e1;
-  font-size: 1.4rem;
+const ModalOffdiv = styled.div`
+  font-size: 1.5rem;
   cursor: pointer;
+  font-weight: 500;
+  color: #a15208;
+`
 
-  margin-left: auto;
+const ModalDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  justify-content: space-between;
+
+  & h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #a15208;
+  }
 `
