@@ -2,6 +2,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+import styled from 'styled-components'
 import { db } from '../firebase'
 
 function Detail({ posts }) {
@@ -28,18 +29,16 @@ function Detail({ posts }) {
 
   const handleDelete = async () => {
     const confirmDelete = window.confirm('정말 이 게시물을 삭제하시겠습니까?')
-    window.location.href = '/'
     if (!confirmDelete) {
       return
     }
     try {
-      const postRef = doc(db, 'posts', post.id)
-      await deleteDoc(postRef)
-      // 삭제 후 리다이렉트 또는 다른 작업 처리 예시:
-      // navigate('/posts') // 게시물 목록 페이지로 리다이렉트
+      const postRef = doc(db, 'posts', id) // URL에서 추출한 id를 사용하여 해당 게시물에 대한 참조 생성
+      await deleteDoc(postRef) // Firestore에서 게시물 삭제
+      navigate('/')
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error)
-      // 오류 처리 방법에 따라 처리 (예: 오류 메시지 표시)
+      // 에러 처리, 예를 들어 에러 메시지 표시 등
     }
   }
 
@@ -62,15 +61,25 @@ function Detail({ posts }) {
     const confirmSave = window.confirm(
       '정말 이대로 변경 사항을 저장하시겠습니까?'
     )
-    window.location.href = '/'
     if (!confirmSave) {
       return
     }
-    const postRef = doc(db, 'posts', post.id)
-    await updateDoc(postRef, { content: editedContent, title: editedTitle })
-    setEditingContent(false)
-    setEditingTitle(false)
-    const updatedPost = { ...post, content: editedContent, title: editedTitle }
+
+    try {
+      const postRef = doc(db, 'posts', post.id)
+      await updateDoc(postRef, { content: editedContent, title: editedTitle })
+      setEditingContent(false)
+      setEditingTitle(false)
+      const updatedPost = {
+        ...post,
+        content: editedContent,
+        title: editedTitle,
+      }
+      navigate('/') // Redirect after successful save
+    } catch (error) {
+      console.error('게시물 업데이트 중 오류:', error)
+      // 에러 처리, 예를 들어 에러 메시지 표시 등
+    }
   }
 
   const handleCancelEdit = () => {
@@ -81,45 +90,192 @@ function Detail({ posts }) {
   }
 
   return (
-    <div>
-      <img src={post.profileImg} alt="프로필" />
-      <p>{post.userid}</p>
-      <p>{post.userName}</p>
-      {editingTitle ? (
-        <input
-          value={editedTitle}
-          onChange={(e) => setEditedTitle(e.target.value)}
-        />
-      ) : (
-        <h2>{post.title}</h2>
-      )}
-      <img src={post.postImg} alt="게시물" />
-      {editingContent ? (
-        <textarea
-          value={editedContent}
-          onChange={(e) => setEditedContent(e.target.value)}
-        />
-      ) : (
-        <p>{post.content}</p>
-      )}
-      {isUserMatch && // 수정, 삭제 버튼은 사용자가 일치하는 경우에만 보여집니다.
-        (editingContent || editingTitle ? (
-          <div>
-            <Link to="/">
-              <button onClick={handleSave}>저장</button>
-            </Link>
-            <button onClick={handleCancelEdit}>취소</button>
-          </div>
+    <DetailContainer>
+      <TitleContainer>
+        <TitleImage src={post.userimg} alt="프로필" />
+        {editingTitle ? (
+          <input
+            value={editedTitle}
+            onChange={(e) => setEditedTitle(e.target.value)}
+          />
         ) : (
-          <button onClick={handleEdit}>수정</button>
-        ))}
-      {isUserMatch && ( // 삭제 버튼은 사용자가 일치하는 경우에만 보여집니다.
-        <Link to="/">
-          <button onClick={handleDelete}>삭제</button>
-        </Link>
-      )}
-    </div>
+          <Titlefontcontainer>
+            <h2>{post.title}</h2>
+          </Titlefontcontainer>
+        )}
+      </TitleContainer>
+      <UserInfoContainer>
+        <p>닉네임 : {post.username}</p>
+        <p>선택한 토픽 : {post.topicName}</p>
+      </UserInfoContainer>
+      <ContentContainer>
+        {editingContent ? (
+          <textarea
+            value={editedContent}
+            onChange={(e) => setEditedContent(e.target.value)}
+          />
+        ) : (
+          <>
+            <PostImage src={post.postImg} alt="게시물" />
+            <p>{post.content}</p>
+          </>
+        )}
+      </ContentContainer>
+      <ButtonContainer>
+        {isUserMatch &&
+          (editingContent || editingTitle ? (
+            <SaveCancelButtonContainer>
+              <Link to="/">
+                <button className="save" onClick={handleSave}>
+                  저장
+                </button>
+              </Link>
+              <button className="cancel" onClick={handleCancelEdit}>
+                취소
+              </button>
+            </SaveCancelButtonContainer>
+          ) : (
+            <button className="edit" onClick={handleEdit}>
+              수정
+            </button>
+          ))}
+        {isUserMatch && (
+          <Link to="/">
+            <button className="delete" onClick={handleDelete}>
+              삭제
+            </button>
+          </Link>
+        )}
+      </ButtonContainer>
+    </DetailContainer>
   )
 }
 
 export default Detail
+
+const DetailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+const TitleContainer = styled.div`
+  box-sizing: border-box;
+  font-weight: bold;
+  width: 50vw;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+`
+const TitleImage = styled.img`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+`
+
+const Titlefontcontainer = styled.div`
+  font-size: 30px;
+  margin-left: 10px;
+`
+
+const UserInfoContainer = styled.div`
+  box-sizing: border-box;
+  width: 30vw;
+  height: 5vh;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+`
+
+const ContentContainer = styled.div`
+  box-sizing: border-box;
+  width: 30vw;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > * + * {
+    margin-top: 20px;
+  }
+`
+const PostImage = styled.img`
+  width: 50%;
+  height: auto;
+`
+
+const SaveCancelButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+
+  button {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition:
+      background-color 0.3s,
+      border-color 0.3s;
+    color: #fff;
+  }
+
+  button.save,
+  button.cancel,
+  button.edit,
+  button.delete {
+    border: 2px solid transparent;
+  }
+
+  button.save,
+  button.cancel {
+    background-color: #fc913a;
+  }
+
+  button.cancel {
+    background-color: #bd2130;
+  }
+
+  button:hover {
+    border-color: #fff;
+  }
+`
+
+const ButtonContainer = styled.div`
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+
+  button {
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition:
+      background-color 0.3s,
+      border-color 0.3s;
+    color: #fff;
+  }
+
+  button.edit,
+  button.delete {
+    background-color: #fc913a;
+  }
+
+  button:hover {
+    border-color: #fff;
+  }
+`
