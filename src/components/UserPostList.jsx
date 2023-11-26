@@ -24,7 +24,10 @@ const UserPostList = ({ userPosts }) => {
           console.log(post.userid)
           console.log(post.id)
           return (
-            <PostList onClick={() => navigate(`/detail/${post.id}`)}>
+            <PostList
+              key={post.id}
+              onClick={() => navigate(`/detail/${post.id}`, { state: post })}
+            >
               <ImgBox image={post.postImg} />
               <li>{post.title}</li>
               <li>{post.content}</li>

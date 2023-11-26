@@ -7,7 +7,7 @@ const TabNavigation = () => {
   const topics = useSelector((state) => state.topics)
   const [showAll, setShowAll] = useState(false)
   const [selectedTab, setSelectedTab] = useState('')
-  const visibleTopics = showAll ? topics : topics.slice(0, 5)
+  const visibleTopics = showAll ? topics : topics.slice(0, 8)
 
   const toggleShowAll = () => {
     setShowAll((prev) => !prev)
@@ -38,7 +38,7 @@ const TabNavigation = () => {
             <span>{item.topicIco}</span> <span>{item.topicName}</span>
           </NavLink>
         ))}
-        {topics.length > 5 && (
+        {topics.length > 8 && (
           <ShowHideButton onClick={toggleShowAll}>
             {showAll ? '줄이기' : '더보기'}
           </ShowHideButton>
