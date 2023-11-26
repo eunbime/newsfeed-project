@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { db, storage } from '../firebase'
+
 function PostForm() {
   const topics = useSelector((state) => state.topics)
   const [selectedTopic, setSelectedTopic] = useState('')

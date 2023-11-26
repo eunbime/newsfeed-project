@@ -39,6 +39,8 @@ function ProfileBox({ user }) {
       nickname,
       name,
       ment,
+      email: user.email,
+      userimg: user.userimg,
     }
 
     dispatch(setUser(editUserInfo))
