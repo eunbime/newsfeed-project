@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setLogin, setLogout } from 'redux/modules/auth'
+import { logOutUser } from 'redux/modules/user'
 import styled from 'styled-components'
 import { auth } from '../firebase'
 import Modal from './Modal'
@@ -34,7 +35,9 @@ const HeaderNav = () => {
   const logOut = async () => {
     await signOut(auth)
     dispatch(setLogout())
+    dispatch(logOutUser())
     localStorage.removeItem('useruid')
+    navigate(`/`)
   }
 
   const handleToPage = (page) => {

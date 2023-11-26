@@ -38,9 +38,13 @@ function Fileupload() {
   //   e.preventDefault()
 
   const saveDB = async (imageUrl) => {
-    await setDoc(doc(collection(db, 'userInfo'), localuid), {
-      userimg: imageUrl,
-    })
+    await setDoc(
+      doc(collection(db, 'userInfo'), localuid),
+      {
+        userimg: imageUrl,
+      },
+      { merge: true }
+    )
   }
 
   const handleSubmit = async (e) => {
