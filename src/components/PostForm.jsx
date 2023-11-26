@@ -127,6 +127,9 @@ function PostForm() {
             ></textarea>
           </InputWrapper>
           <FileWrapper>
+            <label for="file">
+              <div class="btn-upload">파일 업로드하기</div>
+            </label>
             <input type="file" onChange={handleFileSelect} />
           </FileWrapper>
 
@@ -192,6 +195,27 @@ const FileWrapper = styled.div`
   margin-left: 3.5vh;
   margin-top: 1vh;
   text-align: start;
+
+  > label {
+    width: 150px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid rgb(77, 77, 77);
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background: rgb(77, 77, 77);
+      color: #fff;
+    }
+
+    input {
+      display: none;
+    }
+  }
 `
 const TopicWrapper = styled.div`
   margin-left: 3.5vh;

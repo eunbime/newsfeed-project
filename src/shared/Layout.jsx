@@ -8,7 +8,13 @@ function Layout() {
     <LayoutContainer>
       <Header>
         <HeaderWrapper>
-          <Title onClick={() => navigate('/')}>Enjoy P</Title>
+          <Title
+            onClick={() => {
+              window.location.replace('/')
+            }}
+          >
+            Enjoy P
+          </Title>
           <HeaderNav />
         </HeaderWrapper>
       </Header>
@@ -35,7 +41,7 @@ const LayoutContainer = styled.div`
 
 const Header = styled.header`
   width: '100%';
-  height: 7rem;
+  height: 6rem;
   display: flex;
   align-items: center;
   padding: 0 1rem;
