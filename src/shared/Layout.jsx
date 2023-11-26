@@ -37,16 +37,7 @@ const LayoutContainer = styled.div`
 `
 
 const Header = styled.header`
-  background: linear-gradient(
-    to right,
-    #ff0000,
-    /* Red */ #ff7f00,
-    /* Orange */ #ffff00,
-    /* Yellow */ #00ff00,
-    /* Green */ #0000ff,
-    /* Blue */ #4b0082,
-    /* Indigo */ #9400d3 /* Violet */
-  );
+  background: linear-gradient(to right, #e2f4c7, #eae374, #f9d62e);
   width: '100%';
   height: 7rem;
   display: flex;
