@@ -145,8 +145,12 @@ const NotFoundPost = styled.div`
   text-align: center;
 
   > h2 {
-    font-size: x-large;
+    font-size: medium;
     font-weight: bold;
+
+    @media (min-width: 750px) {
+      font-size: x-large;
+    }
   }
 `
 
@@ -159,10 +163,10 @@ const WriteButton = styled.button`
   font-weight: 500;
   cursor: pointer;
   margin-top: 1rem;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: green;
+    background-color: var(--mainOrange);
     color: #fff;
     box-shadow: 0 0 5px #888;
   }
