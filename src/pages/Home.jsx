@@ -67,13 +67,17 @@ const ListContainer = styled.div`
 
 const TopicTitle = styled.h2`
   padding: 1rem 0;
-  font-size: x-large;
+  font-size: large;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
   &:hover {
     color: #888;
+  }
+
+  @media (min-width: 750px) {
+    font-size: x-large;
   }
 `
 

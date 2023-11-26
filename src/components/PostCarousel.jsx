@@ -33,8 +33,13 @@ const PostCarousel = ({ topic }) => {
     ref.current.style.transform = `translateX(-${slideRange}px)`
   }, [currentSlide])
 
+  const filteredPosts = posts
+    .filter((item) => item.topicName === topic.topicName)
+    .sort()
+    .reverse()
+
   const moveToNextSlide = () => {
-    if (currentSlide === 6) return
+    if (currentSlide === filteredPosts.length) return
     setCurrentSlide(currentSlide + 1)
   }
 
@@ -44,11 +49,6 @@ const PostCarousel = ({ topic }) => {
   }
 
   // 선택된 topic에 대한 값 가져와서 비교
-
-  const filteredPosts = posts
-    .filter((item) => item.topicName === topic.topicName)
-    .sort()
-    .reverse()
 
   return (
     <Container>

@@ -20,10 +20,8 @@ function PostForm() {
   const [content, setContent] = useState('')
   const { auth, user } = useSelector((state) => state)
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
-
   const handleFileSelect = (event) => {
     const file = event.target.files[0]
-
     if (file) {
       if (allowedFileTypes.includes(file.type)) {
         setSelectedFile(file)
@@ -36,19 +34,17 @@ function PostForm() {
       }
     }
   }
-
   const uploadImageAndGetURL = async () => {
     if (selectedFile) {
       const storageRef = ref(storage, 'folder/' + selectedFile.name)
-      await uploadBytes(storageRef, selectedFile)
-      const url = await getDownloadURL(storageRef)
+      await uploadBytes(storageRef, selectedFile) // 파일 업로드
+      const url = await getDownloadURL(storageRef) // 파일 url 가져오기
       setImageUrl(url)
       return url
     } else {
       return ''
     }
   }
-
   const fetchData = async () => {
     try {
       const querySnapshot = await getDocs(collection(db, 'posts'))
@@ -59,26 +55,21 @@ function PostForm() {
       console.error('오류:', error)
     }
   }
-
   const handleFormSubmit = async (e) => {
     e.preventDefault()
-
     if (!title || !content || !selectedTopic) {
       alert('제목, 내용, 토픽을 모두 입력해주세요.')
       return
     }
-
     const userConfirmation = window.confirm(
       '선택한 파일과 토픽으로 제출하시겠습니까?'
     )
-
     if (userConfirmation) {
       try {
         let imageUrl = ''
         if (selectedFile) {
           imageUrl = await uploadImageAndGetURL()
         }
-
         await addDoc(collection(db, 'posts'), {
           title: title,
           content: content,
@@ -89,14 +80,11 @@ function PostForm() {
           userimg: user.userimg,
           createdAt: serverTimestamp(),
         })
-
         fetchData()
-
         setTitle('')
         setContent('')
         setSelectedTopic('')
         setSelectedFile('')
-
         alert('양식이 성공적으로 제출되었습니다!')
         window.location.href = '/'
       } catch (error) {
@@ -107,11 +95,9 @@ function PostForm() {
       alert('제출이 취소되었습니다')
     }
   }
-
   useEffect(() => {
     fetchData()
   }, [])
-
   const handleCombinedSubmit = async (e) => {
     e.preventDefault()
     await handleFormSubmit(e)

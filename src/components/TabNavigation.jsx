@@ -52,7 +52,7 @@ export default TabNavigation
 
 const ShowHideButton = styled.button`
   font-size: small;
-  padding: 0.4rem;
+  padding: 0.4rem 0.5rem;
   color: #fff;
   background-color: gray;
   border-radius: 0.5rem;
@@ -65,7 +65,7 @@ const ShowHideButton = styled.button`
   }
 
   @media (min-width: 750px) {
-    font-size: medium;
+    font-size: large;
   }
 `
 
@@ -93,6 +93,6 @@ const NavLink = styled(Link)`
   }
 
   @media (min-width: 750px) {
-    font-size: medium;
+    font-size: large;
   }
 `
