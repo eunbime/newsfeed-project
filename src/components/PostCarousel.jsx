@@ -44,9 +44,10 @@ const PostCarousel = ({ topic }) => {
 
   // 선택된 topic에 대한 값 가져와서 비교
 
-  const filteredPosts = posts.filter(
-    (item) => item.topicName === topic.topicName
-  )
+  const filteredPosts = posts
+    .filter((item) => item.topicName === topic.topicName)
+    .sort()
+    .reverse()
 
   return (
     <Container>

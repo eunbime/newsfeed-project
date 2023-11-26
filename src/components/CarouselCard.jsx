@@ -3,8 +3,7 @@ import styled from 'styled-components'
 
 const CarouselCard = ({ post }) => {
   const navigate = useNavigate()
-  const defaultImg =
-    'https://png.pngtree.com/background/20210709/original/pngtree-water-evergreen-sea-ocean-background-picture-image_634888.jpg'
+  const defaultImg = 'assets/default-profile.jpeg'
   return (
     <CardContainer
       onClick={() => navigate(`/detail/${post.id}`, { state: post })}

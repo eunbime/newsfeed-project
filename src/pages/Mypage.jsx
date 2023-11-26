@@ -20,9 +20,7 @@ function Mypage() {
   const dispatch = useDispatch()
   const { auth, user, topics, posts } = useSelector((state) => state)
   const [userTopics, setUserTopics] = useState([])
-  const [userPosts, setUserPosts] = useState([])
   const navigate = useNavigate()
-  console.log('user', user)
   const loginUserUid = auth.loginUserUid // 사용자 UID
 
   useEffect(() => {
@@ -31,7 +29,7 @@ function Mypage() {
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
-        console.log('Document data:', docSnap.data())
+        // console.log('Document data:', docSnap.data())
         const userFromDB = docSnap.data()
         dispatch(setUser({ uid: loginUserUid, ...userFromDB }))
       } else {
@@ -43,19 +41,12 @@ function Mypage() {
     fetchData()
   }, [loginUserUid])
 
-  useEffect(() => {
-    const filteredPosts = posts.filter((post) => post.uid === user.uid)
-    setUserPosts(filteredPosts)
-  }, [])
+  // useEffect(() => {
+  //   dispatch(filterPost(user.uid))
+  // }, [])
+  const filteredPosts = posts.filter((post) => post.uid === user.uid)
 
-  // if (posts.uid === user.uid) {
-  //   const filteredTopics = topics.filter(
-  //     (topic) => topic.topicName !== posts.topicName
-  //   )
-  //   setUserTopics(filteredTopics)
-  // }
-
-  userPosts.map((post) => {
+  filteredPosts.map((post) => {
     if (userTopics.includes(post.topicName)) return
     setUserTopics((prev) => [...prev, post.topicName])
   })
@@ -79,7 +70,7 @@ function Mypage() {
             </li>
           </TopicSelector>
         ))}
-        <UserPostList userPosts={userPosts} />
+        <UserPostList userPosts={filteredPosts} />
       </MyFeedBox>
     </PageBody>
   )

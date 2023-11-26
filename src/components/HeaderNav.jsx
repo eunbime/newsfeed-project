@@ -29,25 +29,19 @@ const HeaderNav = () => {
 
   return (
     <Container>
-      <SearchBox>
-        <input type="text" placeholder="검색어를 입력해주세요" />
-        <button>검색</button>
-      </SearchBox>
-
       {!isLogin && <button onClick={() => setModalOpen(true)}>로그인</button>}
       {isLogin && (
         <>
           <button onClick={() => navigate('/write')}>글작성</button>
-          <button onClick={() => navigate('/mypage')}>mypage</button>
           <button onClick={logOut}>로그아웃</button>
+          {/* 유저 프로필 사진으로 변경 */}
+          <button onClick={() => navigate('/mypage')}>mypage</button>
         </>
       )}
       {modalOpen && <Modal onClose={() => setModalOpen(false)} />}
     </Container>
   )
 }
-
-const SearchBox = styled.div``
 
 const Container = styled.nav`
   display: flex;
