@@ -22,7 +22,10 @@ const UserPostList = ({ userPosts }) => {
         })
         .map((post) => {
           return (
-            <PostList onClick={() => navigate(`/detail/${post.id}`)}>
+            <PostList
+              key={post.id}
+              onClick={() => navigate(`/detail/${post.id}`, { state: post })}
+            >
               <ImgBox image={post.postImg} />
               <li>{post.title}</li>
               <li>{post.content}</li>

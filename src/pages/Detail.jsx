@@ -1,7 +1,7 @@
 import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { db } from '../firebase'
 
 function Detail({ posts }) {
@@ -25,18 +25,17 @@ function Detail({ posts }) {
   }, [loginUserUid, post.userid])
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm('이 게시물을 삭제하시겠습니까?')
+    const confirmDelete = window.confirm('정말 이 게시물을 삭제하시겠습니까?')
     if (!confirmDelete) {
       return
     }
     try {
-      const postRef = doc(db, 'posts', post.id)
-      await deleteDoc(postRef)
-      // 삭제 후 리다이렉트 또는 다른 작업 처리 예시:
-      // navigate('/posts') // 게시물 목록 페이지로 리다이렉트
+      const postRef = doc(db, 'posts', id) // URL에서 추출한 id를 사용하여 해당 게시물에 대한 참조 생성
+      await deleteDoc(postRef) // Firestore에서 게시물 삭제
+      navigate('/')
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error)
-      // 오류 처리 방법에 따라 처리 (예: 오류 메시지 표시)
+      // 에러 처리, 예를 들어 에러 메시지 표시 등
     }
   }
 
@@ -56,15 +55,28 @@ function Detail({ posts }) {
       alert('변경된 내용이 없습니다.')
       return
     }
-    const confirmSave = window.confirm('변경 사항을 저장하시겠습니까?')
+    const confirmSave = window.confirm(
+      '정말 이대로 변경 사항을 저장하시겠습니까?'
+    )
     if (!confirmSave) {
       return
     }
-    const postRef = doc(db, 'posts', post.id)
-    await updateDoc(postRef, { content: editedContent, title: editedTitle })
-    setEditingContent(false)
-    setEditingTitle(false)
-    const updatedPost = { ...post, content: editedContent, title: editedTitle }
+
+    try {
+      const postRef = doc(db, 'posts', post.id)
+      await updateDoc(postRef, { content: editedContent, title: editedTitle })
+      setEditingContent(false)
+      setEditingTitle(false)
+      const updatedPost = {
+        ...post,
+        content: editedContent,
+        title: editedTitle,
+      }
+      navigate('/') // Redirect after successful save
+    } catch (error) {
+      console.error('게시물 업데이트 중 오류:', error)
+      // 에러 처리, 예를 들어 에러 메시지 표시 등
+    }
   }
 
   const handleCancelEdit = () => {
@@ -99,14 +111,18 @@ function Detail({ posts }) {
       {isUserMatch && // 수정, 삭제 버튼은 사용자가 일치하는 경우에만 보여집니다.
         (editingContent || editingTitle ? (
           <div>
-            <button onClick={handleSave}>저장</button>
+            <Link to="/">
+              <button onClick={handleSave}>저장</button>
+            </Link>
             <button onClick={handleCancelEdit}>취소</button>
           </div>
         ) : (
           <button onClick={handleEdit}>수정</button>
         ))}
       {isUserMatch && ( // 삭제 버튼은 사용자가 일치하는 경우에만 보여집니다.
-        <button onClick={handleDelete}>삭제</button>
+        <Link to="/">
+          <button onClick={handleDelete}>삭제</button>
+        </Link>
       )}
     </div>
   )

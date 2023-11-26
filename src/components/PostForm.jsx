@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { db, storage } from '../firebase'
+import styled from 'styled-components'
 
 function PostForm() {
   const topics = useSelector((state) => state.topics)
@@ -17,7 +18,6 @@ function PostForm() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const { auth, user } = useSelector((state) => state)
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
   const handleFileSelect = (event) => {
@@ -39,8 +39,8 @@ function PostForm() {
   const uploadImageAndGetURL = async () => {
     if (selectedFile) {
       const storageRef = ref(storage, 'folder/' + selectedFile.name)
-      await uploadBytes(storageRef, selectedFile) // 파일 업로드
-      const url = await getDownloadURL(storageRef) // 파일 url 가져오기
+      await uploadBytes(storageRef, selectedFile)
+      const url = await getDownloadURL(storageRef)
       setImageUrl(url)
       return url
     } else {
@@ -83,9 +83,6 @@ function PostForm() {
           content: content,
           postImg: imageUrl,
           topicName: selectedTopic,
-          userid: auth.loginUserUid,
-          username: user.nickname,
-          userimg: user.userimg,
           createdAt: serverTimestamp(),
         })
 
@@ -118,47 +115,107 @@ function PostForm() {
 
   return (
     <div>
-      <form onSubmit={handleCombinedSubmit}>
-        <div>
-          <label htmlFor="title">제목:</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="content">내용:</label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          ></textarea>
-        </div>
-        <input type="file" onChange={handleFileSelect} />
-        <div>
-          <label htmlFor="topic">토픽 선택:</label>
-          <select
-            id="topic"
-            value={selectedTopic}
-            onChange={(e) => setSelectedTopic(e.target.value)}
-          >
-            <option value="">토픽 선택...</option>
-            {topics.map((topic) => (
-              <option key={topic.id} value={topic.topicName}>
-                {topic.topicName}
-              </option>
-            ))}
-          </select>
-        </div>
-        <Link to="/" onClick={handleCombinedSubmit}>
-          제출 및 이미지 업로드
-        </Link>
-        <Link to="/">Home</Link>
-      </form>
+      <Form>
+        <form onSubmit={handleCombinedSubmit}>
+          <InputWrapper>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="제목을 입력해주세요(20자 제한)"
+              maxLength={20}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <textarea
+              id="content"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder="내용을 입력해주세요(200자 제한)"
+              maxLength={200}
+            ></textarea>
+          </InputWrapper>
+          <FileWrapper>
+            <input type="file" onChange={handleFileSelect} />
+          </FileWrapper>
+
+          <TopicWrapper>
+            <select
+              id="topic"
+              value={selectedTopic}
+              onChange={(e) => setSelectedTopic(e.target.value)}
+            >
+              <option value="">토픽 선택...</option>
+              {topics.map((topic) => (
+                <option key={topic.id} value={topic.topicName}>
+                  {topic.topicName}
+                </option>
+              ))}
+            </select>
+          </TopicWrapper>
+          <ButtonWrapper>
+            <SubmitButton>
+              <Link to="/" onClick={handleCombinedSubmit}>
+                제출 및 이미지 업로드
+              </Link>
+            </SubmitButton>
+            <HomeButton>
+              <Link to="/">Home</Link>
+            </HomeButton>
+          </ButtonWrapper>
+        </form>
+      </Form>
     </div>
   )
 }
 
 export default PostForm
+
+const Form = styled.form`
+  background-color: #d9d9d9;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 500px;
+  height: 500px;
+  border-radius: 12px;
+  margin: 60px auto;
+  text-align: center;
+`
+const InputWrapper = styled.div`
+  & textarea {
+    width: 420px;
+    height: 40vh;
+
+    text-align: start;
+  }
+  & input {
+    height: 30px;
+    width: 420px;
+    margin: 15px 0;
+    text-align: start;
+  }
+`
+const FileWrapper = styled.div`
+  margin-left: 3.5vh;
+  margin-top: 1vh;
+  text-align: start;
+`
+const TopicWrapper = styled.div`
+  margin-left: 3.5vh;
+  margin-top: 1vh;
+  text-align: start;
+`
+const ButtonWrapper = styled.div`
+  display: flex;
+  text-align: end;
+  margin: 10px;
+`
+const SubmitButton = styled.button`
+  margin-left: 2.2vh;
+`
+const HomeButton = styled.button`
+  margin-left: 30.5vh;
+`
