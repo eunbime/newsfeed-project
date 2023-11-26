@@ -7,8 +7,6 @@ import { db } from '../firebase'
 function Detail({ posts }) {
   const { id } = useParams()
   console.log(id)
-
-  const [data, setData] = useState([])
   const [editingContent, setEditingContent] = useState(false)
   const [editingTitle, setEditingTitle] = useState(false)
   const [editedContent, setEditedContent] = useState('')

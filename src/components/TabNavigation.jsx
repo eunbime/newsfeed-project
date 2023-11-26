@@ -51,16 +51,21 @@ const TabNavigation = () => {
 export default TabNavigation
 
 const ShowHideButton = styled.button`
-  font-size: medium;
-  padding: 0.5rem;
+  font-size: small;
+  padding: 0.4rem;
   color: #fff;
   background-color: gray;
   border-radius: 0.5rem;
   border: none;
+  text-align: center;
   transition: all 0.3s ease-in-out;
   &:hover {
     opacity: 50%;
     cursor: pointer;
+  }
+
+  @media (min-width: 750px) {
+    font-size: medium;
   }
 `
 
@@ -71,14 +76,15 @@ const NavigationHeader = styled.div`
   width: 100%;
   height: 3rem;
   gap: 1rem;
-  padding: 3rem 0 2rem 0;
+  padding: 3rem 1rem 2rem 1rem;
 `
 
 const NavLink = styled(Link)`
-  font-size: medium;
+  font-size: small;
+  font-weight: 500;
   padding: 0.5rem;
   color: ${(props) => (props.selected ? '#000' : '#fff')};
-  background-color: ${(props) => (props.selected ? 'lightgray' : 'gray')};
+  background-color: ${(props) => (props.selected ? '#EAE374' : `#FC913A`)};
   border-radius: 0.5rem;
   transition: all 0.3s ease-in-out;
   &:hover {
