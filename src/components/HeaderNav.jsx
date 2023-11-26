@@ -2,13 +2,13 @@ import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setLogout } from 'redux/modules/auth'
+import { setLogin, setLogout } from 'redux/modules/auth'
 import styled from 'styled-components'
 import { auth } from '../firebase'
 import Modal from './Modal'
 
 const HeaderNav = () => {
-  // const localuid = localStorage.getItem('useruid')
+  const localuid = localStorage.getItem('useruid')
   const [modalOpen, setModalOpen] = useState(false)
   const isLogin = useSelector((state) => state.auth.isLogin)
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ const HeaderNav = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log('naviheader: user', user)
-        //dispatch(setLogin(user.uid))
+        dispatch(setLogin(user.uid))
       }
     })
   }, [])
