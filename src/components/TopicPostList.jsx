@@ -3,6 +3,12 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { db } from '../firebase'
 
+function formatDate(timestamp) {
+  const date = timestamp.toDate()
+  const options = { year: 'numeric', month: 'short', day: 'numeric' }
+  return date.toLocaleDateString('ko-KR', options)
+}
+
 function TopicPostList({ selectedTopic }) {
   const [posts, setPosts] = useState([])
 
@@ -26,29 +32,26 @@ function TopicPostList({ selectedTopic }) {
     }
 
     fetchData()
-  }, [selectedTopic, db])
-
-  console.log(posts[1])
+  }, [selectedTopic])
 
   return (
     <div>
       <h1>Post 리스트</h1>
       <ul>
-        {posts.map((post) => {
-          console.log(post.data.createdAt)
-          return (
-            <Link to={`/detail/${post.id}`} state={post.data}>
-              <li key={post.id}>
-                <h3>{post.data.title}</h3>
-                <img src={post.data.postImg} />
-                <p>{post.data.content}</p>
-              </li>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Link to={{ pathname: `/detail/${post.id}`, state: post.data }}>
+              <h3>{post.data.title}</h3>
+              <img src={post.data.postImg} alt={post.data.title} />
+              <p>{post.data.content}</p>
+              {/* <p>{formatDate(post.data.createdAt)}</p> */}
             </Link>
-          )
-        })}
+          </li>
+        ))}
       </ul>
     </div>
   )
 }
 
+// 더미 데이터 삭제하면 주석 제거하기
 export default TopicPostList
