@@ -1,6 +1,7 @@
 import HeaderNav from 'components/HeaderNav'
 import { Outlet, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import enjoyP from '../assets/Enjoy P.png'
 
 function Layout() {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ function Layout() {
               window.location.replace('/')
             }}
           >
-            Enjoy P
+            <ImageEp src={enjoyP} alt="Enjoy P" />
           </Title>
           <HeaderNav />
         </HeaderWrapper>
@@ -40,6 +41,7 @@ const LayoutContainer = styled.div`
 `
 
 const Header = styled.header`
+  background: #fff;
   width: '100%';
   height: 6rem;
   display: flex;
@@ -56,15 +58,14 @@ const HeaderWrapper = styled.div`
   margin: 0 auto;
 `
 
-const Title = styled.h1`
-  font-size: xx-large;
-  font-weight: bold;
+const Title = styled.div`
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+`
 
-  &:hover {
-    color: var(--mainOrange);
-  }
+const ImageEp = styled.img`
+  height: auto;
+  margin: 0 10px;
 `
 
 const StLayout = styled.div`
