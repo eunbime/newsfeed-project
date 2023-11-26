@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setLogin } from 'redux/modules/auth'
 import { setUser } from 'redux/modules/user'
+import styled from 'styled-components'
 import { auth, db } from '../firebase'
 
 function Login({ onModalClose }) {
@@ -78,34 +79,95 @@ function Login({ onModalClose }) {
   }
 
   return (
-    <div>
-      <h2>로그인 페이지</h2>
-      <form>
-        <div>
-          <label>이메일 : </label>
-          <input
+    <LoginWrapper>
+      <Form>
+        <LoginAndPassword>
+          {/* <label>이메일 : </label> */}
+          <LoginInput
             type="email"
             value={email}
             name="email"
             onChange={onChange}
             required
-          ></input>
-        </div>
-        <div>
-          <label>비밀번호 : </label>
-          <input
+            placeholder="이메일을 입력해주세요"
+          ></LoginInput>
+        </LoginAndPassword>
+        <LoginAndPassword>
+          {/* <label>비밀번호 : </label> */}
+          <LoginInput
             type="password"
             value={password}
             name="password"
             onChange={onChange}
             required
-          ></input>
-        </div>
-        <button onClick={signUp}>회원가입</button>
-        <button onClick={signIn}>로그인</button>
-      </form>
-    </div>
+            placeholder="비밀번호를 입력해주세요"
+          ></LoginInput>
+        </LoginAndPassword>
+        <SignInButton onClick={signIn}>로그인</SignInButton>
+        <SignUpButton onClick={signUp}>회원가입</SignUpButton>
+      </Form>
+    </LoginWrapper>
   )
 }
 
 export default Login
+
+const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const LoginAndPassword = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+
+  & input {
+    font-size: medium;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+  }
+`
+const LoginInput = styled.input`
+  background-color: #ffe7cf;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 0.5rem;
+`
+
+const SignInButton = styled.div`
+  background-color: var(--mainOrange);
+  border: 2px solid var(--mainOrange);
+  padding: 0.3rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: medium;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 1rem;
+
+  &:hover {
+    background-color: transparent;
+  }
+`
+const SignUpButton = styled.div`
+  background-color: transparent;
+  border: 2px solid var(--mainOrange);
+  padding: 0.3rem 1rem;
+  margin-right: 0.5rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: medium;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin-top: 0.5rem;
+  &:hover {
+    background-color: var(--mainOrange);
+    color: #fff;
+  }
+`
+
+const Form = styled.form``

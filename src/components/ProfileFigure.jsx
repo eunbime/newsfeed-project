@@ -1,17 +1,15 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import Fileupload from './Fileupload'
 
-//TODO:파일업로드 postform의 파일업로드 컴포넌트로 빼서 재사용
-// user redux에 URL 저장해줘야함
 function ProfileFigure({ userImg }) {
+  const [isEdit, setIsEdit] = useState(false)
   return (
     <>
       <FigureBox>
         <img src={userImg} />
-        <p>프로필 사진 변경</p>
-        {/* <button>사진 올리기</button> */}
-        <Fileupload />
-        {/* <input type="file" onChange={handleFileSelect} /> */}
+        <button onClick={() => setIsEdit(!isEdit)}>프로필 사진 변경</button>
+        {isEdit ? <Fileupload onClose={() => setIsEdit(false)} /> : <></>}
       </FigureBox>
     </>
   )
@@ -20,17 +18,37 @@ function ProfileFigure({ userImg }) {
 export default ProfileFigure
 
 const FigureBox = styled.figure`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 200px;
   height: 200px;
-  border: 1px solid black;
+  padding: 20px;
   & img {
     width: 100%;
+    border-radius: 50%;
   }
   & button {
-    margin: 10px 0;
+    margin-top: 10px;
+    background-color: var(--mainOrange);
+    border: 2px solid var(--mainOrange);
+    padding: 0.3rem 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+  & input {
+    background-color: #ffe7cf;
+  }
+  input[type='file']::file-selector-button {
+    background-color: transparent;
   }
   & p {
     margin-top: 10px;
