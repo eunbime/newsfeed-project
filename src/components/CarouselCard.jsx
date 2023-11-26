@@ -31,7 +31,8 @@ const TextBox = styled.div`
   padding: 1rem;
   color: #fff;
   font-size: x-large;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.6);
+  transition: all 0.3 ease-in-out;
 `
 
 const CardContainer = styled.div`
@@ -45,7 +46,7 @@ const CardContainer = styled.div`
   background-image: url(${(props) => props.image});
   background-size: cover;
   border-bottom: 0.5px solid;
-  transition: all 0.5s;
+  transition: 0.5s ease-out;
 
   @media (min-width: 750px) {
     transition: 0.5s;
@@ -54,17 +55,19 @@ const CardContainer = styled.div`
   }
   // 선택자 사용하여 요소 선택
   ${TextBox} {
-    transition: all 0.5s;
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s ease-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   &:hover {
-    ${TextBox} {
-      display: block;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
     background-size: 110%;
+    ${TextBox} {
+      visibility: visible;
+      opacity: 100%;
+    }
   }
 `
 const CardTitle = styled.h3`
