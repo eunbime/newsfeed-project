@@ -47,7 +47,7 @@ const CardContainer = styled.div`
 
   @media (min-width: 750px) {
     transition: 0.5s;
-    width: 300px;
+    min-width: 300px;
     height: 180px;
   }
   // 선택자 사용하여 요소 선택
@@ -65,7 +65,7 @@ const CardContainer = styled.div`
   }
 `
 const CardTitle = styled.h3`
-  font-size: large;
+  font-size: medium;
 
   @media (min-width: 750px) {
     font-size: x-large;

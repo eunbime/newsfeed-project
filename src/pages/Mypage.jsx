@@ -27,6 +27,9 @@ function Mypage() {
     posts,
   } = useSelector((state) => state)
 
+  console.log(localuid)
+  console.log(posts)
+
   const [userTopics, setUserTopics] = useState([])
   const navigate = useNavigate()
 

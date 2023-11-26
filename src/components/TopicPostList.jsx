@@ -20,7 +20,6 @@ function TopicPostList({ selectedTopic }) {
 
   return (
     <Container>
-      <Title>실시간 게시물</Title>
       <PostList>
         {filteredPosts.map((post) => (
           <PostListInfo>
@@ -47,15 +46,22 @@ function TopicPostList({ selectedTopic }) {
 export default TopicPostList
 
 const Container = styled.div`
-  padding: 20px;
-  margin: 0 auto;
-  max-width: 1800px;
+  width: 100%;
+`
+const PostList = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  justify-content: center;
+  list-style-type: none;
+  padding: 0;
+  gap: 1rem;
 `
 
 const PostListInfo = styled.div`
-  background-color: #e2f4c7;
+  background-color: #fff;
+
   border-radius: 15px;
-  border: none;
+  border: 1px solid #eee;
   cursor: pointer;
   margin: 10px;
   transition:
@@ -75,16 +81,6 @@ const Title = styled.h1`
   text-align: center;
   font-size: 24px;
   margin-bottom: 15px;
-`
-
-const PostList = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-  justify-content: center;
-  list-style-type: none;
-  padding: 0;
-  gap: 20px;
-  max-width: 2000px;
 `
 
 const PostItem = styled.li`
