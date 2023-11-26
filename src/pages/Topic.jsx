@@ -12,10 +12,14 @@ function Topic() {
     <Container>
       <TabNavigation selectedTopic={topic} />
       <CenteredPostCarousel>
-        <Title>추천 피드</Title>
-        <PostCarousel topic={topic} />
-        <Title>실시간 게시물</Title>
-        <TopicPostList selectedTopic={topic.topicName} />
+        <div>
+          <Title>추천 피드</Title>
+          <PostCarousel topic={topic} />
+        </div>
+        <div>
+          <Title>실시간 게시물</Title>
+          <TopicPostList selectedTopic={topic.topicName} />
+        </div>
       </CenteredPostCarousel>
     </Container>
   )
@@ -28,6 +32,9 @@ const Container = styled.div`
 `
 
 const CenteredPostCarousel = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 1rem;
   max-width: 1250px;
   margin: 0 auto;

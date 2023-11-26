@@ -79,7 +79,7 @@ const Container = styled.nav`
 `
 
 const NavButton = styled.button`
-  background-color: transparent;
+  background-color: #fff;
   border: 2px solid var(--mainOrange);
   padding: 0.3rem 1rem;
   margin-right: 0.5rem;

@@ -58,7 +58,6 @@ const PostList = styled.ul`
 
 const PostListInfo = styled.div`
   background-color: #fff;
-
   border-radius: 15px;
   border: 1px solid #eee;
   cursor: pointer;
@@ -66,20 +65,12 @@ const PostListInfo = styled.div`
   transition:
     transform 0.3s ease-in-out,
     box-shadow 0.3s ease-in-out;
-
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 
   &:hover {
     transform: scale(1.1);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
   }
-`
-
-const Title = styled.h1`
-  font-weight: bold;
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 15px;
 `
 
 const PostItem = styled.li`
