@@ -42,7 +42,6 @@ function TopicPostList({ selectedTopic }) {
     </Container>
   )
 }
-
 export default TopicPostList
 
 const Container = styled.div`
