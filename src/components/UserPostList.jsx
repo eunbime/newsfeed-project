@@ -15,33 +15,43 @@ const UserPostList = ({ userPosts }) => {
   if (topic === '') return <NoPosts>현재 게시물이 없습니다.</NoPosts>
 
   return (
-    <Container>
-      {userPosts
-        .filter((post) => {
-          return post.topicName === topic || selectedTopic === undefined
-        })
-        .map((post) => {
-          return (
-            <PostList
-              key={post.id}
-              onClick={() => navigate(`/detail/${post.id}`, { state: post })}
-            >
-              <PostInfo>
-                <ImgBox image={post.postImg} />
-                <PostTitle>{post.title}</PostTitle>
-                <PostContent>{post.content}</PostContent>
-              </PostInfo>
-            </PostList>
-          )
-        })}
-    </Container>
+    <StDiv>
+      <Container>
+        {userPosts
+          .filter((post) => {
+            return post.topicName === topic || selectedTopic === undefined
+          })
+          .map((post) => {
+            return (
+              <PostList
+                key={post.id}
+                onClick={() => navigate(`/detail/${post.id}`, { state: post })}
+              >
+                <PostInfo>
+                  <ImgBox image={post.postImg} />
+                  <PostTitle>{post.title}</PostTitle>
+                  <PostContent>{post.content}</PostContent>
+                </PostInfo>
+              </PostList>
+            )
+          })}
+      </Container>
+    </StDiv>
   )
 }
 
+const StDiv = styled.div`
+  width: 100%;
+`
+
 const Container = styled.div`
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 20px; */
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 600px;
+  margin: 0 auto;
 `
 
 const NoPosts = styled.div`
@@ -50,6 +60,7 @@ const NoPosts = styled.div`
 
 const PostList = styled.div`
   padding: 10px;
+  width: 300px;
 `
 
 const ImgBox = styled.div`
