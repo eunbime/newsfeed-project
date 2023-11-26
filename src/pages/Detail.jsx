@@ -88,7 +88,7 @@ function Detail({ posts }) {
 
   return (
     <div>
-      <img src={post.profileImg} alt="프로필" />
+      <img src={post.userimg} alt="프로필" />
       <p>{post.userid}</p>
       <p>{post.userName}</p>
       {editingTitle ? (

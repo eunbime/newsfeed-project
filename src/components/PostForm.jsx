@@ -8,8 +8,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { db, storage } from '../firebase'
 import styled from 'styled-components'
+import { db, storage } from '../firebase'
 
 function PostForm() {
   const topics = useSelector((state) => state.topics)
@@ -18,6 +18,7 @@ function PostForm() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const { auth, user } = useSelector((state) => state)
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
 
   const handleFileSelect = (event) => {
@@ -83,6 +84,9 @@ function PostForm() {
           content: content,
           postImg: imageUrl,
           topicName: selectedTopic,
+          userid: auth.loginUserUid,
+          username: user.nickname,
+          userimg: user.userimg,
           createdAt: serverTimestamp(),
         })
 
