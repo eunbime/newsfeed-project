@@ -60,15 +60,25 @@ function Detail({ posts }) {
     const confirmSave = window.confirm(
       '정말 이대로 변경 사항을 저장하시겠습니까?'
     )
-    window.location.href = '/'
     if (!confirmSave) {
       return
     }
-    const postRef = doc(db, 'posts', post.id)
-    await updateDoc(postRef, { content: editedContent, title: editedTitle })
-    setEditingContent(false)
-    setEditingTitle(false)
-    const updatedPost = { ...post, content: editedContent, title: editedTitle }
+
+    try {
+      const postRef = doc(db, 'posts', post.id)
+      await updateDoc(postRef, { content: editedContent, title: editedTitle })
+      setEditingContent(false)
+      setEditingTitle(false)
+      const updatedPost = {
+        ...post,
+        content: editedContent,
+        title: editedTitle,
+      }
+      navigate('/') // Redirect after successful save
+    } catch (error) {
+      console.error('게시물 업데이트 중 오류:', error)
+      // 에러 처리, 예를 들어 에러 메시지 표시 등
+    }
   }
 
   const handleCancelEdit = () => {
