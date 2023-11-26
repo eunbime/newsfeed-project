@@ -5,7 +5,6 @@ export const setUser = (payload) => {
 }
 
 const initialState = {
-  uid: '',
   nickname: '닉네임을 설정해주세요!',
   name: '이름이 뭐에요?',
   email: 'email@email.com',

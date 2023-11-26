@@ -6,27 +6,29 @@ import styled from 'styled-components'
 import { db } from '../firebase'
 
 function ProfileBox({ user }) {
+  const localuid = localStorage.getItem('useruid')
   const dispatch = useDispatch()
   const [isEditing, setIsEditing] = useState(false)
+  const [nickname, setNickname] = useState('')
+  const [name, setName] = useState('')
+  const [ment, setMent] = useState('')
+
   const saveDB = async (testUser) => {
-    await setDoc(doc(collection(db, 'userInfo'), testUser.uid), testUser)
+    await setDoc(doc(collection(db, 'userInfo'), localuid), { ...testUser })
   }
   /**
    * 사용자에게 입력받은 value 들을
-   * 로그인한 uid의 userInfo db에 저장
-   * //TODO1: props로받은 user uid 제대로 가져오는지 확인
-   * //TDOD2: 입력받은 값으로 변경
+   * 로그인한 uid의 userInfo db에 저장, redux에 저장
    */
   const onComplete = () => {
-    const testUser = {
-      uid: user.uid,
-      nickname: '쥐',
-      name: '김쥐',
-      ment: '빨리 끝내자',
-      interests: ['스포츠, 맛집'],
+    const editUserInfo = {
+      nickname,
+      name,
+      ment,
     }
-    dispatch(setUser(testUser))
-    saveDB(testUser)
+    console.log('수정완료onComplete', editUserInfo)
+    dispatch(setUser(editUserInfo))
+    saveDB(editUserInfo)
     setIsEditing(false)
   }
   const onEditProfile = () => {
@@ -42,19 +44,19 @@ function ProfileBox({ user }) {
             <p>닉네임 : {user.nickname} </p>
             <p>이름 : {user.name}</p>
             <p>한마디 : {user.ment} </p>
-            {/* TODO : 관심사는 토픽...버튼이나.. 하.. 하지마 */}
           </>
         ) : (
-          //한번에 받아서 setUser 어떻게 하는거지
           <>
-            <label>메일주소 :</label>
-            <input />
+            <p>메일주소 : {user.email} </p>
             <label>닉네임 :</label>
-            <input />
+            <input
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+            />
             <label>이름 :</label>
-            <input />
+            <input value={name} onChange={(e) => setName(e.target.value)} />
             <label>한마디 :</label>
-            <input />
+            <input value={ment} onChange={(e) => setMent(e.target.value)} />
           </>
         )}
       </TextBox>
