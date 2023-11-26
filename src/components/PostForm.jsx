@@ -164,47 +164,47 @@ export default PostForm
 
 const Form = styled.form`
   background-color: #d9d9d9;
-  padding: 12px;
+  padding: 1.5vh;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 500px;
-  height: 500px;
-  border-radius: 12px;
-  margin: 60px auto;
+  gap: 1.2vh;
+  width: 60vh;
+  height: 65vh;
+  border-radius: 3vh;
+  margin: 6vh auto;
   text-align: center;
 `
 const InputWrapper = styled.div`
   & textarea {
-    width: 420px;
+    width: 53vh;
     height: 40vh;
 
     text-align: start;
   }
   & input {
-    height: 30px;
-    width: 420px;
-    margin: 15px 0;
+    height: 4vh;
+    width: 53vh;
+    margin: 2vh 0;
     text-align: start;
   }
 `
 const FileWrapper = styled.div`
-  margin-left: 3.5vh;
+  margin-left: 2vh;
   margin-top: 1vh;
   text-align: start;
 `
 const TopicWrapper = styled.div`
-  margin-left: 3.5vh;
+  margin-left: 2vh;
   margin-top: 1vh;
   text-align: start;
 `
 const ButtonWrapper = styled.div`
   display: flex;
   text-align: end;
-  margin: 10px;
+  margin-top: 1vh;
 `
 const SubmitButton = styled.button`
-  margin-left: 2.2vh;
+  margin-left: 2vh;
 `
 const HomeButton = styled.button`
   margin-left: 30.5vh;
