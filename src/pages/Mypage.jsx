@@ -60,8 +60,8 @@ function Mypage() {
         <ProfileBox user={user} />
       </Profile>
       <MyFeedBox>
-        {userTopics.map((topic) => (
-          <TopicSelector>
+        <TopicSelector>
+          {userTopics.map((topic) => (
             <li
               onClick={() =>
                 navigate(`/mypage/${topic}`, { state: { topic: topic } })
@@ -69,9 +69,11 @@ function Mypage() {
             >
               {topic}
             </li>
-          </TopicSelector>
-        ))}
-        <UserPostList userPosts={filteredPosts} />
+          ))}
+        </TopicSelector>
+        <div>
+          <UserPostList userPosts={filteredPosts} />
+        </div>
       </MyFeedBox>
     </PageBody>
   )
@@ -100,15 +102,18 @@ const MyFeedBox = styled.div`
 
 const TopicSelector = styled.ul`
   display: flex;
-  flex-direction: column;
   gap: 1rem;
 
   > li {
-    width: 100px;
     padding: 0.5rem;
-    background-color: orange;
+    background-color: gray;
     border-radius: 0.5rem;
     text-align: center;
+    transition: 0.5s;
+
+    &:hover {
+      opacity: 80%;
+    }
   }
 `
 

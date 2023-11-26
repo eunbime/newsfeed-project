@@ -2,6 +2,7 @@ import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { setPost } from 'redux/modules/posts'
 import styled from 'styled-components'
 import { db } from '../firebase'
@@ -71,7 +72,10 @@ const PostCarousel = ({ topic }) => {
         </>
       ) : (
         <NotFoundPost>
-          <h2>{`현재 ${topic.topicName} 추천 포스트가 존재하지 않습니다.`}</h2>
+          <h2>{`현재 ${topic.topicName} 추천 포스트가 존재하지 않습니다. 🥲`}</h2>
+          <Link to={'/write'}>
+            <WriteButton>글 작성하러 가기</WriteButton>
+          </Link>
         </NotFoundPost>
       )}
     </Container>
@@ -139,6 +143,29 @@ const NotFoundPost = styled.div`
   padding: 4rem;
   background-color: #eee;
   text-align: center;
+
+  > h2 {
+    font-size: x-large;
+    font-weight: bold;
+  }
+`
+
+const WriteButton = styled.button`
+  border: none;
+  background-color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: medium;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.5s ease-in-out;
+
+  &:hover {
+    background-color: green;
+    color: #fff;
+    box-shadow: 0 0 5px #888;
+  }
 `
 
 export default PostCarousel
