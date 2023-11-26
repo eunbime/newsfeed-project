@@ -16,7 +16,11 @@ function Layout() {
         <Outlet />
       </StLayout>
 
-      <Footer>© Corp.</Footer>
+      <Footer>
+        <a href="https://github.com/eunbime/newsfeed-project">
+          <img src="github-icon.png" alt="github" width="30px" />
+        </a>
+      </Footer>
     </LayoutContainer>
   )
 }
@@ -34,7 +38,7 @@ const Header = styled.header`
   height: 7rem;
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0 1rem;
   box-shadow: 0 3px 7px #eee;
 `
 

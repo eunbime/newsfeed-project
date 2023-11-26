@@ -21,8 +21,6 @@ const UserPostList = ({ userPosts }) => {
           return post.topicName === topic
         })
         .map((post) => {
-          console.log(post.userid)
-          console.log(post.id)
           return (
             <PostList onClick={() => navigate(`/detail/${post.id}`)}>
               <ImgBox image={post.postImg} />
