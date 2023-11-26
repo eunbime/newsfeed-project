@@ -189,7 +189,7 @@ const Titlefontcontainer = styled.div`
 const UserInfoContainer = styled.div`
   box-sizing: border-box;
   width: 30vw;
-  height: 10vh;
+  height: 5vh;
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 30px;
@@ -221,8 +221,8 @@ const ContentContainer = styled.div`
   }
 `
 const PostImage = styled.img`
-  width: 80%;
-  height: auto;
+  width: 75%;
+  height: 90%;
 `
 
 const SaveCancelButtonContainer = styled.div`
