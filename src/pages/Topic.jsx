@@ -14,7 +14,7 @@ function Topic() {
       <CenteredPostCarousel>
         <PostCarousel topic={topic} />
       </CenteredPostCarousel>
-      <TopicPostList selectedTopic={topic} />
+      <TopicPostList selectedTopic={topic.topicName} />
     </Container>
   )
 }

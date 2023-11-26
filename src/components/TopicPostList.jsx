@@ -1,8 +1,6 @@
-import { collection, getDocs } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { db } from '../firebase'
 
 function formatDate(timestamp) {
   const date = timestamp.toDate()
@@ -11,45 +9,25 @@ function formatDate(timestamp) {
 }
 
 function TopicPostList({ selectedTopic }) {
-  const [posts, setPosts] = useState([])
+  const navigate = useNavigate()
+  const posts = useSelector((state) => state.posts)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, 'posts'))
-        const fetchedPosts = []
-        querySnapshot.forEach((doc) => {
-          fetchedPosts.push({ id: doc.id, data: doc.data() })
-        })
-
-        const filteredPosts = fetchedPosts.filter(
-          (post) => post.data.topicName === selectedTopic.topicName
-        )
-
-        setPosts(filteredPosts)
-      } catch (error) {
-        console.error('Error fetching data: ', error)
-      }
-    }
-
-    fetchData()
-  }, [selectedTopic])
+  const filteredPosts = posts.filter((post) => post.topicName === selectedTopic)
 
   return (
     <Container>
-      <Title>실시간 리스트</Title>
+      <Title>Posts</Title>
       <PostList>
-        {posts.map((post) => (
+        {filteredPosts.map((post) => (
           <PostListInfo>
-            <PostItem key={post.id}>
-              <StyledLink
-                to={{ pathname: `/detail/${post.id}`, state: post.data }}
-              >
-                <PostTitle>{post.data.title}</PostTitle>
-                <PostImage src={post.data.postImg} alt={post.data.title} />
-                <PostContent>{post.data.content}</PostContent>
-                {/* <PostDate>{formatDate(post.data.createdAt)}</PostDate> */}
-              </StyledLink>
+            <PostItem
+              key={post.id}
+              onClick={() => navigate(`/detail/${post.id}`, { state: post })}
+            >
+              <PostTitle>{post.title}</PostTitle>
+              <PostImage src={post.postImg} alt="Not Found" />
+              <PostContent>{post.content}</PostContent>
+              {/* <PostDate>{formatDate(post.data.createdAt)}</PostDate> */}
             </PostItem>
           </PostListInfo>
         ))}
@@ -83,12 +61,6 @@ const PostList = styled.ul`
 
 const PostItem = styled.li`
   margin-bottom: 20px;
-`
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  color: #333;
-  display: block;
 `
 
 const PostTitle = styled.h3`
