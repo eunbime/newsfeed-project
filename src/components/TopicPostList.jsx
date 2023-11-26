@@ -111,6 +111,9 @@ const PostImage = styled.img`
 
 const PostContent = styled.p`
   color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin-bottom: 15px;
   margin: 5px;
 `
