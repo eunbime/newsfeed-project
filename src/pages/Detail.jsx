@@ -33,12 +33,10 @@ function Detail({ posts }) {
       return
     }
     try {
-      const postRef = doc(db, 'posts', id) // URL에서 추출한 id를 사용하여 해당 게시물에 대한 참조 생성
-      await deleteDoc(postRef) // Firestore에서 게시물 삭제
-      navigate('/')
+      const postRef = doc(db, 'posts', id)
+      await deleteDoc(postRef)
     } catch (error) {
       console.error('게시물 삭제 중 오류:', error)
-      // 에러 처리, 예를 들어 에러 메시지 표시 등
     }
   }
 
@@ -75,7 +73,7 @@ function Detail({ posts }) {
         content: editedContent,
         title: editedTitle,
       }
-      navigate('/') // Redirect after successful save
+      navigate('/')
     } catch (error) {
       console.error('게시물 업데이트 중 오류:', error)
       // 에러 처리, 예를 들어 에러 메시지 표시 등
@@ -164,7 +162,7 @@ const DetailContainer = styled.div`
 const TitleContainer = styled.div`
   box-sizing: border-box;
   font-weight: bold;
-  width: 50vw;
+  width: auto;
   padding: 10px;
   display: flex;
   flex-direction: row;
@@ -173,6 +171,7 @@ const TitleContainer = styled.div`
   font-size: 20px;
   margin-bottom: 30px;
   margin-top: 30px;
+  text-align: center;
 `
 const TitleImage = styled.img`
   width: 50px;
@@ -183,13 +182,14 @@ const TitleImage = styled.img`
 
 const Titlefontcontainer = styled.div`
   font-size: 50px;
+  margin: auto;
   margin-left: 10px;
 `
 
 const UserInfoContainer = styled.div`
   box-sizing: border-box;
-  width: 30vw;
-  height: 5vh;
+  width: auto;
+  min-height: 50px;
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 30px;
@@ -202,13 +202,15 @@ const UserInfoContainer = styled.div`
   font-size: 20px;
 `
 const ContentFontContainer = styled.div`
-  font-size: 20px;
+  font-size: 30px;
+  width: 100%;
+  line-height: 40px;
 `
 
 const ContentContainer = styled.div`
   box-sizing: border-box;
-  width: 45vw;
-  height: 60vh;
+  width: 550px;
+  min-height: 200px;
   padding: 10px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
@@ -216,13 +218,14 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  > * + * {
-    margin-top: 20px;
-  }
+  overflow: auto;
 `
+
 const PostImage = styled.img`
-  width: 75%;
-  height: 90%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-bottom: 10px;
 `
 
 const SaveCancelButtonContainer = styled.div`

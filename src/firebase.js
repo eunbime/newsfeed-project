@@ -14,13 +14,12 @@ import { getStorage } from 'firebase/storage'
 // }
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBZ7OBLcoy0DBj8XDpDpKHMLyZW9xeYkyU',
-  authDomain: 'newsfeed-project-2bb4a.firebaseapp.com',
-  projectId: 'newsfeed-project-2bb4a',
-  storageBucket: 'newsfeed-project-2bb4a.appspot.com',
-  messagingSenderId: '51797644632',
-  appId: '1:51797644632:web:2b89cd7670287c1c33c12d',
-  measurementId: 'G-GN5ZDPVQX3',
+  apiKey: 'AIzaSyCiifWO6ZuWMiwxaMkdvU59zUfQa5oPYzQ',
+  authDomain: 'newsfeed-3c2dc.firebaseapp.com',
+  projectId: 'newsfeed-3c2dc',
+  storageBucket: 'newsfeed-3c2dc.appspot.com',
+  messagingSenderId: '836119563353',
+  appId: '1:836119563353:web:541971cd0eee84d7a2b548',
 }
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig)
