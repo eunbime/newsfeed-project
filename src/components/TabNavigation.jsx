@@ -18,31 +18,33 @@ const TabNavigation = () => {
   }
 
   return (
-    <NavigationHeader>
-      <NavLink
-        to={'/'}
-        selected={selectedTab === 'recommended'}
-        onClick={() => handleTabClick('recommended')}
-      >
-        추천 피드
-      </NavLink>
-      {visibleTopics.map((item) => (
+    <div>
+      <NavigationHeader>
         <NavLink
-          key={item.id}
-          to={`/topic/${item.topicName}`}
-          state={{ topic: item }}
-          selected={selectedTab === item.topicName}
-          onClick={() => handleTabClick(item.topicName)}
+          to={'/'}
+          selected={selectedTab === 'recommended'}
+          onClick={() => handleTabClick('recommended')}
         >
-          <span>{item.topicIco}</span> <span>{item.topicName}</span>
+          추천 피드
         </NavLink>
-      ))}
-      {topics.length > 5 && (
-        <ShowHideButton onClick={toggleShowAll}>
-          {showAll ? '줄이기' : '더보기'}
-        </ShowHideButton>
-      )}
-    </NavigationHeader>
+        {visibleTopics.map((item) => (
+          <NavLink
+            key={item.id}
+            to={`/topic/${item.topicName}`}
+            state={{ topic: item }}
+            selected={selectedTab === item.topicName}
+            onClick={() => handleTabClick(item.topicName)}
+          >
+            <span>{item.topicIco}</span> <span>{item.topicName}</span>
+          </NavLink>
+        ))}
+        {topics.length > 5 && (
+          <ShowHideButton onClick={toggleShowAll}>
+            {showAll ? '줄이기' : '더보기'}
+          </ShowHideButton>
+        )}
+      </NavigationHeader>
+    </div>
   )
 }
 
