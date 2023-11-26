@@ -1,6 +1,7 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import { db } from '../firebase'
 
 function formatDate(timestamp) {
@@ -35,23 +36,78 @@ function TopicPostList({ selectedTopic }) {
   }, [selectedTopic])
 
   return (
-    <div>
-      <h1>Post 리스트</h1>
-      <ul>
+    <Container>
+      <Title>실시간 리스트</Title>
+      <PostList>
         {posts.map((post) => (
-          <li key={post.id}>
-            <Link to={{ pathname: `/detail/${post.id}`, state: post.data }}>
-              <h3>{post.data.title}</h3>
-              <img src={post.data.postImg} alt={post.data.title} />
-              <p>{post.data.content}</p>
-              {/* <p>{formatDate(post.data.createdAt)}</p> */}
-            </Link>
-          </li>
+          <PostListInfo>
+            <PostItem key={post.id}>
+              <StyledLink
+                to={{ pathname: `/detail/${post.id}`, state: post.data }}
+              >
+                <PostTitle>{post.data.title}</PostTitle>
+                <PostImage src={post.data.postImg} alt={post.data.title} />
+                <PostContent>{post.data.content}</PostContent>
+                {/* <PostDate>{formatDate(post.data.createdAt)}</PostDate> */}
+              </StyledLink>
+            </PostItem>
+          </PostListInfo>
         ))}
-      </ul>
-    </div>
+      </PostList>
+    </Container>
   )
 }
 
-// 더미 데이터 삭제하면 주석 제거하기
 export default TopicPostList
+
+const Container = styled.div`
+  display: flex;
+  border: 1px solid black;
+  padding: 20px;
+`
+
+const PostListInfo = styled.div`
+  border: 1px solid black;
+  margin: 10px;
+`
+
+const Title = styled.h1`
+  font-size: 24px;
+  margin-bottom: 15px;
+`
+
+const PostList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`
+
+const PostItem = styled.li`
+  margin-bottom: 20px;
+`
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #333;
+  display: block;
+`
+
+const PostTitle = styled.h3`
+  font-size: 20px;
+  margin-bottom: 10px;
+`
+
+const PostImage = styled.img`
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 10px;
+`
+
+const PostContent = styled.p`
+  color: #666;
+`
+
+const PostDate = styled.p`
+  color: #999;
+  font-size: 14px;
+`
