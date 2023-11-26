@@ -57,6 +57,7 @@ function Mypage() {
         <ProfileFigure userImg={user.userimg} />
         <ProfileBox user={user} />
       </Profile>
+      <MyFeedBox>카드 보여주는 부분</MyFeedBox>
       <MyFeedBox>
         {userTopics.map((topic) => (
           <TopicSelector>

@@ -1,6 +1,13 @@
 import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { db } from '../firebase'
+
+function formatDate(timestamp) {
+  const date = timestamp.toDate()
+  const options = { year: 'numeric', month: 'short', day: 'numeric' }
+  return date.toLocaleDateString('ko-KR', options)
+}
 
 function TopicPostList({ selectedTopic }) {
   const [posts, setPosts] = useState([])
@@ -25,28 +32,26 @@ function TopicPostList({ selectedTopic }) {
     }
 
     fetchData()
-  }, [selectedTopic, db])
-
-  console.log(posts[1])
+  }, [selectedTopic])
 
   return (
     <div>
       <h1>Post 리스트</h1>
       <ul>
-        {posts.map((post) => {
-          // const newDate = post.data.createdAt.toDate()
-          return (
-            <li key={post.id}>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Link to={{ pathname: `/detail/${post.id}`, state: post.data }}>
               <h3>{post.data.title}</h3>
+              <img src={post.data.postImg} alt={post.data.title} />
               <p>{post.data.content}</p>
-              <img src={post.data.postImg} />
-              <li></li>
-            </li>
-          )
-        })}
+              {/* <p>{formatDate(post.data.createdAt)}</p> */}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   )
 }
 
+// 더미 데이터 삭제하면 주석 제거하기
 export default TopicPostList

@@ -6,7 +6,7 @@ const CarouselCard = ({ post }) => {
   const defaultImg = 'assets/default-profile.jpeg'
   return (
     <CardContainer
-      onClick={() => navigate(`/detail/${post.id}`)}
+      onClick={() => navigate(`/detail/${post.id}`, { state: post })}
       image={post.postImg || defaultImg}
     >
       <TextBox>
@@ -35,7 +35,6 @@ const TextBox = styled.div`
   font-size: x-large;
   background-color: rgba(0, 0, 0, 0.3);
 `
-
 const CardContainer = styled.div`
   min-width: 200px;
   min-height: 120px;
@@ -46,13 +45,11 @@ const CardContainer = styled.div`
   background-color: gray;
   background-image: url(${(props) => props.image});
   background-size: cover;
-
   @media (min-width: 750px) {
     transition: 0.5s;
     width: 300px;
     height: 180px;
   }
-
   // 선택자 사용하여 요소 선택
   ${TextBox} {
     display: none;
@@ -66,17 +63,14 @@ const CardContainer = styled.div`
     }
   }
 `
-
 const CardTitle = styled.h3`
   font-size: xx-large;
 `
-
 const User = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
 `
-
 const UserImg = styled.div`
   width: 40px;
   height: 40px;
@@ -89,9 +83,7 @@ const UserImg = styled.div`
     height: inherit;
   }
 `
-
 const UserName = styled.p`
   /*  */
 `
-
 export default CarouselCard
