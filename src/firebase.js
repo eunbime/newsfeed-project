@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
 import { getStorage } from 'firebase/storage'
 
-// Your web app's Firebase configuration
+// //Your web app's Firebase configuration
 // const firebaseConfig = {
 //   apiKey: process.env.REACT_APP_FB_API_KEY,
 //   authDomain: process.env.REACT_APP_FB_AUTH_DOMAIN,
@@ -21,6 +21,16 @@ const firebaseConfig = {
   messagingSenderId: '836119563353',
   appId: '1:836119563353:web:541971cd0eee84d7a2b548',
 }
+
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyC4C_mhom2MHPk4qE9NjG2_855CDMLffxs',
+//   authDomain: 'sparta-newspeed.firebaseapp.com',
+//   projectId: 'sparta-newspeed',
+//   storageBucket: 'sparta-newspeed.appspot.com',
+//   messagingSenderId: '508902908574',
+//   appId: '1:508902908574:web:d2cbefe81d888bf3e2118f',
+// }
+
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)

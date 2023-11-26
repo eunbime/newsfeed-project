@@ -101,30 +101,48 @@ function ProfileBox({ user }) {
 export default ProfileBox
 
 const ProfileContainer = styled.div`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  width: 600px;
-  height: 500px;
-  border: 1px solid black;
+  width: 500px;
+  height: 300px;
+  background-color: #ffe7cf;
+  border-radius: 20px;
 `
 const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 500px;
-  padding: 50px;
-  border: 1px solid black;
+  height: 250px;
+  padding: 50px 50px 0px;
+  & p {
+    background-color: #fff5e6;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+  }
 `
 const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 80px;
   margin-top: auto;
-  border: 1px solid black;
+  padding-bottom: 10px;
   & button {
-    height: 40px;
-    width: 80px;
-    margin-right: 10px;
+    background-color: var(--mainOrange);
+    border: 2px solid var(--mainOrange);
+    padding: 0.3rem 1rem;
+    margin-right: 0.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    font-size: medium;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 1rem;
+
+    &:hover {
+      background-color: transparent;
+    }
   }
 `

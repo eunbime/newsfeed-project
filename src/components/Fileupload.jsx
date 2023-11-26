@@ -101,7 +101,11 @@ const FileuploadContainer = styled.div`
   & p {
   }
   & input {
-    margin: 10px 0;
+    margin: 3px 0;
     width: 190px;
+  }
+
+  & button {
+    background-color: transparent;
   }
 `

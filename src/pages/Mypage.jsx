@@ -97,8 +97,7 @@ const PageBody = styled.div`
 const Profile = styled.div`
   display: flex;
   width: 800px;
-  height: 500px;
-  border: 1px solid black;
+  height: 380px;
 `
 const MyFeedBox = styled.div`
   display: flex;
