@@ -40,7 +40,7 @@ const UserPostList = ({ userPosts }) => {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
   grid-gap: 20px;
 `
 
@@ -55,7 +55,6 @@ const PostList = styled.div`
 const ImgBox = styled.div`
   width: 100%;
   height: 200px;
-  display: flex;
   align-items: center;
   border-radius: 10px;
   background-image: url(${(props) => props.image});
