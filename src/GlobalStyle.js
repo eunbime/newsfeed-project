@@ -1,4 +1,4 @@
-const { createGlobalStyle } = require("styled-components");
+const { createGlobalStyle } = require('styled-components')
 
 const GlobalStyle = createGlobalStyle`
     /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -131,6 +131,12 @@ table {
   border-spacing: 0;
 }
 
+:root {
+  --mainOrange: #FC913A;
+  --mainYellow: #EAE374;
+  --basicColor: #E2F4C7;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -149,6 +155,6 @@ a {
     color: black;
 }
 
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

@@ -2,14 +2,14 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
+
 import styled from 'styled-components'
+
 import { db } from '../firebase'
 
 function Detail({ posts }) {
   const { id } = useParams()
   console.log(id)
-
-  const [data, setData] = useState([])
   const [editingContent, setEditingContent] = useState(false)
   const [editingTitle, setEditingTitle] = useState(false)
   const [editedContent, setEditedContent] = useState('')

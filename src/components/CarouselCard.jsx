@@ -3,17 +3,18 @@ import styled from 'styled-components'
 
 const CarouselCard = ({ post }) => {
   const navigate = useNavigate()
-  const defaultImg = 'assets/default-profile.jpeg'
+  const defaultPostImg = 'default-post.jpeg'
+  const defaultUserImg = 'default-profile.jpeg'
   return (
     <CardContainer
       onClick={() => navigate(`/detail/${post.id}`, { state: post })}
-      image={post.postImg || defaultImg}
+      image={post.postImg || defaultPostImg}
     >
       <TextBox>
         <CardTitle>{post.title}</CardTitle>
         <User>
           <UserImg>
-            <img src={post.userimg} alt="profile" />
+            <img src={post.userimg || defaultUserImg} alt="profile" />
           </UserImg>
           <UserName>{post.userName}</UserName>
         </User>
@@ -32,6 +33,7 @@ const TextBox = styled.div`
   font-size: x-large;
   background-color: rgba(0, 0, 0, 0.3);
 `
+
 const CardContainer = styled.div`
   min-width: 200px;
   min-height: 120px;
@@ -42,9 +44,10 @@ const CardContainer = styled.div`
   background-color: gray;
   background-image: url(${(props) => props.image});
   background-size: cover;
+
   @media (min-width: 750px) {
     transition: 0.5s;
-    width: 300px;
+    min-width: 300px;
     height: 180px;
   }
   // 선택자 사용하여 요소 선택
@@ -57,11 +60,17 @@ const CardContainer = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      transition: all 0.5s;
     }
   }
 `
 const CardTitle = styled.h3`
-  font-size: xx-large;
+  font-size: medium;
+
+  @media (min-width: 750px) {
+    font-size: x-large;
+    font-weight: 600;
+  }
 `
 const User = styled.div`
   display: flex;
@@ -69,8 +78,8 @@ const User = styled.div`
   gap: 0.5rem;
 `
 const UserImg = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background-color: #222;
   border-radius: 100%;
   overflow: hidden;
@@ -78,6 +87,11 @@ const UserImg = styled.div`
   & img {
     width: inherit;
     height: inherit;
+  }
+
+  @media (min-width: 750px) {
+    width: 40px;
+    height: 40px;
   }
 `
 const UserName = styled.p`

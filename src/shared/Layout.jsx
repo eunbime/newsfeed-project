@@ -7,14 +7,20 @@ function Layout() {
   return (
     <LayoutContainer>
       <Header>
-        <Title onClick={() => navigate('/')}>Enjoy P</Title>
-        <HeaderNav />
+        <HeaderWrapper>
+          <Title onClick={() => navigate('/')}>Enjoy P</Title>
+          <HeaderNav />
+        </HeaderWrapper>
       </Header>
       <StLayout>
         <Outlet />
       </StLayout>
 
-      <Footer>© Corp.</Footer>
+      <Footer>
+        <a href="https://github.com/eunbime/newsfeed-project">
+          <img src="github-icon.png" alt="github" width="30px" />
+        </a>
+      </Footer>
     </LayoutContainer>
   )
 }
@@ -32,15 +38,27 @@ const Header = styled.header`
   height: 7rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
+  padding: 0 1rem;
   box-shadow: 0 3px 7px #eee;
+`
+
+const HeaderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1250px;
+  margin: 0 auto;
 `
 
 const Title = styled.h1`
   font-size: xx-large;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: var(--mainOrange);
+  }
 `
 
 const StLayout = styled.div`
