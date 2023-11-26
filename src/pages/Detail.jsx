@@ -221,7 +221,7 @@ const ContentContainer = styled.div`
   }
 `
 const PostImage = styled.img`
-  width: 80%;
+  width: 75%;
   height: 90%;
 `
 
