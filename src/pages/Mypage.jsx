@@ -17,37 +17,41 @@ import { db } from '../firebase'
  * 이미지 수정 버튼 누르면 이미지 업로드
  */
 function Mypage() {
+  const localuid = localStorage.getItem('useruid')
+  const localemail = localStorage.getItem('useremail')
   const dispatch = useDispatch()
-  const { auth, user, topics, posts } = useSelector((state) => state)
+  const {
+    auth: { loginUserUid },
+    user,
+    topics,
+    posts,
+  } = useSelector((state) => state)
   const [userTopics, setUserTopics] = useState([])
   const navigate = useNavigate()
-  const loginUserUid = auth.loginUserUid // 사용자 UID
 
   useEffect(() => {
     const fetchData = async () => {
-      const docRef = doc(db, 'userInfo', loginUserUid)
+      const docRef = doc(db, 'userInfo', localuid)
       const docSnap = await getDoc(docRef)
 
       if (docSnap.exists()) {
-        // console.log('Document data:', docSnap.data())
         const userFromDB = docSnap.data()
-        dispatch(setUser({ uid: loginUserUid, ...userFromDB }))
+        dispatch(setUser({ ...userFromDB, email: localemail }))
       } else {
-        // docSnap.data() will be undefined in this case
         console.log('No such document!')
         alert('user 정보를 가져오지 못했습니다.')
       }
     }
     fetchData()
-  }, [loginUserUid])
+  }, [])
 
   // useEffect(() => {
   //   dispatch(filterPost(user.uid))
   // }, [])
-  const filteredPosts = posts.filter((post) => post.userid === user.uid)
+  const filteredPosts = posts.filter((post) => post.userid === localuid)
 
   filteredPosts.map((post) => {
-    console.log(post.uid)
+    console.log(post.userid, user.uid)
     console.log(post)
     if (userTopics.includes(post.topicName)) return
     setUserTopics((prev) => [...prev, post.topicName])
