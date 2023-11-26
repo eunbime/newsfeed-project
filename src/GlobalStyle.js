@@ -134,7 +134,7 @@ table {
 :root {
   --mainOrange: #FC913A;
   --mainYellow: #EAE374;
-  --basicColor: #E2F4C7;
+  --basicColor: #FFE7CF;
 }
 
 body {
@@ -147,13 +147,18 @@ body {
 }
 
 * {
-        box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a {
     text-decoration: none;
     color: black;
 }
+
+button{
+        cursor: pointer;
+        border: none;
+} 
 
 `
 
