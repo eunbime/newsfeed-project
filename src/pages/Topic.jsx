@@ -34,7 +34,7 @@ const Container = styled.div`
 const CenteredPostCarousel = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   padding: 1rem;
   max-width: 1250px;
   margin: 0 auto;

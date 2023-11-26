@@ -16,7 +16,7 @@ const CarouselCard = ({ post }) => {
           <UserImg>
             <img src={post.userimg || defaultUserImg} alt="profile" />
           </UserImg>
-          <UserName>{post.userName}</UserName>
+          <UserName>{post.username}</UserName>
         </User>
       </TextBox>
     </CardContainer>
@@ -31,7 +31,7 @@ const TextBox = styled.div`
   padding: 1rem;
   color: #fff;
   font-size: x-large;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
 `
 
 const CardContainer = styled.div`
@@ -44,6 +44,8 @@ const CardContainer = styled.div`
   background-color: gray;
   background-image: url(${(props) => props.image});
   background-size: cover;
+  border-bottom: 0.5px solid;
+  transition: all 0.5s;
 
   @media (min-width: 750px) {
     transition: 0.5s;
@@ -52,6 +54,7 @@ const CardContainer = styled.div`
   }
   // 선택자 사용하여 요소 선택
   ${TextBox} {
+    transition: all 0.5s;
     display: none;
   }
   &:hover {
@@ -60,8 +63,8 @@ const CardContainer = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      transition: all 0.5s;
     }
+    background-size: 110%;
   }
 `
 const CardTitle = styled.h3`
@@ -95,6 +98,11 @@ const UserImg = styled.div`
   }
 `
 const UserName = styled.p`
-  /*  */
+  font-size: medium;
+
+  @media (min-width: 750px) {
+    font-size: large;
+    font-weight: 600;
+  }
 `
 export default CarouselCard
