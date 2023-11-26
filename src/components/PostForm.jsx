@@ -147,7 +147,7 @@ function PostForm() {
           <ButtonWrapper>
             <SubmitButton>
               <Link to="/" onClick={handleCombinedSubmit}>
-                제출 및 이미지 업로드
+                등록하기
               </Link>
             </SubmitButton>
             <HomeButton>
@@ -171,7 +171,11 @@ const Form = styled.form`
   width: 60vh;
   height: 65vh;
   border-radius: 3vh;
-  margin: 6vh auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: auto;
+  transform: translate(-50%, -50%);
   text-align: center;
 `
 const InputWrapper = styled.div`
@@ -207,5 +211,5 @@ const SubmitButton = styled.button`
   margin-left: 2vh;
 `
 const HomeButton = styled.button`
-  margin-left: 30.5vh;
+  margin-left: 38.5vh;
 `
