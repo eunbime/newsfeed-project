@@ -1,15 +1,11 @@
-import {
-  addDoc,
-  collection,
-  getDocs,
-  serverTimestamp,
-} from 'firebase/firestore'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { db, storage } from '../firebase'
+
 function PostForm() {
   const topics = useSelector((state) => state.topics)
   const [selectedTopic, setSelectedTopic] = useState('')
@@ -17,22 +13,34 @@ function PostForm() {
   const [imageUrl, setImageUrl] = useState('')
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
+  const [selectedFileName, setSelectedFileName] = useState('')
+  const [previewUrl, setPreviewUrl] = useState('')
   const { auth, user } = useSelector((state) => state)
+
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']
   const handleFileSelect = (event) => {
     const file = event.target.files[0]
     if (file) {
       if (allowedFileTypes.includes(file.type)) {
         setSelectedFile(file)
+        setSelectedFileName(file.name)
+
+        const reader = new FileReader()
+        reader.onload = () => {
+          setPreviewUrl(reader.result)
+        }
+        reader.readAsDataURL(file)
       } else {
         alert(
           '이 파일 형식은 허용되지 않습니다. JPG, PNG, GIF 파일을 선택해주세요.'
         )
         event.target.value = null
         setSelectedFile('')
+        setSelectedFileName('')
       }
     }
   }
+
   const uploadImageAndGetURL = async () => {
     if (selectedFile) {
       const storageRef = ref(storage, 'folder/' + selectedFile.name)
@@ -44,16 +52,7 @@ function PostForm() {
       return ''
     }
   }
-  const fetchData = async () => {
-    try {
-      const querySnapshot = await getDocs(collection(db, 'posts'))
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, doc.data())
-      })
-    } catch (error) {
-      console.error('오류:', error)
-    }
-  }
+
   const handleFormSubmit = async (e) => {
     e.preventDefault()
     if (!title || !content || !selectedTopic) {
@@ -79,7 +78,6 @@ function PostForm() {
           userimg: user.userimg,
           createdAt: serverTimestamp(),
         })
-        fetchData()
         setTitle('')
         setContent('')
         setSelectedTopic('')
@@ -94,9 +92,7 @@ function PostForm() {
       alert('제출이 취소되었습니다')
     }
   }
-  useEffect(() => {
-    fetchData()
-  }, [])
+
   const handleCombinedSubmit = async (e) => {
     e.preventDefault()
     await handleFormSubmit(e)
@@ -134,6 +130,14 @@ function PostForm() {
               onChange={handleFileSelect}
               style={{ display: 'none' }}
             />
+            {selectedFileName && (
+              <SelectedFileWrapper>
+                <p>선택한 파일: {selectedFileName}</p>
+                {previewUrl && (
+                  <ImagePreview src={previewUrl} alt="File Preview" />
+                )}
+              </SelectedFileWrapper>
+            )}
           </FileWrapper>
           <TopicWrapper>
             <select
@@ -171,14 +175,29 @@ const PostFormContainer = styled.div`
   align-items: center;
 `
 
+const SelectedFileWrapper = styled.div`
+  margin-top: 1vh;
+  text-align: start;
+  p {
+    font-size: 14px;
+    color: #333;
+  }
+`
+
+const ImagePreview = styled.img`
+  max-width: 200px;
+  max-height: 200px;
+  margin-top: 10px;
+`
+
 const Form = styled.form`
-  background-color: #f3f3f3;
+  background-color: #ffe7cf;
   padding: 1.5vh;
   display: flex;
   flex-direction: column;
   gap: 1.2vh;
   width: 40vw;
-  height: 68vh;
+  height: auto;
   border-radius: 3vh;
   position: fixed;
   top: 50%;
@@ -197,19 +216,21 @@ const InputWrapper = styled.div`
     width: 92%;
     height: 40vh;
     margin-top: 2vh;
+    font-size: 20px;
     text-align: start;
     box-sizing: border-box;
     resize: none;
-    border: 1px solid #848484;
+    border: 1px solid #cf5b0a;
     border-radius: 1vh;
   }
   & input {
     height: 4vh;
+    font-size: 15px;
     width: 92%;
     margin-top: 2vh;
     text-align: start;
     box-sizing: border-box;
-    border: 1px solid #848484;
+    border: 1px solid #cf5b0a;
     border-radius: 0.8vh;
     font-weight: bold;
   }
@@ -219,16 +240,16 @@ const FileWrapper = styled.div`
   margin-top: 1vh;
   text-align: start;
   .custom-file-upload {
-    border: 1px solid #848484;
+    background-color: var(--mainOrange);
+    border: 2px solid var(--mainOrange);
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
-    background-color: #f7f7f7;
     border-radius: 0.5vh;
     transition: background-color 0.3s ease;
   }
   .custom-file-upload:hover {
-    background-color: gray;
+    background-color: transparent;
   }
 `
 const TopicWrapper = styled.div`
@@ -236,8 +257,8 @@ const TopicWrapper = styled.div`
   margin-top: 1vh;
   text-align: start;
   & select {
-    width: 9vw;
-    height: 4vh;
+    width: 7vw;
+    height: 3vh;
   }
 `
 const ButtonWrapper = styled.div`
@@ -246,15 +267,17 @@ const ButtonWrapper = styled.div`
   margin-top: 1vh;
 `
 const SubmitButton = styled.button`
+  font-size: 20px;
   width: 7vw;
   height: 5vh;
   margin-left: 1.5vw;
   margin-top: 1vh;
   align-self: flex-start;
-  border: 1px solid #848484;
+  background-color: var(--mainOrange);
+  border: 2px solid var(--mainOrange);
   border-radius: 1vh;
   &:hover {
-    background-color: gray;
+    background-color: transparent;
   }
   @media screen and (max-width: 600px) {
     /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
@@ -267,14 +290,16 @@ const SubmitButton = styled.button`
   }
 `
 const HomeButton = styled.button`
+  font-size: 20px;
   width: 7vw;
   height: 5vh;
   margin-right: 1.5vw;
   margin-top: 1vh;
-  border: 1px solid #848484;
+  background-color: var(--mainOrange);
+  border: 2px solid var(--mainOrange);
   border-radius: 1vh;
   &:hover {
-    background-color: gray;
+    background-color: transparent;
   }
   @media screen and (max-width: 600px) {
     /* 화면 너비가 600px 이하일 때 적용되는 스타일 */
