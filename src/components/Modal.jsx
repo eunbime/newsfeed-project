@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Login from './Login'
+import SocialLogin from './SocialLogin'
 
 const Modal = ({ onClose }) => {
   return (
@@ -11,6 +12,7 @@ const Modal = ({ onClose }) => {
             <ModalOffdiv onClick={onClose}>X</ModalOffdiv>
           </ModalDiv>
           <Login onModalClose={onClose} />
+          <SocialLogin />
         </ModalBox>
       </ModalWrapper>
     </>

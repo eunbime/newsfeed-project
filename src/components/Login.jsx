@@ -49,7 +49,7 @@ function Login({ onModalClose }) {
 
       localStorage.setItem('useruid', userCredential.user.uid)
       localStorage.setItem('useremail', userCredential.user.email)
-      console.log('회원가입 완료', userCredential.user.uid)
+
       onModalClose()
     } catch (error) {
       alert(`회원가입 실패 :${error.code}`) //TODO : (선택) 사유에 따른 예외처리
@@ -71,7 +71,6 @@ function Login({ onModalClose }) {
       dispatch(setUser({ email: userCredential.user.email }))
       localStorage.setItem('useruid', userCredential.user.uid)
       localStorage.setItem('useremail', userCredential.user.email)
-      console.log('로그인 완료', userCredential.user.uid)
       onModalClose()
     } catch (error) {
       alert(`로그인 실패 :${error.code}`) //TODO : (선택) 사유에 따른 예외처리

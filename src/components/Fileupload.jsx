@@ -7,7 +7,8 @@ import styled from 'styled-components'
 import { db, storage } from '../firebase'
 
 function Fileupload() {
-  const localuid = localStorage.getItem('useruid')
+  // const localuid = localStorage.getItem('useruid')
+
   const [selectedFile, setSelectedFile] = useState('')
   const [imageUrl, setImageUrl] = useState('')
   const allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif']

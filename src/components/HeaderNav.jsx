@@ -20,25 +20,31 @@ const HeaderNav = () => {
   const isLogin = useSelector((state) => state.auth.isLogin)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  // const localuid = localStorage.getItem('useruid')
-  const localemail = localStorage.getItem('useremail')
 
+  /** user 정보 fetch */
+  const fetchUserData = async () => {
+    const docRef = doc(db, 'userInfo', user.uid)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const userFromDB = docSnap.data()
+      dispatch(setUser({ ...userFromDB, email: user.email }))
+    } else {
+      console.log('No such document!')
+      alert('user 정보를 가져오지 못했습니다.')
+    }
+  }
+
+  /** 로그인 정보가 변경 user.uid를 저장해주고
+   * 서버로부터 user정보를 다시 불러옴 */
   useEffect(() => {
-    onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setLogin(user.uid))
-        const docRef = doc(db, 'userInfo', user.uid)
-        const docSnap = await getDoc(docRef)
-        if (docSnap.exists()) {
-          const userFromDB = docSnap.data()
-          dispatch(setUser({ ...userFromDB, email: localemail }))
-        } else {
-          console.log('No such document!')
-          alert('user 정보를 가져오지 못했습니다.')
-        }
+        fetchUserData()
       }
     })
-  }, [])
+  }, [user])
 
   useEffect(() => {
     const fetchTopic = async () => {
@@ -69,6 +75,8 @@ const HeaderNav = () => {
   useEffect(() => {
     setMenuOpen(false)
   }, [isLogin])
+
+  useEffect(() => {}, [user])
 
   const logOut = async () => {
     await signOut(auth)
