@@ -20,31 +20,24 @@ const HeaderNav = () => {
   const isLogin = useSelector((state) => state.auth.isLogin)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const localuid = localStorage.getItem('useruid')
+  // const localuid = localStorage.getItem('useruid')
   const localemail = localStorage.getItem('useremail')
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
         dispatch(setLogin(user.uid))
+        const docRef = doc(db, 'userInfo', user.uid)
+        const docSnap = await getDoc(docRef)
+        if (docSnap.exists()) {
+          const userFromDB = docSnap.data()
+          dispatch(setUser({ ...userFromDB, email: localemail }))
+        } else {
+          console.log('No such document!')
+          alert('user 정보를 가져오지 못했습니다.')
+        }
       }
     })
-  }, [])
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const docRef = doc(db, 'userInfo', localuid)
-      const docSnap = await getDoc(docRef)
-
-      if (docSnap.exists()) {
-        const userFromDB = docSnap.data()
-        dispatch(setUser({ ...userFromDB, email: localemail }))
-      } else {
-        console.log('No such document!')
-        alert('user 정보를 가져오지 못했습니다.')
-      }
-    }
-    fetchUser()
   }, [])
 
   useEffect(() => {
