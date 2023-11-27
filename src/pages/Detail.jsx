@@ -2,9 +2,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-
 import styled from 'styled-components'
-
 import { db } from '../firebase'
 
 function Detail({ posts }) {
@@ -165,12 +163,12 @@ const StyledTextarea = styled.textarea`
   font-size: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  resize: vertical; /* Allow vertical resizing */
+  resize: vertical;
   margin-bottom: 10px;
 
   &:focus {
     outline: none;
-    border-color: #fc913a; /* Change border color on focus */
+    border-color: #fc913a;
   }
 `
 

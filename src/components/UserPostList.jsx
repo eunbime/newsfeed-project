@@ -50,7 +50,7 @@ const Container = styled.div`
   grid-gap: 20px; */
   display: flex;
   flex-wrap: wrap;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 `
 
@@ -60,14 +60,13 @@ const NoPosts = styled.div`
 
 const PostList = styled.div`
   padding: 10px;
-  width: 300px;
+  width: 400px;
 `
 
 const ImgBox = styled.div`
   width: 100%;
-  height: 200px;
-  display: flex;
-  align-items: center;
+  height: 250px;
+  object-fit: cover;
   border-radius: 10px;
   background-image: url(${(props) => props.image});
   background-size: cover;
@@ -87,19 +86,23 @@ const PostInfo = styled.div`
   margin: 10px;
   padding: 10px;
   cursor: pointer;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 
   &:hover {
     transform: scale(1.1);
   }
 `
 const PostTitle = styled.p`
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
 `
 
 const PostContent = styled.p`
   font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: #333;
 `
 
