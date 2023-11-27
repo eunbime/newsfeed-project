@@ -14,7 +14,7 @@ function Layout() {
               window.location.replace('/')
             }}
           >
-            <ImageEp src={enjoyP} alt="Enjoy P" />
+            <ImageEp src={enjoyP} alt="Enjoy P" width="200px" />
           </Title>
           <HeaderNav />
         </HeaderWrapper>
