@@ -1,11 +1,8 @@
-import { collection, getDocs } from 'firebase/firestore'
 import { useEffect, useRef, useState } from 'react'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setPost } from 'redux/modules/posts'
 import styled from 'styled-components'
-import { db } from '../firebase'
 import PostCard from './CarouselCard'
 
 const PostCarousel = ({ topic }) => {
@@ -14,19 +11,6 @@ const PostCarousel = ({ topic }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const ref = useRef(null)
   const slideRange = currentSlide * 316
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const querySnapshot = await getDocs(collection(db, 'posts'))
-      const initialPosts = []
-
-      querySnapshot.forEach((doc) => {
-        initialPosts.push({ id: doc.id, ...doc.data() })
-      })
-      dispatch(setPost(initialPosts))
-    }
-    fetchPosts()
-  }, [])
 
   useEffect(() => {
     ref.current.style.transition = 'all 0.5s ease-in-out'
