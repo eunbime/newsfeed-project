@@ -53,7 +53,7 @@ const CardContainer = styled.div`
     min-width: 300px;
     height: 180px;
   }
-  // 선택자 사용하여 요소 선택
+
   ${TextBox} {
     visibility: hidden;
     opacity: 0;

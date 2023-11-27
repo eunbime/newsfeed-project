@@ -48,8 +48,6 @@ const PostCarousel = ({ topic }) => {
     setCurrentSlide(currentSlide - 1)
   }
 
-  // 선택된 topic에 대한 값 가져와서 비교
-
   return (
     <Container>
       <Slider ref={ref}>
