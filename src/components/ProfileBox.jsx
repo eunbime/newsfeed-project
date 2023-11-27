@@ -106,7 +106,9 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   width: 500px;
   height: 300px;
+  margin-left: 30px;
   background-color: #ffe7cf;
+
   border-radius: 20px;
 `
 const TextBox = styled.div`
