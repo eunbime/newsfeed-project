@@ -1,31 +1,76 @@
 import { onAuthStateChanged, signOut } from 'firebase/auth'
+import { collection, doc, getDoc, getDocs } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { setLogin, setLogout } from 'redux/modules/auth'
-import { logOutUser } from 'redux/modules/user'
+import { setPost } from 'redux/modules/posts'
+import { setTopic } from 'redux/modules/topics'
+import { logOutUser, setUser } from 'redux/modules/user'
 import styled from 'styled-components'
-import { auth } from '../firebase'
+import { auth, db } from '../firebase'
 import Modal from './Modal'
 
 const profileImg = 'default-profile.jpeg'
 
 const HeaderNav = () => {
-  const localuid = localStorage.getItem('useruid')
   const [modalOpen, setModalOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const user = useSelector((state) => state.user)
   const isLogin = useSelector((state) => state.auth.isLogin)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const localuid = localStorage.getItem('useruid')
+  const localemail = localStorage.getItem('useremail')
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log('naviheader: user', user)
         dispatch(setLogin(user.uid))
       }
     })
+  }, [])
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const docRef = doc(db, 'userInfo', localuid)
+      const docSnap = await getDoc(docRef)
+
+      if (docSnap.exists()) {
+        const userFromDB = docSnap.data()
+        dispatch(setUser({ ...userFromDB, email: localemail }))
+      } else {
+        console.log('No such document!')
+        alert('user 정보를 가져오지 못했습니다.')
+      }
+    }
+    fetchUser()
+  }, [])
+
+  useEffect(() => {
+    const fetchTopic = async () => {
+      const querySnapshot = await getDocs(collection(db, 'topics'))
+      const initialTopics = []
+      console.log('jhee fetch')
+      querySnapshot.forEach((doc) => {
+        initialTopics.push({ id: doc.id, ...doc.data() })
+      })
+      dispatch(setTopic(initialTopics))
+    }
+    fetchTopic()
+  }, [])
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const querySnapshot = await getDocs(collection(db, 'posts'))
+      const initialPosts = []
+
+      querySnapshot.forEach((doc) => {
+        initialPosts.push({ id: doc.id, ...doc.data() })
+      })
+      dispatch(setPost(initialPosts))
+    }
+    fetchPosts()
   }, [])
 
   useEffect(() => {

@@ -1,13 +1,10 @@
 import ProfileBox from 'components/ProfileBox'
 import ProfileFigure from 'components/ProfileFigure'
 import UserPostList from 'components/UserPostList'
-import { doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { setUser } from 'redux/modules/user'
 import styled from 'styled-components'
-import { db } from '../firebase'
 
 /**
  * TODO :
@@ -18,36 +15,10 @@ import { db } from '../firebase'
  */
 function Mypage() {
   const localuid = localStorage.getItem('useruid')
-  const localemail = localStorage.getItem('useremail')
-  const dispatch = useDispatch()
-  const {
-    auth: { loginUserUid },
-    user,
-    topics,
-    posts,
-  } = useSelector((state) => state)
-
-  console.log(localuid)
-  console.log(posts)
+  const { user, posts } = useSelector((state) => state)
 
   const [userTopics, setUserTopics] = useState([])
   const navigate = useNavigate()
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const docRef = doc(db, 'userInfo', localuid)
-      const docSnap = await getDoc(docRef)
-
-      if (docSnap.exists()) {
-        const userFromDB = docSnap.data()
-        dispatch(setUser({ ...userFromDB, email: localemail }))
-      } else {
-        console.log('No such document!')
-        alert('user 정보를 가져오지 못했습니다.')
-      }
-    }
-    fetchData()
-  }, [])
 
   useEffect(() => {
     setUserTopics([...new Set(userTopics)])

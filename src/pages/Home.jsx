@@ -1,34 +1,11 @@
 import PostCarousel from 'components/PostCarousel'
 import TabNavigation from 'components/TabNavigation'
-import { collection, getDocs } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { setTopic } from 'redux/modules/topics'
 import styled from 'styled-components'
-import { db } from '../firebase'
 
 function Home() {
-  const dispatch = useDispatch()
   const topics = useSelector((state) => state.topics)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    setIsLoading(true)
-    const fetchTopic = async () => {
-      const querySnapshot = await getDocs(collection(db, 'topics'))
-      const initialTopics = []
-
-      querySnapshot.forEach((doc) => {
-        initialTopics.push({ id: doc.id, ...doc.data() })
-      })
-      dispatch(setTopic(initialTopics))
-    }
-    fetchTopic()
-    setIsLoading(false)
-  }, [])
-
-  if (isLoading) return <div>...loading</div>
 
   return (
     <>
