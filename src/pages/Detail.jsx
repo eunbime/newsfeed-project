@@ -7,7 +7,6 @@ import { db } from '../firebase'
 
 function Detail({ posts }) {
   const { id } = useParams()
-  console.log(id)
   const [editingContent, setEditingContent] = useState(false)
   const [editingTitle, setEditingTitle] = useState(false)
   const [editedContent, setEditedContent] = useState('')
@@ -18,7 +17,6 @@ function Detail({ posts }) {
   const post = location.state
 
   const loginUserUid = useSelector((state) => state.auth.loginUserUid)
-  console.log(loginUserUid)
 
   useEffect(() => {
     // 로그인한 사용자와 게시물의 사용자 ID를 비교하여 일치하는지 확인합니다.
@@ -252,7 +250,7 @@ const SaveCancelButtonContainer = styled.div`
   gap: 10px;
 
   button {
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -263,24 +261,25 @@ const SaveCancelButtonContainer = styled.div`
     color: #fff;
   }
 
-  button.save,
-  button.cancel,
-  button.edit,
-  button.delete {
-    border: 2px solid transparent;
-  }
-
-  button.save,
-  button.cancel {
-    background-color: #fc913a;
+  button.save {
+    background-color: var(--mainOrange);
+    border: 2px solid var(--mainOrange);
   }
 
   button.cancel {
     background-color: #bd2130;
+    border: 2px solid red;
   }
 
-  button:hover {
-    border-color: #fff;
+  button.save:hover {
+    background-color: transparent;
+    border: 2px solid var(--mainOrange);
+    color: black;
+  }
+
+  button.cancel:hover {
+    color: #bd2130;
+    background-color: transparent;
   }
 `
 
@@ -290,7 +289,7 @@ const ButtonContainer = styled.div`
   gap: 10px;
 
   button {
-    padding: 10px;
+    padding: 10px 20px;
     border: none;
     cursor: pointer;
     font-size: 16px;
@@ -301,12 +300,22 @@ const ButtonContainer = styled.div`
     color: #fff;
   }
 
-  button.edit,
+  button.edit {
+    background-color: var(--mainOrange);
+    border: 2px solid var(--mainOrange);
+  }
   button.delete {
-    background-color: #fc913a;
+    background-color: #bd2130;
+    border: 2px solid red;
   }
 
-  button:hover {
-    border-color: #fff;
+  button.edit:hover {
+    background-color: transparent;
+    color: black;
+  }
+
+  button.delete:hover {
+    color: #bd2130;
+    background-color: transparent;
   }
 `

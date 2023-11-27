@@ -29,14 +29,6 @@ function Fileupload() {
     }
   }
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-  //   await handleFormSubmit(e)
-  // }
-
-  // const handleFormSubmit = async (e) => {
-  //   e.preventDefault()
-
   const saveDB = async (imageUrl) => {
     await setDoc(
       doc(collection(db, 'userInfo'), localuid),
